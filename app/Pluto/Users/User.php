@@ -1,13 +1,17 @@
 <?php
+namespace Pluto\Users;
 
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Eloquent, Hash;
+use Laracasts\Commander\Events\EventGenerator;
+use Pluto\Registration\Events\UserRegistered;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+	use UserTrait, RemindableTrait, EventGenerator;
 
 	/**
 	 * The database table used by the model.
@@ -32,6 +36,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'username', 'email', 'password'
     ];
 
+
+     /**
+      * [setPasswordAttribute description]
+      * @param [type] $password [description]
+      */
+     
        public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = Hash::make($password);
@@ -61,7 +71,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         $user = new static(compact('username','email','password'));
 
-        //raise an event
+
+         $user->raise(new UserRegistered($user));
+        
+         return $user;
 
     }
 

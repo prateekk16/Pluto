@@ -47,7 +47,7 @@ class RegistrationController extends BaseController {
 		 extract(Input::only('username', 'email', 'password', 'password_confirmation', 'firstname','lastname'));
 
 		 $command = new RegisterUserCommand($email,$password,$username);
-	     $this->execute($command);		
+	     $user = $this->execute($command);		
 
 
 

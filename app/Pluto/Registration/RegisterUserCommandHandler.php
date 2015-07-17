@@ -2,8 +2,21 @@
 
 namespace Pluto\Registration;
 use Laracasts\Commander\CommandHandler;
+use Pluto\Users\UserRepository;
+use Pluto\Users\User;
+use Laracasts\Commander\Events\DispatchableTrait;
 
 class RegisterUserCommandHandler implements CommandHandler{
+
+	use DispatchableTrait;
+
+	protected $repository;
+
+	function __construct(UserRepository $repository){
+
+		$this->repository = $repository;
+	}
+
 
 	/**
 	 * [Handle the command]
@@ -11,11 +24,17 @@ class RegisterUserCommandHandler implements CommandHandler{
 	 * @return [type]          [description]
 	 */
 	public function handle($command){
-		dd($command);
+
 		
-		// $user = User::register(
-		// 		$command->username, $command->email, $command->password
-		// 	);
+		$user = User::register(
+				$command->username, $command->email, $command->password
+			);
+
+		$this->repository->save($user);		
+
+		$this->dispatchEventsFor($user);
+
+		return $user;
 		// $user = User::create($input);
 
 		// $profile = new UserInfo;

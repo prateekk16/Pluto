@@ -2,7 +2,7 @@
 
 @section('content')
 	@if ($user->info)
-		<h1>{{ $user->username }} <small>{{ $user->info->firstname }}</small></h1>
+		<h1>{{ $user->username }} </h1>
 		<div class="bio">
 			<p>
 				

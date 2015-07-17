@@ -11,6 +11,11 @@
 |
 */
 
+Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
+
+		dd('Send a notification');
+});
+
 
 # Home
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);

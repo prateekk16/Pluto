@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"laracasts/validation": "~1.0",
-		"laracasts/commander":   "~1.0",
+		"laracasts/commander": "1.2.0",
 		"codeception/codeception": "*"
 		
 	},

@@ -1,13 +1,19 @@
 <?php
 
 use Pluto\Forms\RegistrationForm;
+use Laracasts\Commander\CommanderTrait;
+use Pluto\Registration\RegisterUserCommand;
 
 class RegistrationController extends BaseController {
+
+	use CommanderTrait;
 
 	/**
 	 * @var RegistrationForm
 	 */
 	private $registrationForm;
+
+	
 
 	/**
 	 * @param RegistrationForm $registrationForm
@@ -15,6 +21,7 @@ class RegistrationController extends BaseController {
 	function __construct(RegistrationForm $registrationForm)
 	{
 		$this->registrationForm = $registrationForm;
+	
 	}
 
 	/**
@@ -34,21 +41,19 @@ class RegistrationController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::only('username', 'email', 'password', 'password_confirmation', 'firstname','lastname');
+		 $input = Input::only('username', 'email', 'password', 'password_confirmation', 'firstname','lastname');
+		 $this->registrationForm->validate($input);
 
-		$this->registrationForm->validate($input);
+		 extract(Input::only('username', 'email', 'password', 'password_confirmation', 'firstname','lastname'));
 
-		$user = User::create($input);
+		 $command = new RegisterUserCommand($email,$password,$username);
+	     $this->execute($command);		
 
-		$profile = new UserInfo;
-		$profile->user_id = $user->id;
-		$profile->firstname = Input::get('firstname');
-		$profile->lastname = Input::get('lastname');
-		$profile->save();
 
-		Auth::login($user);
 
-		return Redirect::home();
+		 Auth::login($user);
+
+		 return Redirect::home();
 	}
 
 }

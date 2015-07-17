@@ -12,3 +12,5 @@ Vagrantfile
 
 
 
+
+tests/_output/*

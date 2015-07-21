@@ -15,6 +15,7 @@ class SessionsController extends BaseController {
 	function __construct(LoginForm $loginForm)
 	{
 		$this->loginForm = $loginForm;
+		$this->beforeFilter('guest', ['except' => ['destroy']]);
 	}
 
 	/**

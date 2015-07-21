@@ -11,10 +11,10 @@
 |
 */
 
-Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
+// Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
 
-		dd('Send a notification');
-});
+// 		dd('Send a notification');
+// });
 
 
 # Home
@@ -23,9 +23,13 @@ Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
 Route::get('/register', 'RegistrationController@create')->before('guest');
 Route::post('/register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
 # Authentication
-Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
+Route::get('login', ['as' => 'login_path', 'uses' => 'SessionsController@create']);
+Route::post('login', ['as' => 'login_path', 'uses' => 'SessionsController@store']);
+
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 # Profile
 Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
 Route::get('/{username}', ['as' => 'profile', 'uses' => 'ProfilesController@show']);
+# Statuses
+Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store']);

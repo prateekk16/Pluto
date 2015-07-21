@@ -5,7 +5,7 @@
 @section('content')
     <h1>Log In</h1>
 
-    {{ Form::open(['route' => 'sessions.store']) }}
+    {{ Form::open(['route' => 'login_path']) }}
         <!-- Email Field -->
         <div class="form-group">
             {{ Form::label('email', 'Email:') }}

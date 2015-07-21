@@ -7,8 +7,20 @@
 
     <title>@yield('meta-title', 'Larademo')</title>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+   
+   
+     @section('header')
+        {{ HTML::style('css/bootstrap.min.css') }}
+        {{ HTML::style('css/style.css') }}
+       
+        {{ HTML::style('css/jquery-ui.css') }}
+        {{ HTML::style('css/sweetalert2.css') }}
+        {{ HTML::style('css/font-awesome.min.css') }}
+        
+
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+     @show
+
 </head>
 
 <body>
@@ -23,5 +35,8 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    {{ HTML::script('js/bootstrap.min.js') }}
+    {{ HTML::script('js/sweetalert.min.js') }}
 </body>
 </html>

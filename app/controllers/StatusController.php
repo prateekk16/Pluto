@@ -3,9 +3,16 @@
 use Pluto\Forms\StatusForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Statuses\PublishStatusCommand;
+use Pluto\Statuses\StatusRepository;
 
 class StatusController extends BaseController {
 	use CommanderTrait;
+
+	/**
+	 * [$statusRepository description]
+	 * @var [type]
+	 */
+	private $statusRepository;
 
 	/**
 	 * [$statusForm description]
@@ -14,9 +21,10 @@ class StatusController extends BaseController {
 	private $statusForm;
 
 
-	function __construct(StatusForm $statusForm)
+	function __construct(StatusForm $statusForm, StatusRepository $statusRepository)
 	{
 		$this->statusForm = $statusForm;
+		$this->statusRepository = $statusRepository;
 
 		$this->beforeFilter('auth', ['only' => ['store']]);
 	
@@ -29,7 +37,9 @@ class StatusController extends BaseController {
 	 */
 	public function index()
 	{
-        return View::make('statuses.index');
+         $statuses = $this->statusRepository->getAllForUser(Auth::user());
+        
+         return $statuses;
 	}
 
 	/**
@@ -49,17 +59,13 @@ class StatusController extends BaseController {
 	 */
 	public function store()
 	{
-		 $input = Input::only('body');
-		 $this->statusForm->validate($input);
-
-		 $userId = Auth::user()->id;
-		 $userId = (string)$userId;
-
-
-		 $command = new PublishStatusCommand($input,$userId);
-		 $status = $this->execute($command);
-
-		 return Redirect::refresh();
+		  $input = Input::only('body');
+		  $this->statusForm->validate($input);		 
+		  $input = array_merge($input, ['userId' => Auth::user()->id]);			
+		  $status = $this->execute(PublishStatusCommand::class, $input);	
+		  
+		  return $status;
+		 
 	}
 
 	/**
@@ -68,9 +74,9 @@ class StatusController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show()
 	{
-        return View::make('statuses.show');
+       return "OK";
 	}
 
 	/**

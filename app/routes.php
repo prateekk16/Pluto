@@ -11,10 +11,19 @@
 |
 */
 
+#Events
 // Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
 
 // 		dd('Send a notification');
 // });
+// Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
+	 
+// });
+
+
+
+
+
 
 
 # Home
@@ -33,3 +42,6 @@ Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'up
 Route::get('/{username}', ['as' => 'profile', 'uses' => 'ProfilesController@show']);
 # Statuses
 Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store']);
+Route::get('/status/user', ['as' => 'statuses_path', 'uses' =>'StatusController@index']);
+
+

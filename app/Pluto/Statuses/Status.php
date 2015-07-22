@@ -38,7 +38,7 @@ class Status extends \Eloquent {
 
 		  $status = new static(compact('body'));
 
-          $status->raise(new StatusPublished($status));
+          $status->raise(new StatusPublished($body));
         
           return $status;
 	}

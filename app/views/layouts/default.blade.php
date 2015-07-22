@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="pluto">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta name="_token" content="{{ csrf_token() }}" />
 
     <title>@yield('meta-title', 'Larademo')</title>
+
 
    
    
@@ -34,9 +36,14 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/jquery-1.11.1.min.js"></script>
-    {{ HTML::script('js/bootstrap.min.js') }}
-    {{ HTML::script('js/sweetalert.min.js') }}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+     <script src="js/jquery-1.11.1.min.js"></script>
+        {{ HTML::script('js/bootstrap.min.js') }}
+        {{ HTML::script('js/sweetalert2.min.js') }}
+        {{ HTML::script('js/bundle.js') }}
+
+   
+
 </body>
 </html>

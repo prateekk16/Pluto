@@ -3,7 +3,6 @@
 namespace Pluto\Statuses;
 use Laracasts\Commander\CommandHandler;
 use Pluto\Statuses\StatusRepository;
-
 use Laracasts\Commander\Events\DispatchableTrait;
 
 class PublishStatusCommandHandler implements CommandHandler{
@@ -39,3 +38,5 @@ class PublishStatusCommandHandler implements CommandHandler{
 	}
 
 }
+
+

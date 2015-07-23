@@ -6,7 +6,7 @@ class PagesController extends BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		return View::make('pages.index');
+	{		
+		 return View::make('pages.index1');
 	}
 }

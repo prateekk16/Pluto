@@ -42,6 +42,6 @@ Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'up
 Route::get('/{username}', ['as' => 'profile', 'uses' => 'ProfilesController@show']);
 # Statuses
 Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store']);
-Route::get('/status/user', ['as' => 'statuses_path', 'uses' =>'StatusController@index']);
+Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusController@index']);
 
 

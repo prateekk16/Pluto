@@ -14,7 +14,7 @@
      @section('header')
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/style.css') }}
-       
+        {{ HTML::style('css/jasny.min.css') }}
         {{ HTML::style('css/jquery-ui.css') }}
         {{ HTML::style('css/sweetalert2.css') }}
         {{ HTML::style('css/font-awesome.min.css') }}
@@ -42,6 +42,7 @@
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/sweetalert2.min.js') }}
         {{ HTML::script('js/bundle.js') }}
+        {{ HTML::script('js/jasny.min.js') }}
 
    
 

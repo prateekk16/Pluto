@@ -1,7 +1,69 @@
-body {
-    padding-top: 70px;
-}
+
 
 textarea.form-control{
 	resize: none;
 }
+
+.status-media{
+	border: 1px solid #e3e3e3;
+	background: white;
+	padding: 1em;
+	margin-bottom: 2em;	
+}
+
+#postStatusBtn{
+	position: relative;
+	top: 15px;
+	
+}
+
+.publishStatusArea{
+	
+	background: white;
+	padding: 0;	
+	padding-bottom: 60px;
+
+}
+
+
+
+
+html, body {
+  height: 100%;
+
+}
+
+.toggle-left {
+  float: left;
+  margin-left: 15px;
+}
+
+.navmenu {
+  z-index: 1;
+}
+
+.canvas {
+  position: relative;
+  left: 0;
+  z-index: 2;
+  min-height: 100%;
+  padding: 50px 0 0 0;
+  background: #fff;
+}
+
+@media (min-width: 0) {
+  .toggle-left {
+    display: block; /* force showing the toggle */
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 50px;
+  }
+  
+  .canvas {
+    padding: 0;
+  }
+}
+

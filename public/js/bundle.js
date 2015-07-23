@@ -22,7 +22,7 @@ $("#postStatus").submit(function(e){
                     },
         success: function(response) {           
            
-            $("<p>"+response['body']+"</p>").appendTo(".posts");
+            $("<p>"+response['body']+"</p>").prependTo(".media");
             $("#postStatusBtn").attr("disabled", false);         
             
         },
@@ -41,16 +41,9 @@ app.config(['$interpolateProvider', function ($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 }]);
 
-app.controller('StatusController', ['$http', '$scope', function($http, $scope) {
+app.controller('StatusController', ['$http', '$scope', function($http, $scope) {  
 
-   // $scope.statuses = [
-   //      { body: 'Go to store', completed:true },
-   //      { body: 'Finish video', completed:false },
-   //       { body: 'Learn Angular', completed:false }  
-   //  ];
-
-    $http.get('/status/user').success(function(result){
-        alert(result);
+    $http.get('/status/user').success(function(result){        
         $scope.statuses = result;
     });
 

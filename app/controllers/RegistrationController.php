@@ -3,6 +3,7 @@
 use Pluto\Forms\RegistrationForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Registration\RegisterUserCommand;
+use Pluto\Registration\RegisterUserInfoCommand;
 
 class RegistrationController extends BaseController {
 
@@ -51,9 +52,14 @@ class RegistrationController extends BaseController {
 		 $command = new RegisterUserCommand($email,$password,$username);
 	     $user = $this->execute($command);		
 
+	     $userinfo = Input::only('firstname','lastname');
 
+		 $user_id = Auth::login($user);
 
-		 Auth::login($user);
+		 $userinfo = array_merge($userinfo, ['user_id' => $user->id]);	
+	     
+
+	     $userinfo = $this->execute(RegisterUserInfoCommand::class, $userinfo);
 
 		 return Redirect::home();
 	}

@@ -5,7 +5,16 @@
 
 
 
+ @if(!$currentUser)
 
+	<div class="starter-template">
+	    <h1>
+	        {{ Auth::check() ? "Welcome, " . $currentUser->username : "Why Don't You Sign Up?" }}
+	    </h1>	     
+
+	</div>
+
+@else
 
 
  <div class="container">
@@ -19,5 +28,5 @@
         <p>Also take a look at the examples for a navmenu with <a href="../navmenu">slide in effect</a> and <a href="../navmenu-push">push effect</a>.</p>
   </div><!-- /.container -->
 
-
+@endif
 @stop

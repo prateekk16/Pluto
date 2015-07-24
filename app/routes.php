@@ -43,5 +43,7 @@ Route::get('/{username}', ['as' => 'profile', 'uses' => 'ProfilesController@show
 # Statuses
 Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store']);
 Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusController@index']);
+#Profile Picture
+Route::post('profilePicture', ['as' => 'profile_picture', 'uses' =>'ProfilePictureController@store']);
 
 

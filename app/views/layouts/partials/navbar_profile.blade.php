@@ -108,30 +108,42 @@
 </nav>
 
 <div class="navmenu navmenu-default navmenu-fixed-left" style="z-index : 0; top: 50px;">
-      <a class="navmenu-brand" href="#">Project name</a>
+      <a class="navmenu-brand" href="#">Share your status...</a>
       <ul class="nav navmenu-nav">
-        <li><a href="../navmenu/">Slide in</a></li>
-        <li><a href="../navmenu-push/">Push</a></li>
-        <li class="active"><a href="./">Reveal</a></li>
-        <li><a href="../navbar-offcanvas/">Off canvas navbar</a></li>
-      </ul>
-      <ul class="nav navmenu-nav">
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-          <ul class="dropdown-menu navmenu-nav">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
+        <li>
+         
+            <div class="row">             
+                 <div class="col-md-12">         
+                        
+                         {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus']) }} 
+                                <!-- Status Field -->
+                                       
+                                         <div class="publishStatusArea">
+                                            <div class="form-group">
+                                               <div class="col-md-12"> 
+                                                    {{ Form::textarea('body',null, ['class' => 'form-control status-body',  'rows' => '2', 'cols' => '80', 'placeholder'=> 'Share What you are doing...']) }}
+                                                    {{ $errors->first('body', '<span class="error">:message</span>') }}
+                                                </div>                                      
+
+                                            <!-- Post Status Field -->                                  
+                                               <div class="col-md-offset-8"> 
+                                                   <div class="postStatusBtnArea">
+                                                     {{ Form::submit('Post', ['class' => 'btn btn-primary btn-xs', 'id'=>'postStatusBtn']) }}
+                                                   </div>
+                                               </div>
+                                                
+                                            </div>
+                                           </div>
+                                        
+                            {{ Form::close() }} 
+                         
+                      
+                   </div>
+             </div>
         </li>
+       
       </ul>
+      
 </div>
 
 
@@ -157,13 +169,16 @@
           </div>
           <div class="row">
                   <div class="col-md-4 col-md-offset-4">
-                     {{ Form::open(array('url' => 'profile/uploadAvatar', 'files' => true, 'id'=>'uploadAvatar')) }}                  
+                     {{ Form::open(array('route' => 'profile_picture', 'files' => true, 'id'=>'uploadAvatar')) }}                  
                      <input type="text" name="user" class="hidden" value="{{ $currentUser->email }}"/> 
                      {{ Form::file('avatar', array('id' => 'choose-avatar', 'class'=> 'hidden')) }}
                     
                      <label for="choose-avatar">
                         <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
                      </label>
+                     
+                     <a href="#" class="btn btn-primary fileinput-exists" style="width :155px;" data-dismiss="fileinput">Remove</a>
+
                   </div>
                 
           </div>  

@@ -17,6 +17,9 @@
 @else
 
 
+
+
+
  <div class="container">
         <div class="page-header">
           <h1>Off Canvas Reveal Menu Template</h1>
@@ -30,3 +33,4 @@
 
 @endif
 @stop
+

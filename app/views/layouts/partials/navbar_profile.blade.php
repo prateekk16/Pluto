@@ -63,15 +63,31 @@
                               @if($currentUser)
                                     @if(file_exists('img/users/'.$currentUser->email.'/avatar_small.jpg'))            
                                        {{ HTML::image('img/users/'.$currentUser->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar')) }}
+
                                     @else
                                      {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar')) }}
                                     @endif
-                                  {{ $currentUser->username }} 
+                                  <span class="userinfo_name"> 
+                                      {{ $currentUser->userinfo->firstname }} {{ $currentUser->userinfo->lastname }}                                
+                                   </span>
+
+                                   <span class="user_nav_status">
+                                      @if(getLatestStatus()) {{ getLatestStatus()->body }} @endif
+                                   </span>  
                               @else
-                                Wasdbox
-                              @endif                           
+                                Alias
+                              @endif 
                         </div>
-                      </a>        
+                       </a> 
+
+                     
+                         
+                     
+
+
+                                   
+                                                       
+                          
                   </div>
 
             </div>
@@ -128,7 +144,9 @@
                                             <!-- Post Status Field -->                                  
                                                <div class="col-md-offset-8"> 
                                                    <div class="postStatusBtnArea">
-                                                     {{ Form::submit('Post', ['class' => 'btn btn-primary btn-xs', 'id'=>'postStatusBtn']) }}
+                                                   <button type="submit" class="btn btn-primary btn-xs" id="postStatusBtn">
+                                                   Post</button>
+                                                    
                                                    </div>
                                                </div>
                                                 
@@ -169,17 +187,21 @@
           </div>
           <div class="row">
                   <div class="col-md-4 col-md-offset-4">
-                     {{ Form::open(array('route' => 'profile_picture', 'files' => true, 'id'=>'uploadAvatar')) }}                  
-                     <input type="text" name="user" class="hidden" value="{{ $currentUser->email }}"/> 
+                     {{ Form::open(array('route' => 'profile_picture', 'files' => true, 'id'=>'uploadAvatar')) }} 
                      {{ Form::file('avatar', array('id' => 'choose-avatar', 'class'=> 'hidden')) }}
                     
                      <label for="choose-avatar">
                         <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
                      </label>
                      
+                     
                      <a href="#" class="btn btn-primary fileinput-exists" style="width :155px;" data-dismiss="fileinput">Remove</a>
 
+                     <div id="progressbox" style="display: none;"><div id="progressbar"></div ><div id="statustxt">0%</div></div>
+
                   </div>
+
+
                 
           </div>  
         </div>

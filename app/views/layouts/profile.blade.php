@@ -18,9 +18,11 @@
         {{ HTML::style('css/jquery-ui.css') }}
         {{ HTML::style('css/sweetalert2.css') }}
         {{ HTML::style('css/font-awesome.min.css') }}
+
         
 
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+      <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
      @show
 
 </head>
@@ -45,9 +47,9 @@
      <script src="js/jquery-1.11.1.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         {{ HTML::script('js/sweetalert2.min.js') }}
-        {{ HTML::script('js/bundle.js') }}
+        
         {{ HTML::script('js/jasny.min.js') }}
-
+         {{ HTML::script('js/bundle.js') }}
    
 
 </body>

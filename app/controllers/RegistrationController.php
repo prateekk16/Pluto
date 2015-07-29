@@ -52,13 +52,10 @@ class RegistrationController extends BaseController {
 		 $command = new RegisterUserCommand($email,$password,$username);
 	     $user = $this->execute($command);		
 
-	     $userinfo = Input::only('firstname','lastname');
-
+	     $userinfo = Input::only('firstname','lastname','gender');
 		 $user_id = Auth::login($user);
 
-		 $userinfo = array_merge($userinfo, ['user_id' => $user->id]);	
-	     
-
+		 $userinfo = array_merge($userinfo, ['user_id' => Auth::user()->id]);	
 	     $userinfo = $this->execute(RegisterUserInfoCommand::class, $userinfo);
 
 		 return Redirect::home();

@@ -62,9 +62,10 @@ class StatusController extends BaseController {
 		  $input = Input::only('body');
 		  $this->statusForm->validate($input);		 
 		  $input = array_merge($input, ['userId' => Auth::user()->id]);			
-		  $status = $this->execute(PublishStatusCommand::class, $input);	
-		  
-		  return $status;
+		  $status = $this->execute(PublishStatusCommand::class, $input);
+
+		  return $status->body;	  
+		 
 		 
 	}
 

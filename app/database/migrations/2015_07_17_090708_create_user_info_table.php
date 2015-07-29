@@ -18,7 +18,7 @@ class CreateUserInfoTable extends Migration {
 			$table->integer('user_id');
 			$table->string('firstname');
 			$table->string('lastname');	
-
+			$table->string('gender');
 			
 			$table->timestamps();
 		});
@@ -32,7 +32,7 @@ class CreateUserInfoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('users_info');
+		Schema::drop('user_info');
 	}
 
 }

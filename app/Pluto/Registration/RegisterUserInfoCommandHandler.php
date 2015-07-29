@@ -27,7 +27,7 @@ class RegisterUserInfoCommandHandler implements CommandHandler{
 
 		
 		$user = UserInfo::register(
-				$command->firstname, $command->lastname, $command->user_id
+				$command->firstname, $command->lastname,  $command->gender, $command->user_id
 			);
 
 		$this->repository->save($user);			

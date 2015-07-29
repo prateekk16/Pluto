@@ -1,8 +1,22 @@
 <?php
 
+use Pluto\Forms\ProfileForm;
+use Laracasts\Commander\CommanderTrait;
+use Pluto\Users\PublishProfilePicture;
+use Pluto\Statuses\StatusRepository;
+
 class ProfilePictureController extends BaseController {
 
-	  
+	  	use CommanderTrait;
+
+	  	private $profileForm;
+
+	  	function __construct(ProfileForm $profileForm)
+	{
+		$this->profileForm = $profileForm;	
+		$this->beforeFilter('auth', ['only' => ['store']]);
+	
+	}
              
 
 	/**
@@ -32,13 +46,13 @@ class ProfilePictureController extends BaseController {
 	 */
 	public function store()
 	{
-		$path = public_path();
-      $parentDir = $path.'/img/users/'.Auth::user()->email.'/';   
 
-	  if(!is_dir($parentDir)){
-	  	   return "Error";
-	  }
-               
+		$path = public_path();
+        $parentDir = $path.'/img/users/'.Auth::user()->email.'/';   
+
+		  if(!is_dir($parentDir)){
+		  	   return "Error";
+		  }  
 
              if (Input::hasFile('avatar'))
             {
@@ -66,14 +80,18 @@ class ProfilePictureController extends BaseController {
                                      $constraint->aspectRatio();
                                      $constraint->upsize();
                                      })->save($parentDir.'avatar_small.jpg'); 
-                    }
 
-                       
-                       return "ERROR";
-                }
-                return "ERROR";
-               
-            }
+                       return './img/users/'.Auth::user()->email.'/avatar_small.jpg?';
+                    }else{
+                    	return "Error";
+                    }  
+                }else{
+                    	return "Error";
+                } 
+            }else{
+                    	return "Error";
+           } 
+         
              
 	}
 

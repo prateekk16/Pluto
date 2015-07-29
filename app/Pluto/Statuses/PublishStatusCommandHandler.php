@@ -29,7 +29,7 @@ class PublishStatusCommandHandler implements CommandHandler{
 
 		 $status = $this->statusRepository->save($status, $command->userId);		
 
-		 $this->dispatchEventsFor($status);
+		// $this->dispatchEventsFor($status);
 
 		 return $status;
 		

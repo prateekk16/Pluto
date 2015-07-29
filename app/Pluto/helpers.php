@@ -10,3 +10,7 @@ function link_to_profile($text = 'Profile')
     return link_to_route('profile', $text, Auth::user()->username);
 }
 
+function getLatestStatus(){
+	return Auth::user()->statuses()->orderBy('created_at','desc')->first();
+}
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pluto\Statuses;
+namespace Pluto\Users;
 use Laracasts\Commander\Events\EventGenerator;
 use Pluto\Statuses\Events\StatusPublished;
 
@@ -13,7 +13,7 @@ class UserInfo extends \Eloquent {
 	 * [$fillable fields for a  new status]
 	 * @var array
 	 */
-	protected $fillable = ['firstname','lastname'];
+	protected $fillable = ['firstname','lastname','gender','user_id'];
 
 	/**
 	 * [$table description]
@@ -32,10 +32,10 @@ class UserInfo extends \Eloquent {
 
 	  
 
-	   public static function register($firstname,$lastname,$user_id){
+	   public static function register($firstname,$lastname,$gender,$user_id){	   	  
 
-         $user = new static(compact('firstname','lastname','user_id'));
-         $user->raise(new UserInfoRegistered($user));        
+         $user = new static(compact('firstname','lastname','gender','user_id'));
+       //  $user->raise(new UserInfoRegistered($user));        
          return $user;
 
    	 }

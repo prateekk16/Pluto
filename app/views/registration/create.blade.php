@@ -43,6 +43,13 @@
                 {{ Form::label('password_confirmation', 'Password:') }}
                 {{ Form::password('password_confirmation', ['class' => 'form-control', 'required' => 'required']) }}
             </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                {{ Form::label('gender', 'Gender:') }}     
+                &nbsp; {{ Form::radio('gender', 'Male', [ 'class' => 'form-control', 'required' => 'required' ]) }} Male
+                &nbsp; {{ Form::radio('gender', 'Female') }} Female
+            </div>
         
             <!-- Create Account Field -->
             <div class="form-group">

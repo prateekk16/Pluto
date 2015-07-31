@@ -126,21 +126,66 @@
 <div class="navmenu navmenu-default navmenu-fixed-left" style="z-index : 0; top: 50px;">
       
       <ul class="nav navmenu-nav">
+
        <li style="padding-top: 10px;">
-           <ul class="nav navbar-nav">
-              
-               <li>
-                  
-                   <a href="#"><i class="fa fa-bell"></i></a>
+          <div class="row">             
+                 <div class="col-md-12">
 
-               </li> 
-               <li>
+                     <ul class="nav navbar-nav">              
+                         <li>                  
+                                <a href="#"><i class="fa fa-bell"></i></a>
 
-                  <a href="#"><i class="fa fa-users"></i></a>
+                         </li> 
 
-               </li> 
+                         <li class="dropdown">
+                            @if(  getFriendRequests()->count()  )
+                              
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;" >
+                                  <span class="badge freq" style="background-color:rgb(255, 102, 102);">{{ getFriendRequests()->count() }} </span><i class="fa fa-users" style="color: #e72c2c"></i>
+                              </a>
 
-           </ul>
+                              <ul class="dropdown-menu" style="width: 245px;">
+                                @foreach( getFriendRequests() as $req)
+                                    <li>
+                                      <div class="freq-panel">
+
+                                       @if(file_exists('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg'))            
+                                          {{ HTML::image('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar_small')) }}
+
+                                        @else
+                                         {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar_small')) }}
+                                       @endif                                          
+                                         
+                                            {{ getUserObject($req->sender_id)->info->firstname }} {{ getUserObject($req->sender_id)->info->lastname }}
+
+                                            
+                                          
+                                      </div> 
+                                    </li> 
+                                    <li class="divider"></li> 
+                                  @endforeach                
+                                </ul>
+
+                              @else
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="badge freq" style="background-color:rgb(255, 102, 102); display:none;">
+                                    </span><i class="fa fa-users"></i>
+                                 </a>
+
+                                  <ul class="dropdown-menu">
+                                    <li style="padding:5px;">No new requests</li>                  
+                                    <li class="divider"></li>                 
+                                  </ul>
+
+                            @endif
+
+                         </li> 
+                      </ul>
+                 </div>
+           </div>
+
+
+
        </li>
 
         <li>

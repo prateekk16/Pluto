@@ -1,5 +1,6 @@
 <?php
 use Pluto\Users\User;
+use Pluto\FriendRequests\FriendRequest;
 
 function errors_for($attribute, $errors)
 {
@@ -13,4 +14,13 @@ function link_to_profile($text = 'Profile')
 function getLatestStatus(){
 	return Auth::user()->statuses()->orderBy('created_at','desc')->first();
 }
+
+function getFriendRequests(){
+	return FriendRequest::getFriendRequests(Auth::user()->id);
+}
+
+function getUserObject($id){
+	return User::where('id',$id)->firstOrFail();
+}
+
 

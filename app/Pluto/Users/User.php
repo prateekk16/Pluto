@@ -101,4 +101,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasOne('Pluto\Users\UserInfo');
     }
 
+
+    
+
 }

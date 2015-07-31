@@ -33,4 +33,10 @@ class FriendRequest extends \Eloquent {
 
  	}
 
+ 	public static function getFriendRequests($id){
+ 		return FriendRequest::where('receiver_id',$id)
+ 								 ->where('pending','1')
+ 								 ->orderBy('created_at','desc')->get();
+ 	}
+
 }

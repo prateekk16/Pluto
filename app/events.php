@@ -1,5 +1,5 @@
  <?php
-
+use Pluto\FriendRequests\FriendRequest;
 #Events
 
 // Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
@@ -16,8 +16,9 @@ Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
 	
 	$sender =   getUser($event->sender_id);
 	$receiver = getUser($event->receiver_id);
+	$total_requests = getTotalRequests($event->receiver_id);
 	
-    Pusherer::trigger('FriendRequestChannel', 'userSentRequest', array( 'message' => $receiver->email ));
+    Pusherer::trigger('FriendRequestChannel', 'userSentRequest', array( 'sender_email' => $sender->email, 'receiver_email' => $receiver->email, 'sender_name' => $sender->info->firstname.' '.$sender->info->lastname, 'total_req' => $total_requests->count() ));
  });
 
 
@@ -45,4 +46,9 @@ Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
  */
  function getUser($id){
 	return User::where('id',$id)->firstOrFail();
+}
+
+function getTotalRequests($receiver_id){
+	return FriendRequest::where('receiver_id','=',$receiver_id)
+                                            ->where('pending','=',1)->get();
 }

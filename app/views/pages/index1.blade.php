@@ -29,6 +29,8 @@
         <p>You get the reveal effect by wrapping the content in a div and setting the <code>canvas</code> option to target that div.</p>
         <p>Note that in this example, the navmenu doesn't have the <code>offcanvas</code> class, but is placed under the canvas by setting the <code>z-index</code>.</p>
         <p>Also take a look at the examples for a navmenu with <a href="../navmenu">slide in effect</a> and <a href="../navmenu-push">push effect</a>.</p>
+
+        
   </div><!-- /.container -->
 
 @endif

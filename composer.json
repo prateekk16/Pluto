@@ -9,7 +9,8 @@
 		"laracasts/commander": "1.2.0",
 		"codeception/codeception": "*",
 		"intervention/image": "^2.3",
-		"intervention/imagecache": "^2.3"
+		"intervention/imagecache": "^2.3",
+		"artdarek/pusherer": "1.0.*"
 		
 	},
 	"autoload": {

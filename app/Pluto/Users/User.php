@@ -71,7 +71,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
         $user = new static(compact('username','email','password'));
 
+        $path = public_path();
+        $parentDir = $path.'/img/users/'.$email.'/'; 
 
+         if (!file_exists($parentDir)) {
+                    mkdir($parentDir, 0777, true);
+                }
+                
          $user->raise(new UserRegistered($user));
         
          return $user;

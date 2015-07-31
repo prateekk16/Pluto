@@ -89,3 +89,15 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Require The Event Listener File
+|--------------------------------------------------------------------------
+|
+| Next we will load the Event Listener file for the application. This gives us
+| a nice separate location to store our Event listeners and application events
+| definitions instead of putting them all in the main routes file.
+|
+ */
+require app_path().'/events.php';

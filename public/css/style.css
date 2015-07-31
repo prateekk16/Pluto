@@ -4,6 +4,17 @@ textarea.form-control{
 	resize: none;
 }
 
+label{
+  color: rgba(51, 122, 183, 0.88);
+    font-size: 11px;
+}
+
+.nav-left-header{
+  max-width: 475px;
+    max-height: 50px;
+    overflow: hidden;
+}
+
 .status-media{
 	border: 1px solid #e3e3e3;
 	background: white;
@@ -19,7 +30,7 @@ textarea.form-control{
 	
 }
 
-.publishStatusArea{
+.publishStatusArea , .addFriendArea{
 	
 	
 	padding: 0;	
@@ -97,8 +108,14 @@ img { max-width: 100%; }
     font-size: 14px;
     left: -36px;
     font-family: 'Poiret One', cursive;
-    color: #B7B7B7;
-  
+    color: #B7B7B7; 
 
+  }
+
+  #addFriendsEmail{
+    position: relative;
+    top: 2px;
+    float: right;
+    margin-right: 14px;
   }
 

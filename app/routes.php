@@ -11,14 +11,9 @@
 |
 */
 
-#Events
-// Event::listen('Pluto.Registration.Events.UserRegistered', function($event){
 
-// 		dd('Send a notification');
-// });
-// Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
-	 
-// });
+
+
 
 
 
@@ -45,5 +40,7 @@ Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store
 Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusController@index']);
 #Profile Picture
 Route::post('profilePicture', ['as' => 'profile_picture', 'uses' =>'ProfilePictureController@store']);
+Route::post('AddFriendsEmail', ['as' => 'sendFriendEmailRequest', 'uses' =>'FriendRequestController@create']);
+
 
 

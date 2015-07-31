@@ -124,7 +124,8 @@ return array(
 		 'Way\Generators\GeneratorsServiceProvider',
         'Laracasts\Validation\ValidationServiceProvider',
         'Laracasts\Commander\CommanderServiceProvider',
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+         'Artdarek\Pusherer\PushererServiceProvider'
 
 	),
 

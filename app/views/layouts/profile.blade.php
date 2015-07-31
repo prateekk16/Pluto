@@ -45,11 +45,13 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
      <script src="js/jquery-1.11.1.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        {{ HTML::script('js/sweetalert2.min.js') }}
+     <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
+        {{ HTML::script('js/sweetalert2.min.js') }}        
         {{ HTML::script('js/jasny.min.js') }}
-         {{ HTML::script('js/bundle.js') }}
+        {{ HTML::script('js/bundle.js') }}
+        {{ HTML::script('js/pusher.js') }}
+        {{ HTML::script('js/myPusher.js') }}
    
 
 </body>

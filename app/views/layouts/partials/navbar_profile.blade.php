@@ -57,7 +57,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 
-                <div class="col-sm-12 col-md-12">        
+                <div class="col-sm-12 col-md-12 nav-left-header">        
                      <a class="navbar-brand" rel="home" href="#" style="padding: 0;">
                        <div style="display: inline-block;">
                               @if($currentUser)
@@ -124,8 +124,25 @@
 </nav>
 
 <div class="navmenu navmenu-default navmenu-fixed-left" style="z-index : 0; top: 50px;">
-      <a class="navmenu-brand" href="#">Share your status...</a>
+      
       <ul class="nav navmenu-nav">
+       <li style="padding-top: 10px;">
+           <ul class="nav navbar-nav">
+              
+               <li>
+                  
+                   <a href="#"><i class="fa fa-bell"></i></a>
+
+               </li> 
+               <li>
+
+                  <a href="#"><i class="fa fa-users"></i></a>
+
+               </li> 
+
+           </ul>
+       </li>
+
         <li>
          
             <div class="row">             
@@ -137,6 +154,7 @@
                                          <div class="publishStatusArea">
                                             <div class="form-group">
                                                <div class="col-md-12"> 
+                                                    {{ Form::label('shareStatus', 'Share Your Status...') }}
                                                     {{ Form::textarea('body',null, ['class' => 'form-control status-body',  'rows' => '2', 'cols' => '80', 'placeholder'=> 'Share What you are doing...']) }}
                                                     {{ $errors->first('body', '<span class="error">:message</span>') }}
                                                 </div>                                      
@@ -158,10 +176,40 @@
                       
                    </div>
              </div>
-        </li>
-       
-      </ul>
-      
+        </li> 
+
+
+        <li>
+          <div class="row">
+            <div class="col-md-12">
+             {{ Form::open(['route' => 'sendFriendEmailRequest', 'id' => 'sendFriendEmailRequest']) }}    
+               <div class="addFriendArea">
+                   <div class="form-group">
+                     <input type="textbox" style="display: none;" id="userEmail" value="{{ $currentUser->email }}"/>
+                      <div class="col-md-12"> 
+                          {{ Form::label('addFriend', 'Send a Friend Request...') }}
+                          {{ Form::email('email', null, ['class' => 'form-control add-friend-email', 'required' => 'required','placeholder'=> 'Friend\'s email address']) }}
+
+                          {{ $errors->first('body', '<span class="error">:message</span>') }}
+                      </div>
+
+                      <div class="col-md-offset-8"> 
+                          <div class="postStatusBtnArea">
+                            <button type="submit" class="btn btn-primary btn-xs" 
+                                    id="addFriendsEmail">
+                              Send
+                             </button>
+                          </div>
+                      </div>                                                
+                    </div>
+               </div>
+            {{ Form::close() }} 
+
+            </div>
+          </div> 
+        </li>  
+
+      </ul>         
 </div>
 
 
@@ -194,7 +242,7 @@
                         <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
                      </label>
                      
-                     
+
                      <a href="#" class="btn btn-primary fileinput-exists" style="width :155px;" data-dismiss="fileinput">Remove</a>
 
                      <div id="progressbox" style="display: none;"><div id="progressbar"></div ><div id="statustxt">0%</div></div>

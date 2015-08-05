@@ -1,5 +1,55 @@
 
+ jQuery(window).ready(function(){
+            jQuery("#btnInit").click(initiate_geolocation);
+        });
+ 
+        function initiate_geolocation() {
+            navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+        }
+ 
+        function handle_errors(error)
+        {
+            switch(error.code)
+            {
+                case error.PERMISSION_DENIED: alert("user did not share geolocation data");
+                break;
+ 
+                case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+                break;
+ 
+                case error.TIMEOUT: alert("retrieving position timed out");
+                break;
+ 
+                default: alert("unknown error");
+                break;
+            }
+        }
+ 
+        function handle_geolocation_query(position)
+{
+    var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," +
+                    position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +
+                    position.coords.latitude + ',' + position.coords.longitude;
 
+    $("#newMap").append(
+        jQuery(document.createElement("img")).attr("src", image_url).attr('id','map')
+    );
+}
+
+
+
+$("#left-sidebar-notify").click(function(event){   
+   $(".icon-bar-notify").addClass('icon-bar-notify-white');
+});
+
+$(document).on("click", '.click-me',function(event){
+    alert("ok");
+     $("#newMap").append(' <button type="submit" class="click-me"/> ');
+});
+
+
+
+   
 
 /**
  * Post a Status
@@ -87,14 +137,17 @@ $("#sendFriendEmailRequest").submit(function(event) {
                 $("#addFriendsEmail").attr("disabled", true);
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
             },
-            success: function(response) {    
+            success: function(response) { 
+
                 if(response == 1){
                      $("#addFriendsEmail").attr("disabled", false);
                      $(".add-friend-email").val("");
                      swal({   title: 'Done!',   text: 'Friend Request Sent',   timer: 1000 });
-                } else{
-                    swal(   'Error!',   'Please Try again...',   'error' );
-                }         
+                } else {
+                     $("#addFriendsEmail").attr("disabled", false);
+                     $(".add-friend-email").val("");
+                     swal(   'Error!',   response ,   'error' );
+                }               
                
             },
             error: function() {}
@@ -102,7 +155,53 @@ $("#sendFriendEmailRequest").submit(function(event) {
     }
 });
 
+$(document).on("click", '.respond-friend-request',function(event){
 
+    event.preventDefault();    
+    event.stopPropagation();   
+    
+    var url = $("#respondToFriendRequest").attr('action');    
+    var id = $(this).attr('id');
+    var arr = id.split('-');
+    id = arr[1];
+    var response = arr[0]; 
+    var dataString = 'id='+id + '&response='+response;
+
+   
+
+     $.ajax({
+            type: 'POST',
+            url: url,
+            data: dataString,           
+            beforeSend: function(request) {
+                $(".accept-friend-request").attr("disabled", true);
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+            },
+            success: function(res) {
+                if(res == 0 ){
+                    $(".badge-freq").fadeOut();
+                    $(".fa-users-freq").css("color", '#337ab7');
+                  }               
+               $(".freq").text(res);
+
+               if(response == 0){                 
+                   $("#1-"+id).fadeOut(200);
+                   $("#0-"+id).attr("disabled",true);
+               } else{ 
+                   $("#0-"+id).fadeOut(200);
+                   $("#1-"+id).attr("disabled",true);
+               }
+             
+            },
+            error: function() {}
+        });
+
+
+    // var total =  $(".total-friend-requests").children().length;
+    
+
+
+});
 
 
 /**

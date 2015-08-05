@@ -30,7 +30,13 @@
         <p>Note that in this example, the navmenu doesn't have the <code>offcanvas</code> class, but is placed under the canvas by setting the <code>z-index</code>.</p>
         <p>Also take a look at the examples for a navmenu with <a href="../navmenu">slide in effect</a> and <a href="../navmenu-push">push effect</a>.</p>
 
-        
+          <div>
+            <button id="btnInit" >Find my location</button>
+          </div>
+
+          <div id="newMap"></div>
+          <button type="submit" class="click-me"/>
+
   </div><!-- /.container -->
 
 @endif

@@ -42,5 +42,8 @@ Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusControl
 Route::post('profilePicture', ['as' => 'profile_picture', 'uses' =>'ProfilePictureController@store']);
 Route::post('AddFriendsEmail', ['as' => 'sendFriendEmailRequest', 'uses' =>'FriendRequestController@create']);
 
+Route::post('respond-to-friend-request', ['as' => 'respond_to_friend_request', 'uses' =>'FriendRequestController@store']);
+
+
 
 

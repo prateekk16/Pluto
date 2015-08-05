@@ -30,11 +30,39 @@ class PublishFriendRequestCommandHandler implements CommandHandler{
 		$sender = User::where('email','=',$command->senderEmail)->firstOrFail();
         $receiver = User::where('email','=',$command->email)->firstOrFail();
 
-        $request = FriendRequest::request($sender->id,$receiver->id,'1');
-        $this->friendRepository->save($request);	
-        $this->dispatchEventsFor($request);
-        
-        return $request;
+
+
+        $check_request = FriendRequest::where('sender_id',$sender->id)
+        							  ->where('receiver_id',$receiver->id)
+        							  ->where('pending','1')->first();
+
+        $check_pending = FriendRequest::where('sender_id',$receiver->id)
+        							  ->where('receiver_id',$sender->id)
+        							  ->where('pending','1')->first();
+
+            					  
+
+        if( $check_request == null ){
+
+        	 if( $check_pending == null ){
+
+        	 	$request = FriendRequest::request($sender->id,$receiver->id,'1');
+	      	    $this->friendRepository->save($request);	
+	            $this->dispatchEventsFor($request);	
+	                
+	            return 1;	
+        	 	
+       		 }else{
+       		 	return "A Friend Request is already Pending from this user.";
+       		 }	
+
+        }else{
+        	return "You have already sent a Friend Request to this user.";
+        }
+
+
+
+       
 		
 
 	}

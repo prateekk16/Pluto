@@ -23,4 +23,7 @@ function getUserObject($id){
 	return User::where('id',$id)->firstOrFail();
 }
 
+function getMyFriends(){
+	 return FriendRequest::MyFriends(Auth::user()->id);
+}
 

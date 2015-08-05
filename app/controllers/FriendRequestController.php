@@ -3,6 +3,7 @@
 use Pluto\Forms\EmailValidate;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\FriendRequests\PublishFriendRequestCommand;
+use Pluto\FriendRequests\PublishFriendRespondCommand;
 
 class FriendRequestController extends BaseController {
 
@@ -45,7 +46,7 @@ class FriendRequestController extends BaseController {
 	    $input = array_merge($input, ['senderEmail' => Auth::user()->email]);		
 		$request = $this->execute(PublishFriendRequestCommand::class, $input);
 
-		return 1;
+		return $request;
        
 	}
 
@@ -56,7 +57,12 @@ class FriendRequestController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		
+		$input['friendId'] = Input::get('id');
+		$input['responseType'] = Input::get('response');
+		$input = array_merge($input, ['userId' => Auth::user()->id]);
+		$request = $this->execute(PublishFriendRespondCommand::class, $input);
+		return $request;
 	}
 
 	/**

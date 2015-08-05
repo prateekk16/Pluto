@@ -41,10 +41,22 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-         <button type="button" class="navbar-toggle toggle-left" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">
+         
+         <button type="button" id="left-sidebar-notify" class="navbar-toggle toggle-left" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">  
+                 @if(  getFriendRequests()->count()  )
+                                    
+                      <span class="icon-bar icon-bar-notify" ></span>
+                      <span class="icon-bar icon-bar-notify"></span>
+                      <span class="icon-bar icon-bar-notify"></span>
+                    
+                 @else
+                    
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
+                
+                @endif
+
           </button>
     
           <div class="container">
@@ -123,6 +135,9 @@
         <!-- /.container -->
 </nav>
 
+
+                                      {{-- SideBar --}} 
+
 <div class="navmenu navmenu-default navmenu-fixed-left" style="z-index : 0; top: 50px;">
       
       <ul class="nav navmenu-nav">
@@ -139,40 +154,67 @@
 
                          <li class="dropdown">
                             @if(  getFriendRequests()->count()  )
-                              
+                               <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);">{{ getFriendRequests()->count() }} </span>
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;" >
-                                  <span class="badge freq" style="background-color:rgb(255, 102, 102);">{{ getFriendRequests()->count() }} </span><i class="fa fa-users" style="color: #e72c2c"></i>
+                                 <i class="fa fa-users fa-users-freq" style="color: #e72c2c"></i>
                               </a>
 
-                              <ul class="dropdown-menu" style="width: 245px;">
+                              <ul class="dropdown-menu total-friend-requests" style="width: 245px;">
+                               <div class="friend-requests-append">
                                 @foreach( getFriendRequests() as $req)
-                                    <li>
-                                      <div class="freq-panel">
+                                   <div class="friend-request-{{ $req->sender_id }}">
+                                      <li>
+                                          <div class="freq-panel ">
 
-                                       @if(file_exists('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg'))            
-                                          {{ HTML::image('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar_small')) }}
+                                                 @if(file_exists('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg'))            
+                                                    {{ HTML::image('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar_small')) }}
 
-                                        @else
-                                         {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar_small')) }}
-                                       @endif                                          
-                                         
-                                            {{ getUserObject($req->sender_id)->info->firstname }} {{ getUserObject($req->sender_id)->info->lastname }}
+                                                  @else
+                                                   {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar_small')) }}
+                                                 @endif                                          
+                                              
+                                                 {{ getUserObject($req->sender_id)->info->firstname }} {{ getUserObject($req->sender_id)->info->lastname }}
+                                                 
 
-                                            
-                                          
-                                      </div> 
-                                    </li> 
-                                    <li class="divider"></li> 
-                                  @endforeach                
+                                                  <div class="new-friend-request-info"> 
+
+                                                    {{ getUserObject($req->sender_id)->info->gender }}
+                                                    
+                                                      <div class="accept-reject-friend-button ">
+                                                       <div class="replace-friends-button-{{ $req->sender_id }}">
+                                                          {{ Form::open(['route' => 'respond_to_friend_request', 'id' => 'respondToFriendRequest']) }} 
+                                                             <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-{{ $req->sender_id }}">
+                                                                 <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                                                             </button>
+
+                                                             <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-{{ $req->sender_id }}">
+                                                                 <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                                             </button>
+                                                           {{ Form::close() }}
+                                                         </div>
+                                                      </div> 
+                                                   
+
+                                                  </div>
+
+                                                                                             
+                                          </div> 
+                                      </li> 
+                                      <li class="divider"></li> 
+                                  </div>
+                                  @endforeach    
+                                </div>            
                                 </ul>
 
                               @else
-                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span class="badge freq" style="background-color:rgb(255, 102, 102); display:none;">
-                                    </span><i class="fa fa-users"></i>
+                               <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);"></span>
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">                                     
+                                    </span><i class="fa fa-users fa-users-freq"></i>
                                  </a>
 
                                   <ul class="dropdown-menu">
+                                   <div class="friend-requests-append">
+                                   </div>
                                     <li style="padding:5px;">No new requests</li>                  
                                     <li class="divider"></li>                 
                                   </ul>
@@ -253,6 +295,28 @@
             </div>
           </div> 
         </li>  
+
+        <li>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="myFriendsArea">
+
+                  <div class="form-group">                     
+                      <div class="col-md-12"> 
+                          {{ Form::label('addFriend', 'Friends: &nbsp; ' .getMyFriends()->count()) }}  
+                      </div>
+
+                      <div class="col-md-8"> 
+                         @foreach( getMyFriends() as $friend)
+                          
+                         @endforeach
+                      </div>                                                
+                    </div>
+
+                </div>
+              </div>
+            </div>
+        </li>
 
       </ul>         
 </div>

@@ -39,4 +39,10 @@ class FriendRequest extends \Eloquent {
  								 ->orderBy('created_at','desc')->get();
  	}
 
+ 	public static function MyFriends($id){
+ 		return friendRequest::where('receiver_id',$id)
+ 							->orWhere('sender_id',$id)
+ 							->where('pending','0')->get();
+ 	}
+
 }

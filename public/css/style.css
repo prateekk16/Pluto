@@ -30,7 +30,7 @@ label{
 	
 }
 
-.publishStatusArea , .addFriendArea{
+.publishStatusArea , .addFriendArea, .myFriendsArea{
 	
 	
 	padding: 0;	
@@ -129,4 +129,26 @@ img { max-width: 100%; }
     width: 245px;
     padding: 5px;
     overflow: hidden;
+  }
+
+  .freq{
+         position: absolute;
+    z-index: 1;
+    
+  }
+  .accept-reject-friend-button{
+    float: right;
+        padding-right: 10px;
+    position: relative;
+    top: 5px;
+  }
+
+  .new-friend-request-info{
+    padding-left: 25px;
+  }
+  .icon-bar-notify{
+    background-color: #67D4D6 !important;    
+  }
+  .icon-bar-notify-white{
+    background-color: #fff !important;    
   }

@@ -6,8 +6,20 @@
           var user = $("#userEmail").val();
             if(user == data.receiver_email){
                $('.fa-users').css('color','#e72c2c');
+                $(".icon-bar").removeClass('icon-bar-notify-white');
+               $(".icon-bar").addClass('icon-bar-notify');
                $('.freq').fadeIn();
                $('.freq').text(data.total_req);
+
+                $(".friend-requests-append").prepend('<div class="friend-request-'+data.sender_id+'">'
+           
+                 +'  <li>   <div class="freq-panel">  <img src="'+data.img+'" class="avatar_small" alt="avatar"/> '
+                 +'    '+data.sender_name+' <div class="new-friend-request-info"> '+data.gender+' <div class="accept-reject-friend-button "> '
+                 +'   <div class="replace-friends-button-'+data.sender_id+'"> <form method="POST" action="'+data.url+'" accept-charset="UTF-8" id="respondToFriendRequest" class="ng-pristine ng-valid">'
+                 +'   <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-'+data.sender_id+'"> <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></button>'
+                 +'   <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-'+data.sender_id+'"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button> '
+                 +' </form></div></div></div></div> </li> <li class="divider"></li>'
+                 +' </div>');
           }
               //  alert("Incoming request from: "+data.message);
     });

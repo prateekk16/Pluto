@@ -303,12 +303,15 @@
 
                   <div class="form-group">                     
                       <div class="col-md-12"> 
-                          {{ Form::label('addFriend', 'Friends: &nbsp; ' .getMyFriends()->count()) }}  
+                          {{ Form::label('addFriend', 'Friends: &nbsp; ' . count(getMyFriends())) }} 
                       </div>
 
-                      <div class="col-md-8"> 
-                         @foreach( getMyFriends() as $friend)
-                          
+                      <div class="col-md-12" style="position: relative; top:-15px;"> 
+                         @foreach( getMyFriends() as $friend) 
+                          <div class="my-friends-list-sidebar">                        
+                            {{ HTML::image(checkUserAvatar($friend->email),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
+                            {{ $friend->info->firstname.' '.$friend->info->lastname }}
+                          </div>
                          @endforeach
                       </div>                                                
                     </div>

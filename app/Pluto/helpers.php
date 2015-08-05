@@ -27,3 +27,5 @@ function getMyFriends(){
 	 return FriendRequest::MyFriends(Auth::user()->id);
 }
 
+
+

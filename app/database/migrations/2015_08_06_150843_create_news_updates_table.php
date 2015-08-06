@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateStatusesTable extends Migration {
+class CreateNewsUpdatesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateStatusesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('statuses', function(Blueprint $table) {
+		Schema::create('news_updates', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->text('body');
+			$table->enum('type',array('status','post','friends'));
+			$table->integer('post_id');
 			$table->timestamps();
 		});
 	}
@@ -29,7 +29,7 @@ class CreateStatusesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('statuses');
+		Schema::drop('news_updates');
 	}
 
 }

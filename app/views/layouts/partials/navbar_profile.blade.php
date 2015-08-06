@@ -70,7 +70,7 @@
                 </button>
                 
                 <div class="col-sm-12 col-md-12 nav-left-header">        
-                     <a class="navbar-brand" rel="home" href="#" style="padding: 0;">
+                     <a class="navbar-brand" rel="home" href="/" style="padding: 0;">
                        <div style="display: inline-block;">
                               @if($currentUser)
                                     @if(file_exists('img/users/'.$currentUser->email.'/avatar_small.jpg'))            
@@ -296,6 +296,8 @@
           </div> 
         </li>  
 
+                               {{-- FRIEND LIST --}}
+
         <li>
             <div class="row">
               <div class="col-md-12">
@@ -310,7 +312,38 @@
                          @foreach( getMyFriends() as $friend) 
                           <div class="my-friends-list-sidebar">                        
                             {{ HTML::image(checkUserAvatar($friend->email),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
-                            {{ $friend->info->firstname.' '.$friend->info->lastname }}
+                            <a href="{{ URL::to('/'.$friend->username ) }}">
+                             {{ $friend->info->firstname.' '.$friend->info->lastname }}
+                            </a>
+                          </div>
+                         @endforeach
+                      </div>                                                
+                    </div>
+
+                </div>
+              </div>
+            </div>
+        </li>
+
+                             {{-- RECENT UPDATES --}}
+
+         <li>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="NavRecentUpdates">
+
+                  <div class="form-group">                     
+                      <div class="col-md-12"> 
+                          {{ Form::label('', 'Recent Updates: &nbsp; ') }} 
+                      </div>
+
+                      <div class="col-md-12" style="position: relative; top:-15px;"> 
+                         @foreach( getMyFriends() as $friend) 
+                          <div class="my-friends-list-sidebar">                        
+                            {{ HTML::image(checkUserAvatar($friend->email),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
+                            <a href="{{ URL::to('/'.$friend->username ) }}">
+                             {{ $friend->info->firstname.' '.$friend->info->lastname }}
+                            </a>
                           </div>
                          @endforeach
                       </div>                                                

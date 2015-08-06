@@ -3,6 +3,7 @@
 use Pluto\Forms\StatusForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Statuses\PublishStatusCommand;
+use Pluto\Updates\PublishUpdateCommand;
 use Pluto\Statuses\StatusRepository;
 
 class StatusController extends BaseController {
@@ -64,7 +65,12 @@ class StatusController extends BaseController {
 		  $input = array_merge($input, ['userId' => Auth::user()->id]);			
 		  $status = $this->execute(PublishStatusCommand::class, $input);
 
-		  return $status->body;	  
+		  $updateArr = $status->id;
+		  $updateArr = ['postId' => $updateArr,'userId' => Auth::user()->id,'type' => 'status'];
+          $update = $this->execute(PublishUpdateCommand::class, $updateArr);
+		  
+		  return $status->body;
+		
 		 
 		 
 	}

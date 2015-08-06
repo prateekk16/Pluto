@@ -159,6 +159,6 @@ img { max-width: 100%; }
     background-color: #fff !important;    
   }
   .my-friends-list-sidebar{
-    padding: 5px;
+        padding: 2px 6px 0px 5px;
     font-size: 12px;
   }

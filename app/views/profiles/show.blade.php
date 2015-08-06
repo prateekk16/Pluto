@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.profile')
 
 @section('content')
 	@if ($user->info)

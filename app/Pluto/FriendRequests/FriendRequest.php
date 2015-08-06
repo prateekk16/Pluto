@@ -61,7 +61,9 @@ class FriendRequest extends \Eloquent {
  	    	}
  	    }
 
- 	    return $array;
+ 	    
+ 			return $array;
+
  	}
 
 }

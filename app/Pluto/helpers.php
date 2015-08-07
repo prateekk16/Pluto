@@ -1,6 +1,7 @@
 <?php
 use Pluto\Users\User;
 use Pluto\FriendRequests\FriendRequest;
+use Pluto\Updates\Update;
 
 function errors_for($attribute, $errors)
 {
@@ -25,6 +26,10 @@ function getUserObject($id){
 
 function getMyFriends(){
 	 return FriendRequest::MyFriends(Auth::user()->id);
+}
+
+function getMyFriendsUpdates(){
+	 return Update::MyFriendsUpdates(Auth::user()->id);
 }
 
 

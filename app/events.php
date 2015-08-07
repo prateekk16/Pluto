@@ -11,6 +11,21 @@ Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
 	// echo $event->body;
 });
 
+Event::listen('Pluto.Updates.Events.UpdatePublished', function($event){
+	// $sender =   getUser(1);
+	// $receiver = getUser(2);
+	// $total_requests = getTotalRequests(2);
+	// $img = checkUserAvatar('prateekk16@gmail.com');
+	// $gender = "Male";
+	// $url = Request::root().'/respond-to-friend-request';
+	
+	
+ //    Pusherer::trigger('FriendRequestChannel', 'userSentRequest', array('sender_id' => '1', 'img' => $img, 'url' => $url,  'gender' => $gender,  'sender_email' => 'prateekk16@gmail.com', 'receiver_email' => 'admin@admin.com', 'sender_name' => 'Prateek Singh', 'total_req' => $total_requests->count() ));
+   $url = Request::root().'/news-update-check-friendship';
+   Pusherer::trigger('StatusUpdateChannel','userChangedStatus',array('url'=>$url, 'user_id' => $event->user_id, 'type' => $event->type, 'post_id' => $event->post_id ));
+
+});
+
 
  Event::listen('Pluto.FriendRequests.Events.FriendRequestPublished', function($event){
 	
@@ -65,3 +80,26 @@ function checkUserAvatar($email){
 
     return $img; 
 }
+
+function checkFriendship($user1,$user2){
+
+	$check = FriendRequest::where('receiver_id',$user1)
+							  ->where('sender_id',$user2)
+ 							  ->where('pending','0')->first();
+
+ 		if($check == null){
+ 			$check = FriendRequest::where('receiver_id',$user2)
+							  ->where('sender_id',$user1)
+ 							  ->where('pending','0')->first();
+ 		}
+
+	 	if($check != null){
+	 	  	return 1;
+	 	 }
+
+ 	  return 0;
+}
+
+
+
+

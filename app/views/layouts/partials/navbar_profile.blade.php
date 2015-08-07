@@ -14,7 +14,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">WasdBox</a>
+                    <a class="navbar-brand" href="index.html">Cliqoid</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -338,13 +338,12 @@
                       </div>
 
                       <div class="col-md-12" style="position: relative; top:-15px;"> 
-                         @foreach( getMyFriends() as $friend) 
-                          <div class="my-friends-list-sidebar">                        
-                            {{ HTML::image(checkUserAvatar($friend->email),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
-                            <a href="{{ URL::to('/'.$friend->username ) }}">
-                             {{ $friend->info->firstname.' '.$friend->info->lastname }}
-                            </a>
-                          </div>
+                         @foreach( getMyFriendsUpdates() as $update) 
+                            <div class="my-friends-list-sidebar">                       
+                              
+                               {{ $update }}
+                              </a>
+                            </div>
                          @endforeach
                       </div>                                                
                     </div>

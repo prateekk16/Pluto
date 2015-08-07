@@ -28,9 +28,9 @@ class PublishUpdateCommandHandler implements CommandHandler{
 		 $update = Update::publish($command->userId, $command->type, $command->postId);	
 		 
 
-		 $update = $this->updateRepository->save($update);		
+		 $this->updateRepository->save($update);		
 
-		// $this->dispatchEventsFor($status);
+		 $this->dispatchEventsFor($update);
 
 		 return $update;
 		

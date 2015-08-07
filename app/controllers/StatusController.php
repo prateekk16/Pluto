@@ -70,8 +70,6 @@ class StatusController extends BaseController {
           $update = $this->execute(PublishUpdateCommand::class, $updateArr);
 		  
 		  return $status->body;
-		
-		 
 		 
 	}
 

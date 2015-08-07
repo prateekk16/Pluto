@@ -24,4 +24,29 @@
               //  alert("Incoming request from: "+data.message);
     });
 
+
+  // var channel = pusher.subscribe('StatusUpdateChannel');
+  //  channel.bind('userChangedStatus', function(data){        
+  //       var url = data.url;
+  //       var dataString = 'user='+data.user_id+ '&type='+data.type+ '&postId='+data.post_id;
+  //       $.ajax({
+  //           type: 'POST',
+  //           url: url,
+  //           data: dataString,
+  //           beforeSend: function(request) {               
+  //               return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+  //           },
+  //           success: function(response) {                
+  //               if(response!=0){
+                   
+  //               }
+  //           },
+  //           error: function() {}
+  //       });
+  //  });
+
+
+
+   
+
 })(); 

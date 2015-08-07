@@ -3,6 +3,7 @@
 namespace Pluto\Updates;
 use Laracasts\Commander\Events\EventGenerator;
 use Pluto\Updates\Events\UpdatePublished;
+use Pluto\Statuses\Status;
 
 class Update extends \Eloquent {
 
@@ -32,9 +33,33 @@ class Update extends \Eloquent {
 
 		  $update = new static(compact('user_id','type','post_id'));
 
-        //  $status->raise(new StatusPublished($body));
+          $update->raise(new UpdatePublished($user_id,$type,$post_id));
         
           return $update;
+	}
+
+
+	public static function MyFriendsUpdates($user){
+		$updates = Update::all();
+		$mixed = array();
+
+		foreach($updates as $update){
+		   if(checkFriendship($user,$update->user_id)){
+		   	 switch($update->type){
+				case 'status': 
+						       $status = Status::where('id',$update->post_id)->first();
+						       $mixed['body'] = $status->body;
+						       break;
+
+			    default:       break;						       
+
+
+			}
+		   }
+			
+		}
+
+		return $mixed;
 	}
 
 

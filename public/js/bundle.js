@@ -1,40 +1,57 @@
+ $(document).ready(function(){
+     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
 
- jQuery(window).ready(function(){
-            jQuery("#btnInit").click(initiate_geolocation);
-        });
+     $('ul.pagination:visible').hide();
  
-        function initiate_geolocation() {
-            navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+       $('.news-items-sidebar').jscroll({
+        debug: true,
+        autoTrigger: true,
+        nextSelector: '.pagination li.active + li a', 
+        contentSelector: '.sidebar-news-update',
+        callback: function() {
+            $('ul.pagination:visible').hide();
         }
- 
-        function handle_errors(error)
-        {
-            switch(error.code)
-            {
-                case error.PERMISSION_DENIED: alert("user did not share geolocation data");
-                break;
- 
-                case error.POSITION_UNAVAILABLE: alert("could not detect current position");
-                break;
- 
-                case error.TIMEOUT: alert("retrieving position timed out");
-                break;
- 
-                default: alert("unknown error");
-                break;
-            }
-        }
- 
-        function handle_geolocation_query(position)
-{
-    var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," +
-                    position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +
-                    position.coords.latitude + ',' + position.coords.longitude;
+    });
+        
+    });
 
-    $("#newMap").append(
-        jQuery(document.createElement("img")).attr("src", image_url).attr('id','map')
-    );
-}
+
+//  jQuery(window).ready(function(){
+//             jQuery("#btnInit").click(initiate_geolocation);
+//         });
+ 
+//         function initiate_geolocation() {
+//             navigator.geolocation.getCurrentPosition(handle_geolocation_query,handle_errors);
+//         }
+ 
+//         function handle_errors(error)
+//         {
+//             switch(error.code)
+//             {
+//                 case error.PERMISSION_DENIED: alert("user did not share geolocation data");
+//                 break;
+ 
+//                 case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+//                 break;
+ 
+//                 case error.TIMEOUT: alert("retrieving position timed out");
+//                 break;
+ 
+//                 default: alert("unknown error");
+//                 break;
+//             }
+//         }
+ 
+//         function handle_geolocation_query(position)
+// {
+//     var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," +
+//                     position.coords.longitude + "&zoom=18&size=300x400&markers=color:blue|label:S|" +
+//                     position.coords.latitude + ',' + position.coords.longitude;
+
+//     $("#newMap").append(
+//         jQuery(document.createElement("img")).attr("src", image_url).attr('id','map')
+//     );
+// }
 
 
 
@@ -77,6 +94,35 @@ $("#postStatus").submit(function(event) {
         });
     }
 });
+
+/**
+ * BroadCast a Global Message
+ */
+
+$("#sendGlobal").submit(function(event) {
+    event.preventDefault();
+    var url = $(this).attr('action');
+    var dataString = 'message=' + $(".global_message_body").val();
+    if ($(".global_message_body").val() != "") {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: dataString,
+            beforeSend: function(request) {
+                $(".global_send_button").attr("disabled", true);
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+            },
+            success: function(response) {   
+                         
+                $(".global_send_button").attr("disabled", false);
+                $(".global_message_body").val("");
+            },
+            error: function() {}
+        });
+    }
+});
+
+
 
 
 /**
@@ -166,8 +212,9 @@ $(document).on("click", '.respond-friend-request',function(event){
     id = arr[1];
     var response = arr[0]; 
     var dataString = 'id='+id + '&response='+response;
-
-   
+    var imgsrc = $(".new_friend_avatar_id-"+id).attr('src');
+    var name = $('.sender_name-'+id).val();
+    var senderLink = $('.sender_link-'+id).val();
 
      $.ajax({
             type: 'POST',
@@ -190,6 +237,14 @@ $(document).on("click", '.respond-friend-request',function(event){
                } else{ 
                    $("#0-"+id).fadeOut(200);
                    $("#1-"+id).attr("disabled",true);
+
+                   var count =  $('.count-total-friends-sidebar').val();  
+                   count += 1;                 
+                   $('.count-total-friends-sidebar').text(count);
+                   $('.total-friends-list-sidebar').prepend('<div class="my-friends-list-sidebar">'
+                    +'<img src="'+imgsrc+'" class="avatar_tiny img-circle" alt="avatar">'
+                    +'<a href="'+senderLink+'"> '+name+'  </a>'
+                   +' </div>');
                }
              
             },

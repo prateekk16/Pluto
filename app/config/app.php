@@ -125,7 +125,8 @@ return array(
         'Laracasts\Validation\ValidationServiceProvider',
         'Laracasts\Commander\CommanderServiceProvider',
         'Intervention\Image\ImageServiceProvider',
-         'Artdarek\Pusherer\PushererServiceProvider'
+        'Artdarek\Pusherer\PushererServiceProvider',
+        'Cmgmyr\Messenger\MessengerServiceProvider'
 
 	),
 

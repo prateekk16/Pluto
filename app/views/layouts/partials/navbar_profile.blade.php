@@ -21,7 +21,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/">Home</a></li>
                          @if (Auth::guest())
-                            <li><a href="/register">Register</a></li>
+                            <li><a href="/">Register</a></li>
                             <li><a href="/login">Login</a></li>
                          @else
                             <li>{{ link_to_profile() }}</li>
@@ -42,7 +42,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
          
-         <button type="button" id="left-sidebar-notify" class="navbar-toggle toggle-left" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">  
+         {{-- <button type="button" id="left-sidebar-notify" class="navbar-toggle toggle-left" data-toggle="offcanvas" data-recalc="false" data-target=".navmenu" data-canvas=".canvas">  
                  @if(  getFriendRequests()->count()  )
                                     
                       <span class="icon-bar icon-bar-notify" ></span>
@@ -57,7 +57,7 @@
                 
                 @endif
 
-          </button>
+          </button> --}}
     
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -138,7 +138,7 @@
 
                                       {{-- SideBar --}} 
 
-<div class="navmenu navmenu-default navmenu-fixed-left" style="z-index : 0; top: 50px;">
+<div class="navmenu navmenu-default navmenu-fixed-left" style="top: 50px;">
       
       <ul class="nav navmenu-nav">
 
@@ -305,13 +305,13 @@
 
                   <div class="form-group">                     
                       <div class="col-md-12"> 
-                          {{ Form::label('addFriend', 'Friends: &nbsp; ' . count(getMyFriends())) }} 
+                         <label> Friends: &nbsp; <span class="count-total-friends-sidebar">  {{ count(getMyFriends()) }} </span> </label>                         
                       </div>
 
-                      <div class="col-md-12" style="position: relative; top:-15px;"> 
+                      <div class="col-md-12 total-friends-list-sidebar" style="position: relative; top:-15px;"> 
                          @foreach( getMyFriends() as $friend) 
                           <div class="my-friends-list-sidebar">                        
-                            {{ HTML::image(checkUserAvatar($friend->email),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
+                            {{ HTML::image(checkUserAvatar($friend->email,'small'),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
                             <a href="{{ URL::to('/'.$friend->username ) }}">
                              {{ $friend->info->firstname.' '.$friend->info->lastname }}
                             </a>
@@ -330,24 +330,49 @@
          <li>
             <div class="row">
               <div class="col-md-12">
-                <div class="NavRecentUpdates">
+                <div class="NavRecentUpdates" style="position : relative; top: 80px;">
 
                   <div class="form-group">                     
                       <div class="col-md-12"> 
-                          {{ Form::label('', 'Recent Updates: &nbsp; ') }} 
+                          {{ Form::label('', 'Recent Updates: (last one hour) &nbsp; ') }} 
                       </div>
 
-                      <div class="col-md-12" style="position: relative; top:-15px;"> 
-                         @foreach( getMyFriendsUpdates() as $update) 
-                            <div class="my-friends-list-sidebar">                       
-                              
-                               {{ $update }}
-                              </a>
-                            </div>
-                         @endforeach
-                      </div>                                                
-                    </div>
+                      <?php  $updates = getMyFriendsUpdatesRecent();  ?> 
+                      @if(sizeof($updates) == 0)
+                                 <div class="col-md-6 col-md-offset-3 sidebar-no-updates"> No Updates </div>
+                      @else                        
 
+                          <div class="col-md-12 news-items-sidebar">                              
+                                @foreach( $updates as $update)                             
+                                  <?php  $user = getUser($update->user_id); ?> 
+                                   @if(checkFriendship(Auth::user()->id, $user->id))
+                                    <div class="sidebar-news-update"> 
+
+                                                  {{-- STATUS --}}
+                                        @if($update->type="status")
+                                           {{ HTML::image(checkUserAvatar($user->email,'small'),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
+                                            <a href="{{ URL::to('/'.$user->username ) }}">
+                                             {{ $user->info['firstname'].' '.$user->info['lastname'] }}
+                                            </a>  
+                                            <small style="float:right;"> {{ $update->created_at->diffForHumans() }} </small>
+                                            <div class=" col-md-offset-2 recent-updates-body-sidebar">
+                                              @if(strlen(getStatusById($update->post_id)->body) > 90 ) 
+                                                 {{ substr(getStatusById($update->post_id)->body, 0, 90) }}... <small>Click to See More</small>
+                                              @else
+                                                 {{ getStatusById($update->post_id)->body }} 
+                                              @endif
+                                           </div>
+                                          <hr style="height:1px;"> 
+                                        @endif
+
+
+                                      {{ $updates->links() }}                                      
+                                    </div>                                   
+                                   @endif                                                                          
+                                 @endforeach                            
+                           </div>
+                         @endif                                   
+                   </div>
                 </div>
               </div>
             </div>

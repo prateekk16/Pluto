@@ -55,13 +55,28 @@ class UpdatesController extends BaseController {
 	 * @return Response
 	 */
 	public function show()
-	{
-        $type = Input::get('type');
+	{		 
+
+        $type = Input::get('type');        
         switch($type){
-        	case 'status': 
-        				    
-        				   $statuses = $this->updateRepository->getStatuses( Input::get('user'), Input::get('postId'), Auth::user()->id );        
-         				   return $statuses;	
+        	case 'status':       				    
+
+        				   $status = $this->updateRepository->getStatuses( Input::get('user'), Input::get('postId'), Auth::user()->id );  
+
+         				   if($status != 'Error:103'){
+         				   	   $input =   getUser($status->user_id);         				   	   
+         				   	   $user['avatar'] = checkUserAvatar($input->email,'small');
+         				   	   $user['url'] = Request::root().'/'.$input->username;
+         				   	   $user['status_time'] = $status->created_at->diffForHumans();
+         				   	   $user['status_body'] = substr($status->body, 0, 90);         				   	
+         				   	   $result = array_merge($input->toArray(), $status->toArray(), $user);         				   	   
+         				   	   return Response::json($result);
+         				       
+         				   }
+         				   else{
+
+         				   	   return 0;
+         				   }
         	 			   break;
 
         	default:	   break;

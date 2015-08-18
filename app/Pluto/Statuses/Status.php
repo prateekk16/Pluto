@@ -3,6 +3,9 @@
 namespace Pluto\Statuses;
 use Laracasts\Commander\Events\EventGenerator;
 use Pluto\Statuses\Events\StatusPublished;
+use Pluto\Statuses\Status;
+use Pluto\Users\User;
+use Illuminate\Support\Facades\Response;
 
 class Status extends \Eloquent {
 
@@ -42,6 +45,8 @@ class Status extends \Eloquent {
         
           return $status;
 	}
+
+	
 
 
 }

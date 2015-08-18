@@ -8,10 +8,11 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 use Eloquent, Hash;
 use Laracasts\Commander\Events\EventGenerator;
 use Pluto\Registration\Events\UserRegistered;
+use Cmgmyr\Messenger\Traits\Messagable;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait, EventGenerator;
+	use UserTrait, RemindableTrait, EventGenerator, Messagable;
 
 	/**
 	 * The database table used by the model.
@@ -91,6 +92,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     public function statuses(){
         return $this->hasMany('Pluto\Statuses\Status');
+    }
+
+    public function messages(){
+         return $this->hasMany('Pluto\Messenger\Models\Message');
     }
 
     /**

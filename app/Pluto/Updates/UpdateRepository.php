@@ -19,15 +19,19 @@ class UpdateRepository{
 		return $update->save();
 	}
 
+	
+
 	public function getStatuses($sender,$postId,$user){
 		
 
 		if(checkFriendship($sender,$user)){
 			$status = Status::where('id',$postId)->first();
- 			return $status->body;	
+ 			return $status;
+		}else{
+			return 'Error:103';
 		}
 
-		return 0;
+		
  								
 
 	}

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <meta name="_token" content="{{ csrf_token() }}" />
 
-    <title>@yield('meta-title', 'Larademo')</title>
+    <title>@yield('meta-title', 'Cliqoid')</title>
 
 
    
@@ -28,19 +28,23 @@
 </head>
 
 <body>
-    @include('layouts/partials/navbar_profile')
+   
 
-    <div class="canvas">
+    
         
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md-7">
-                            @yield('content')
-                        </div>
-                    </div>
+                  <div class="col-md-3">
+                     @include('layouts/partials/navbar_profile')
+                  </div>
+
+                  <div class="col-md-9 col-md-offset-3">
+                     @yield('content')
+                  </div>
                 </div>
+
+                   
            
-    </div>
+    
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -52,7 +56,12 @@
         {{ HTML::script('js/bundle.js') }}
         {{ HTML::script('js/pusher.js') }}
         {{ HTML::script('js/myPusher.js') }}
-   
+        {{ HTML::script('js/jscroll.min.js') }}
+
+
+
+        
+  
 
 </body>
 </html>

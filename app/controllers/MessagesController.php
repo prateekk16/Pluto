@@ -8,6 +8,7 @@ use Pluto\Forms\MessageForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Messenger\MessageRepository;
 use Pluto\Messenger\PublishGlobalMessageCommand;
+use Crypt;
 
 class MessagesController extends BaseController
 {
@@ -197,4 +198,16 @@ class MessagesController extends BaseController
 
         return Redirect::to('messages/' . $id);
     }
+
+
+    public function decrypt(){
+        return Crypt::decrypt(Input::get('msg'));
+    }
+
+    
+
+
+
+
+
 }

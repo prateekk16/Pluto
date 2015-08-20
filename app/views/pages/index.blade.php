@@ -1,68 +1,39 @@
+@extends('layouts.index')
+    @section('content')
 
-@extends('layouts.default')
-
-@section('content')
-
-
- @if(!$currentUser)
-
-	<div class="starter-template">
-	    <h1>
-	        {{ Auth::check() ? "Welcome, " . $currentUser->username : "Why Don't You Sign Up?" }}
-	    </h1>	     
-
-	</div>
-
-	@else
-
-
-	    <div class="container">
-		 	<div class="row">
-		 	 
-				 <div class="col-md-6">		 	
-			   			
-			   			 {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus']) }} 
-							    <!-- Status Field -->
-							           
-							           	 <div class="publishStatusArea">
-							                <div class="form-group">
-							                   <div class="col-md-8"> 
-								                    {{ Form::textarea('body',null, ['class' => 'form-control status-body',  'rows' => '2', 'cols' => '80', 'placeholder'=> 'Share What you are doing...']) }}
-								                    {{ $errors->first('body', '<span class="error">:message</span>') }}
-							                    </div>						                
-
-							                <!-- Post Status Field -->						            
-							                   <div class="col-md-offset-8"> 
-								                   <div class="postStatusBtnArea">
-								                     {{ Form::submit('Post', ['class' => 'btn btn-primary btn-xs', 'id'=>'postStatusBtn']) }}
-								                   </div>
-							                   </div>
-							                    
-							                </div>
-							               </div>
-							            
-						    {{ Form::close() }}	
-						 
-					  
-		     	   </div>
-		     </div>
-
-		     <div class="row">  
-			     <div class="col-md-12">
-				     			@include('pages.partials.statuses')
-			     </div>
-			  </div>
-		 </div>
+	 <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <!--login modal-->
+                         
+                           <div class="form-top">
+                                <div class="form-top-left">
+                                     {{ HTML::image('img/logo.png','Logo',  array('class' => 'logo_small')) }}                                  
+                                </div>
+                                <div class="form-top-right">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                            </div>
+                            <div class="form-bottom">
+                               {{ Form::open(['route' => 'login_path']) }}
+                                    <div class="form-group">
+                                        <label class="sr-only" for="email">Email</label>
+                                        <input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="password">Password</label>
+                                        <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
+                                    </div>
+                                    <button type="submit" class="btn">Sign in!</button>
+                                </form>
+                            </div>
+                     </div>                         
+                 </div>
+             </div>
+         </div>     
+    </header>
 
 
-
- 
-
-
-
-
-	 
-
-	@endif
-@stop
-
+    @stop

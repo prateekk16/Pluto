@@ -1,0 +1,13 @@
+.avatar_tiny{
+	width: 13px;
+}
+
+.left-10{
+	position: relative;
+	right: 20px;
+}
+.avatar_sidebar{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

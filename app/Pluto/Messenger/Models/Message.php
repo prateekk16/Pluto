@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Pluto\Messenger\Events\GlobalMessagePublished;
 use Laracasts\Commander\Events\EventGenerator;
+use Crypt;
 
 class Message extends \Eloquent
 {
@@ -38,6 +39,9 @@ class Message extends \Eloquent
     protected $rules = [
         'body' => 'required',
     ];
+
+   
+
 
     /**
      * Thread relationship
@@ -97,6 +101,9 @@ class Message extends \Eloquent
      * @return [type]       [description]
      */
     public static function publish($user_id,$body,$global){
+         
+
+          $body = Crypt::encrypt($body);
 
           $message = new static(compact('user_id','body','global'));
 
@@ -104,4 +111,13 @@ class Message extends \Eloquent
         
           return $message;
     }
+
+   /**
+    * Decrypt Messages
+    * @param  [type] $msg [Encrypted Message]
+    * @return [type]      [Decrypted Message]
+    */
+   public static function decryptMain($msg){
+     return Crypt::decrypt($msg);
+   }
 }

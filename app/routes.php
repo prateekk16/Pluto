@@ -19,7 +19,7 @@
 
 
 
-
+Route::when('*', 'csrf', ['post', 'put', 'patch']);
 
 # Home
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
@@ -57,6 +57,7 @@ Route::group(['prefix' => 'messages', 'before'=>'auth'], function () {
     Route::post('/', ['as' => 'messages.storeGlobal', 'uses' => 'MessagesController@storeGlobal']);
     Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessagesController@show']);
     Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update']);
+    Route::post('decrypt-message', ['as' => 'decrypt-message', 'uses' => 'MessagesController@decrypt']);
 });
 
 

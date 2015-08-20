@@ -49,6 +49,10 @@ function getGlobalMessages(){
 	
 }
 
+function decryptMessage($msg){
+   return Message::decryptMain($msg);
+}
+
 function createThreads(){
 	$thread = Thread::create(
             [
@@ -135,5 +139,7 @@ function getUpdateObject($type,$user,$postId){
 				 ->where('post_id',$postId)->first();	
 
 }
+
+
 
 

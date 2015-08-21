@@ -1,13 +1,45 @@
 .avatar_tiny{
-	width: 13px;
+	width: 18px;
+        
 }
+.avatar{
+	width: 150px;
+	
+}
+.avatar_filter{
+	 -webkit-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
+        -moz-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
+        box-shadow:      -1px 10px 44px -7px rgb(78, 148, 169) ;     
 
-.left-10{
-	position: relative;
-	right: 20px;
 }
+/*0,0,0,0.65*/
+
 .avatar_sidebar{
 	display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
+.change_dp_sidebar{
+	font-size: 10px;
+	    position: relative;
+    margin-top: -47px;
+}
+
+  .user_nav_status{
+    position: relative;    
+    font-size: 14px;    
+    font-family: 'Poiret One', cursive;
+    color: #B7B7B7; 
+  }
+
+  .status-sidebar{
+  	width: 150px;
+  	word-wrap: break-word;
+  	text-align: center;
+  	max-height: 61px;
+  }
+
+  .status-body{
+  	margin-bottom: 5px;
+  }

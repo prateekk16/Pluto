@@ -1,8 +1,17 @@
  $(document).ready(function(){
-     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
 
-     $('ul.pagination:visible').hide();
- 
+    $('[data-toggle=offcanvas]').click(function() {
+    $(this).toggleClass('visible-xs text-center');
+    $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
+    $('.row-offcanvas').toggleClass('active');
+    $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
+    $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
+    $('#btnShow').toggle();
+});
+
+
+     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+     $('ul.pagination:visible').hide(); 
        $('.news-items-sidebar').jscroll({
         debug: true,
         autoTrigger: true,
@@ -12,8 +21,19 @@
             $('ul.pagination:visible').hide();
         }
     });
+
         
     });
+
+$( ".profile-pic-sidebar" ).hover(
+          function() {
+            $(".change_dp_sidebar").fadeIn();
+          }, function() {
+            $(".change_dp_sidebar").fadeOut();
+          }
+        );
+
+
 
 
 //  jQuery(window).ready(function(){
@@ -154,7 +174,7 @@ $("#uploadAvatar").submit(function(event) {
                 $(".uploadAvatar-btn-text").text("Upload");
                 $('.change-dp-modal').modal('hide');
                 d = new Date();
-                $(".avatar").attr('src', response + d.getTime());
+                $(".avatar_sidebar").attr('src', response + d.getTime());
             },
             error: function() {}
         });

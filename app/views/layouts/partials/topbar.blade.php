@@ -1,4 +1,4 @@
-top nav -->
+
 <div class="navbar navbar-blue navbar-static-top">
     <div class="navbar-header">
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -7,7 +7,7 @@ top nav -->
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         </button>
-        <a href="/" class="navbar-brand logo">b</a>
+        <a href="/" class="navbar-brand logo">c</a>
     </div>
     <nav class="collapse navbar-collapse" role="navigation">
         <form class="navbar-form navbar-left">
@@ -31,19 +31,12 @@ top nav -->
         </ul>
         <ul class="nav navbar-nav navbar-right left-10">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   {{ HTML::image(checkUserAvatar($currentUser->email,'small'),'avatar',  array('class' => 'avatar_tiny avatar_filter')) }}
+                </a>
                 <ul class="dropdown-menu">
                     <li><a href="#"><i class="fa fa-cog"> Settings </i> </a></li> 
-                    <li>
-                      <a href="#" data-toggle="modal" data-target=".change-dp-modal">
-                         @if(file_exists('img/users/'.$currentUser->email.'/avatar_small.jpg'))            
-                           {{ HTML::image('img/users/'.$currentUser->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar_tiny')) }}
-                         @else
-                           {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar_tiny')) }}
-                         @endif
-                         Change DP
-                       </a>
-                    </li>
+                   
 
                     <li class="divider"></li> 
                     <li> <a href="{{ URL::to('logout') }}"> <i class="fa fa-power-off"> Sign out </i></a></li> 
@@ -53,7 +46,7 @@ top nav -->
         </ul>
     </nav>
 </div>
-<!-- /top nav -->
+
 
 
 
@@ -64,19 +57,17 @@ top nav -->
 <div class="modal fade change-dp-modal" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+              {{-- HEADER --}}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="gridSystemModalLabel">Change Your Profile Picture...</h4>
       </div>
+               {{-- BODY --}}
       <div class="modal-body" >
         <div class="container-fluid" data-provides="fileinput">
           <div class="row">
             <div class="col-md-4 col-md-offset-4 fileinput-preview thumbnail" data-trigger="fileinput"> 
-                  @if(file_exists('img/users/'.$currentUser->email.'/avatar_med.jpg'))            
-                     {{ HTML::image('img/users/'.$currentUser->email.'/avatar_med.jpg','avatar') }}
-                  @else
-                   {{ HTML::image('img/blank_med.jpg','avatar') }}
-                  @endif
+                   {{ HTML::image(checkUserAvatar($currentUser->email,'med'),'avatar',  array('class' => 'avatar')) }}
                   
             </div>            
           </div>
@@ -87,25 +78,22 @@ top nav -->
                     
                      <label for="choose-avatar">
                         <span class="choose-avatar-btn btn btn-primary fileinput-new" style="width :155px;"> Choose a Picture </span>
-                     </label>
-                     
+                     </label>                     
 
                      <a href="#" class="btn btn-primary fileinput-exists" style="width :155px;" data-dismiss="fileinput">Remove</a>
 
                      <div id="progressbox" style="display: none;"><div id="progressbar"></div ><div id="statustxt">0%</div></div>
-
                   </div>
-
-
-                
           </div>  
         </div>
       </div>
+           {{-- FOOTER --}}
       <div class="modal-footer">
       <button type="submit" class="btn btn-primary" id="uploadAvatar-btn"><span class="uploadAvatar-btn-text"> Upload </span></button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        
       </div>
+
       {{ Form::close() }}
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal
+    </div>
+  </div>
+</div>

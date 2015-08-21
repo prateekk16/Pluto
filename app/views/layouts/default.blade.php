@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>@yield('meta-title', 'Cliqoid')</title>
 
-
+    <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
    
    
      @section('header')
@@ -29,9 +31,12 @@
     <div class="wrapper">
       <div class="box">
          <div class="row row-offcanvas row-offcanvas-left">
+          <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar"> 
              @include('layouts/partials/sidebar')
+          </div> 
+            
 
-             <!-- main right col -->
+            
             <div class="column col-sm-10 col-xs-11" id="main">
                 @include('layouts/partials/topbar')
 
@@ -51,6 +56,7 @@
         {{ HTML::script('js/sweetalert2.min.js') }}
         {{ HTML::script('js/bundle.js') }}
         {{ HTML::script('js/profile.js') }}
+        {{ HTML::script('js/jasny.min.js') }}
 
    
 

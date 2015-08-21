@@ -81,7 +81,7 @@ class ProfilePictureController extends BaseController {
                                      $constraint->upsize();
                                      })->save($parentDir.'avatar_small.jpg'); 
 
-                       return './img/users/'.Auth::user()->email.'/avatar_small.jpg?';
+                       return './img/users/'.Auth::user()->email.'/avatar_med.jpg?';
                     }else{
                     	return "Error";
                     }  

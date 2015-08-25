@@ -17,7 +17,7 @@
         {{ HTML::style('css/bootstrap.min.css') }}
         {{ HTML::style('css/profile.css') }}
         {{ HTML::style('css/profile-elements.css') }}
-       
+       {{ HTML::style('css/selectize.bootstrap3.css') }}
         {{ HTML::style('css/sweetalert2.css') }}
         {{ HTML::style('css/font-awesome.min.css') }}
         
@@ -53,7 +53,7 @@
 
    
     <script src="js/jquery-1.11.1.min.js"></script>
-        
+
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/sweetalert2.min.js') }}
         {{ HTML::script('js/bundle.js') }}
@@ -61,6 +61,7 @@
         {{ HTML::script('js/jasny.min.js') }}
          {{ HTML::script('js/pusher.js') }}
         {{ HTML::script('js/myPusher.js') }}
+        {{ HTML::script('js/selectize.min.js') }}
         {{ HTML::script('js/jscroll.min.js') }}
 
    

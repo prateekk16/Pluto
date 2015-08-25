@@ -40,23 +40,28 @@
             <div class="column col-sm-10 col-xs-11" id="main">
                 @include('layouts/partials/topbar')
 
-                <div class="padding">
-                    <div class="full col-sm-9">
+                {{-- <div class="padding"> --}}
+                   
                         @yield('content')
-                    </div>
-                </div>
+                    
+               {{--  </div> --}}
+
             </div>
          </div>
      </div>
     </div>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+   
     <script src="js/jquery-1.11.1.min.js"></script>
+        
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/sweetalert2.min.js') }}
         {{ HTML::script('js/bundle.js') }}
         {{ HTML::script('js/profile.js') }}
         {{ HTML::script('js/jasny.min.js') }}
+         {{ HTML::script('js/pusher.js') }}
+        {{ HTML::script('js/myPusher.js') }}
+        {{ HTML::script('js/jscroll.min.js') }}
 
    
 

@@ -33,6 +33,10 @@ function getMyFriends(){
 	 return FriendRequest::MyFriends(Auth::user()->id);
 }
 
+function getMyFavourites($count){
+    return Auth::user()->favourites()->take($count)->get();
+}
+
 function getMyFriendsUpdatesRecent(){
 	 return Update::MyFriendsUpdatesRecent(Auth::user()->id);
 }

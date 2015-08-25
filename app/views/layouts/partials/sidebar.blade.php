@@ -31,9 +31,9 @@
     <li>
      <a href="javascript:;" data-toggle="collapse" data-target="#status"><i class="fa fa-fw fa-quote-left"></i> Status <i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="status" class="collapse sidebar-ul">
-        <li>
-              {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus']) }} 
-                                <!-- Status Field -->
+        <li style="list-style-type: none;">
+              {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus', 'class'=>'form-horizontal']) }} 
+                                <!-- Status Field -->                              
                                        
                                          <div class="publishStatusArea">
                                             <div class="form-group">

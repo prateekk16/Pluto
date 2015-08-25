@@ -42,11 +42,17 @@ Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusControl
 Route::post('profilePicture', ['as' => 'profile_picture', 'uses' =>'ProfilePictureController@store']);
 Route::post('AddFriendsEmail', ['as' => 'sendFriendEmailRequest', 'uses' =>'FriendRequestController@create']);
 
+Route::get('searchFriend/autocomplete', ['as' => 'search_friend.autocomplete', 'uses' => 'SearchFriendController@autocomplete']);
+
 #Event for Friend Request Reponse
 Route::post('respond-to-friend-request', ['as' => 'respond_to_friend_request', 'uses' =>'FriendRequestController@store']);
 
 #Event for Status Update
 Route::post('news-update-check-friendship', ['as' => 'news-update-check-friendship', 'uses' =>'UpdatesController@show']); 
+
+
+#Test
+Route::get('search/autocomplete', 'SearchFriendController@autocomplete');
 
 
 

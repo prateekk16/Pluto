@@ -1,163 +1,420 @@
 @extends('layouts.default')
-
 @section('content')
+<!-- content -->
 
-<!-- content -->                      
-                      	<div class="row">
-                          
-                         <!-- main col left --> 
-                         <div class="col-sm-5">
-                           
-                              <div class="panel panel-default">
-                                <div class="panel-thumbnail"><img src="/assets/example/bg_5.jpg" class="img-responsive"></div>
-                                <div class="panel-body">
-                                  <p class="lead">Urbanization</p>
-                                  <p>45 Followers, 13 Posts</p>
-                                  
-                                  <p>
-                                    <img src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s28" width="28px" height="28px">
-                                  </p>
-                                </div>
-                              </div>
+<div class="full col-sm-9" id="content-holder">
 
-                           
-                              <div class="panel panel-default">
-                                <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Bootstrap Examples</h4></div>
-                                  <div class="panel-body">
-                                    <div class="list-group">
-                                      <a href="http://bootply.com/tagged/modal" class="list-group-item">Modal / Dialog</a>
-                                      <a href="http://bootply.com/tagged/datetime" class="list-group-item">Datetime Examples</a>
-                                      <a href="http://bootply.com/tagged/datatable" class="list-group-item">Data Grids</a>
-                                    </div>
-                                  </div>
-                              </div>
-                           
-                              <div class="well"> 
-                                   <form class="form-horizontal" role="form">
-                                    <h4>What's New</h4>
-                                     <div class="form-group" style="padding:14px;">
-                                      <textarea class="form-control" placeholder="Update your status"></textarea>
-                                    </div>
-                                    <button class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
-                                  </form>
-                              </div>
-                           
-                              <div class="panel panel-default">
-                                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>More Templates</h4></div>
-                                  <div class="panel-body">
-                                    <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Free @Bootply</a>
-                                    <div class="clearfix"></div>
-                                    There a load of new free Bootstrap 3 ready templates at Bootply. All of these templates are free and don't require extensive customization to the Bootstrap baseline.
-                                    <hr>
-                                    <ul class="list-unstyled"><li><a href="http://www.bootply.com/templates">Dashboard</a></li><li><a href="http://www.bootply.com/templates">Darkside</a></li><li><a href="http://www.bootply.com/templates">Greenfield</a></li></ul>
-                                  </div>
-                              </div>
-                           
-                              <div class="panel panel-default">
-                                <div class="panel-heading"><h4>What Is Bootstrap?</h4></div>
-                               	<div class="panel-body">
-                                	Bootstrap is front end frameworkto build custom web applications that are fast, responsive &amp; intuitive. It consist of CSS and HTML for typography, forms, buttons, tables, grids, and navigation along with custom-built jQuery plug-ins and support for responsive layouts. With dozens of reusable components for navigation, pagination, labels, alerts etc..                          </div>
-                              </div>
+<div class="row">
+  
+  <!-- main col left -->
+  <div class="col-sm-7">    
+    
+    <div class="well">
+      <!-- <form class="form-horizontal" role="form">
+        <h4>What's New</h4>
+        <div class="form-group" style="padding:14px;">
+          <textarea class="form-control" placeholder="Update your status"></textarea>
+        </div>
+        <button class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
+      </form> -->
+     <div class="col-md-12 main-content">
 
-                           		
-                           
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#global">Global</a></li>
+        <li><a data-toggle="tab" href="#groups">Groups</a></li>
+        <li><a data-toggle="tab" href="#private">Private</a></li>        
+      </ul>
+
+      <div class="tab-content">
+        <input type="text" id="decrypt-message" style="display:none;" value="{{URL::to('messages/decrypt-message')}}"/>
+
+   <!-- ************************GLOBAL CHAT TAB********************************* -->
+
+        <div id="global" class="tab-pane fade in active">
+          <div class="global-window">
+            @if(getGlobalMessages()->count() > 0)
+            @foreach(getGlobalMessages() as $message)
+            
+            @if($message->user->id != $currentUser->id)
+            <div class="row">
+                 <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;">
+                  <a href="{{ URL::to('/'.$currentUser->username ) }}">
+                    <img src="{{ checkUserAvatar($currentUser->email,'small') }}" class="chat_img img-responsive"/>
+                    <div class="tooltip">  </div>
+                  </a>
+                 </div>
+
+              <div class="col-md-7 pull-right Area">
+                
+                <div class="col-md-12" style="padding:0px;">
+                  <div class="col-md-10 col-md-offset-2 pull-right text-left chat_username">  {{$message->user->username}}
+                  </div>
+                   <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  {{$message->created_at->diffForHumans()}}
+                  </div>
+                   <div class="col-md-12 pull-left text-center chat_text">
+                     {{ decryptMessage($message->body) }}
+                   </div>
+                
+             
+                </div>
+               
+              </div>
+
+            </div>
+            @else
+            <div class="row">
+              <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">
+                  <a href="{{ URL::to('/'.$currentUser->username ) }}">
+                    <img src="{{ checkUserAvatar($currentUser->email,'small') }}" class="chat_img img-responsive"/>
+                    <div class="tooltip">  </div>
+                  </a>
+              </div>
+
+              <div class="col-md-7 pull-left Area-left">
+                
+                <div class="col-md-12" style="padding:0px;">
+                  <div class="col-md-10 col-md-offset-2 pull-left text-left chat_username">  Me
+                  </div>
+                   <div class="col-md-8 col-md-offset-4 pull-left text-left chat_time">  {{$message->created_at->diffForHumans()}}
+                  </div>
+                   <div class="col-md-12 pull-right text-center chat_text_left">
+                     {{ decryptMessage($message->body) }}
+                   </div>
+                
+             
+                </div>
+               
+              </div>
+             
+            </div>
+            @endif
+            @endforeach
+            @else
+            <div class="row">
+              <div class="global-inactive col-md-12">
+                <p>Hmmm, Global seems to be inactive at the moment...</p>
+              </div>
+            </div>
+            @endif
+          </div><!-- /global-window -->
+
+        </div><!-- /global -->
+
+
+   <!-- ************************GROUP CHAT TAB********************************* -->
+
+                <div id="groups" class="tab-pane fade">
+                  <h3>group</h3>
+                  <p>how are you</p>
+                </div>
+
+
+   <!-- ************************PRIVATE CHAT TAB********************************* -->
+
+                <div id="private" class="tab-pane fade">
+                  <h3>private</h3>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                </div>
+                
+              </div>
+              
+            </div><!--/main-content-->
+            
+           </div> <!--/well-->
+     </div><!--/col-sm-7-->
+            <!-- main col right -->
+     <div class="col-sm-5">
+            <div class="fixed">  
+
+    <!-- ************************SEND FRIEND REQUEST********************************* -->
+
+            <div class="well">
+              <div class="row">
+                <div class="col-md-12">
+                   {{ Form::open(['route' => 'sendFriendEmailRequest', 'id' => 'sendFriendEmailRequest']) }}
+                      <div class="addFriendArea">
+                        <div class="form-group">
+                          <input type="textbox" style="display: none;" id="userEmail" value="{{ $currentUser->email }}"/>
+                          <div class="col-md-12">
+                            {{ Form::label('addFriend', 'Send a Friend Request...') }}
+                            {{ Form::email('email', null, ['class' => 'form-control add-friend-email', 'required' => 'required','placeholder'=> 'Friend\'s email address']) }}
+                            {{ $errors->first('body', '<span class="error">:message</span>') }}
                           </div>
-                          
-                          <!-- main col right -->
-                          <div class="col-sm-7">
-                               
-                                <div class="well"> 
-                                   <form class="form">
-                                    <h4>Sign-up</h4>
-                                    <div class="input-group text-center">
-                                    <input type="text" class="form-control input-lg" placeholder="Enter your email address">
-                                      <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="button">OK</button></span>
-                                    </div>
-                                  </form>
-                                </div>
-                      
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Bootply Editor &amp; Code Library</h4></div>
-                                  <div class="panel-body">
-                                    <p><img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">The Bootstrap Playground</a></p>
-                                    <div class="clearfix"></div>
-                                    <hr>
-                                    Design, build, test, and prototype using Bootstrap in real-time from your Web browser. Bootply combines the power of hand-coded HTML, CSS and JavaScript with the benefits of responsive design using Bootstrap. Find and showcase Bootstrap-ready snippets in the 100% free Bootply.com code repository.
-                                  </div>
-                               </div>
-                            
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Stackoverflow</h4></div>
-                                  <div class="panel-body">
-                                    <img src="//placehold.it/150x150" class="img-circle pull-right"> <a href="#">Keyword: Bootstrap</a>
-                                    <div class="clearfix"></div>
-                                    <hr>
-                                    
-                                    <p>If you're looking for help with Bootstrap code, the <code>twitter-bootstrap</code> tag at <a href="http://stackoverflow.com/questions/tagged/twitter-bootstrap">Stackoverflow</a> is a good place to find answers.</p>
-                                    
-                                    <hr>
-                                    <form>
-                                    <div class="input-group">
-                                      <div class="input-group-btn">
-                                      <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
-                                      </div>
-                                      <input type="text" class="form-control" placeholder="Add a comment..">
-                                    </div>
-                                    </form>
-                                    
-                                  </div>
-                               </div>
-
-                               <div class="panel panel-default">
-                                 <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>Portlet Heading</h4></div>
-                                  <div class="panel-body">
-                                    <ul class="list-group">
-                                    <li class="list-group-item">Modals</li>
-                                    <li class="list-group-item">Sliders / Carousel</li>
-                                    <li class="list-group-item">Thumbnails</li>
-                                    </ul>
-                                  </div>
-                               </div>
-                            
-                               <div class="panel panel-default">
-                                <div class="panel-thumbnail"><img src="/assets/example/bg_4.jpg" class="img-responsive"></div>
-                                <div class="panel-body">
-                                  <p class="lead">Social Good</p>
-                                  <p>1,200 Followers, 83 Posts</p>
-                                  
-                                  <p>
-                                    <img src="https://lh6.googleusercontent.com/-5cTTMHjjnzs/AAAAAAAAAAI/AAAAAAAAAFk/vgza68M4p2s/s28-c-k-no/photo.jpg" width="28px" height="28px">
-                                    <img src="https://lh4.googleusercontent.com/-6aFMDiaLg5M/AAAAAAAAAAI/AAAAAAAABdM/XjnG8z60Ug0/s28-c-k-no/photo.jpg" width="28px" height="28px">
-                                    <img src="https://lh4.googleusercontent.com/-9Yw2jNffJlE/AAAAAAAAAAI/AAAAAAAAAAA/u3WcFXvK-g8/s28-c-k-no/photo.jpg" width="28px" height="28px">
-                                  </p>
-                                </div>
-                              </div>
-                            
-                          </div>
-                       </div><!--/row-->
-                      
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <a href="#">Twitter</a> <small class="text-muted">|</small> <a href="#">Facebook</a> <small class="text-muted">|</small> <a href="#">Google+</a>
+                          <div class="col-md-offset-9 col-md-3">
+                            <div class="postStatusBtnArea">
+                              <button type="submit" class="btn btn-primary btn-xs"
+                              id="addFriendsEmail">
+                              Send
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      
-                        <div class="row" id="footer">    
-                          <div class="col-sm-6">
-                            
-                          </div>
-                          <div class="col-sm-6">
-                            <p>
-                            <a href="#" class="pull-right">©Copyright 2013</a>
-                            </p>
-                          </div>
+                      </div>
+                      {{ Form::close() }}
+                </div>
+              </div>
+            </div>
+
+       <!-- ************************RECENT UPDATES********************************* -->
+              
+              <div class="well" style="max-height: 240px;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="NavRecentUpdates">
+                      <div class="form-group">
+                        <div class="col-md-12">
+                          {{ Form::label('', 'Recent Updates: (last one hour) &nbsp; ') }}
                         </div>
-                      
-                      <hr>
-                      
-                      <h4 class="text-center">
-                      <a href="http://bootply.com/96266" target="ext">Download this Template @Bootply</a>
-                      </h4>
+                        <?php  $updates = getMyFriendsUpdatesRecent();  ?>
+                        @if(sizeof($updates) == 0)
+                        <div class="col-md-6 col-md-offset-3 sidebar-no-updates"> No Updates </div>
+                        @else
+                        <div class="col-md-12 news-items-sidebar">
+                          @foreach( $updates as $update)
+                          <?php  $user = getUser($update->user_id); ?>
+                          @if(checkFriendship(Auth::user()->id, $user->id))
+                          <div class="sidebar-news-update">
+                            {{-- STATUS --}}
+                            @if($update->type="status")
+                            {{ HTML::image(checkUserAvatar($user->email,'small'),'avatar',  array('class' => 'avatar_tiny img-circle')) }}
+                            <a href="{{ URL::to('/'.$user->username ) }}">
+                              {{ $user->info['firstname'].' '.$user->info['lastname'] }}
+                            </a>
+                            <small style="float:right;"> {{ $update->created_at->diffForHumans() }} </small>
+                            <div class=" col-md-offset-2 recent-updates-body-sidebar">
+                              @if(strlen(getStatusById($update->post_id)->body) > 90 )
+                              {{ substr(getStatusById($update->post_id)->body, 0, 90) }}... <small>Click to See More</small>
+                              @else
+                              {{ getStatusById($update->post_id)->body }}
+                              @endif
+                            </div>
+                            <hr style="height:1px;">
+                            @endif
+                            {{ $updates->links() }}
+                          </div>
+                          @endif
+                          @endforeach
+                        </div>
+                        @endif
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+  <!-- ************************FAVOURITE Friends********************************* -->
+              
+         <div class="well" >
+            Favourites
+                <div class="row">                                     
+                      <ul class="list-inline col-md-12" style="padding-top: 15px;;">
+                        <?php  $favs = getMyFavourites(5);  ?>
+                         @if(count($favs) !=0)
+
+                          
+                         @else                         
+
+                         <li class="col-md-3">
+                         <a href="#fav1" data-toggle="modal">
+                          <div class="favourite-box">                           
+                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
+                          </div>  
+                         </a>                         
+                         </li>
+
+                         <li class="col-md-3">
+                         <a href="#fav2" data-toggle="modal">
+                          <div class="favourite-box">
+                             
+                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
+                           
+                          </div>      
+                          </a>                     
+                         </li>
+
+                         <li class="col-md-3">
+                          <a href="#fav3" data-toggle="modal">
+                          <div class="favourite-box">
+                            
+                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
+                          
+                          </div> 
+                           </a>                          
+                         </li>
+
+                          <li class="col-md-3">
+                           <a href="#fav4" data-toggle="modal">
+                          <div class="favourite-box">
+                           
+                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
+                          
+                          </div>     
+                           </a>                      
+                         </li>
+
+
+                          
+
+
+                         @endif
                         
-                      <hr>
+                      </ul>
+                 
+                </div>
+        </div>
+              
+              </div><!--/col-sm-5-->
+            </div>
+              
+              
+              </div><!--/row-->
+              
+             </div><!--/full col-sm-9-->
+
+              
+      <!-- ************************STATIC FOOTER********************************* -->
+              
+<div class="navbar navbar-blue-bottom navbar-static-top">
+
+  <div class="padding-footer">
+    <div class="row">  
+      <!-- main col left -->
+      <div class="col-sm-7">
+          <div class="submit-text-area">
+            <div class="row">
+              <div class="col-md-2" style="padding-top:10px;">
+                <div class="send-global">
+                  <i class="fa fa-globe fa-lg"></i>
+                </div>
+                <div class="send-group" style="display:none;">
+                  
+                </div>
+                <div class="send-private" style="display:none;">
+                  
+                </div>
+                
+              </div><!-- /.col-md-2 -->
+
+              <div class="col-md-3" style="padding-top:10px;">
+                <a href="#" class="send-attachments"> <i class="fa fa-picture-o fa-lg"></i> </a>
+                <a href="#" class="send-attachments"> <i class="fa fa-video-camera fa-lg"></i> </a>
+                <a href="#" class="send-attachments"> <i class="fa fa-picture-o fa-lg"></i> </a>
+
+              </div>
+              
+<!-- ************************SEND MESSAGE BOX********************************* -->
+             
+              <div class="col-md-7">
+                  {{Form::open(['route' => 'messages.storeGlobal', 'id'=>'sendGlobal' ])}}
+                  <div class="input-group">
+                    <input type="text" name="message" class="form-control global_message_body" placeholder="Type..." required="required">
+                    <span class="input-group-btn">
+                      {{ Form::submit('Send!', ['class' => 'btn btn-primary form-control global_send_button']) }}
+                      {{Form::close()}}                     
+                    </span>
+                  </div><!-- /input-group -->   
+              </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+          </div><!-- /.submit-text-area -->
+      </div><!-- /.col-sm-7 -->
+
+
+<!-- ************************COPYRIGHT************************** -->
+
+      <div class="col-sm-5">
+         <div class="navbar-text pull-right">
+           <h6 class="text-center">
+                  ©Copyright {{ date('Y') }}
+                  </h6>
+         </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>              
+             
+<!-- <div class="navbar navbar-inverse navbar-fixed-bottom custom-footer" role="navigation">
+  
+  <div class="container">
+    
+    <div class="navbar-text pull-left">
+       <h6 class="text-center">
+              ©Copyright {{ date('Y') }}
+              </h6>
+    </div>
+  </div>
+
+</div>  -->
+
+{{-- http://maxoffsky.com/code-blog/laravel-shop-tutorial-3-implementing-smart-search/ --}}
+
+
+<div class="modal" id="fav1">
+  <div class="modal-dialog">
+      <div class="modal-content">
+           <select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
+      </div>
+  </div>
+</div>
+
+<div class="modal" id="fav2">
+ <div class="modal-dialog">
+      <div class="modal-content">
+        {{ Form::open(['route' => 'search_friend.autocomplete', 'id'=>'search_friend1' ]) }}
+        <div class="modal-body">
+          <div class="input-group input-group-sm">
+                <input type="text" id="fav2" name="fav2" class="form-control" placeholder="Search..." required="required"  style="min-height: 46px;">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
+                       <i class="fa fa-search fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {{ Form::close() }}
+      </div>
+  </div>
+</div>
+
+<div class="modal" id="fav3">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" style="min-height: 46px;">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
+                       <i class="fa fa-search fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal" id="fav4">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" style="min-height: 46px;">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
+                       <i class="fa fa-search fa-2x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+  </div>
+</div>
+
+
 @stop

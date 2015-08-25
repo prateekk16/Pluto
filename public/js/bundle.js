@@ -10,7 +10,9 @@
 });
 
 
-     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+    $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+   $("html, body").animate({ scrollTop: $(document).height() - 50 }, "slow");
+
      $('ul.pagination:visible').hide(); 
        $('.news-items-sidebar').jscroll({
         debug: true,
@@ -141,6 +143,48 @@ $("#sendGlobal").submit(function(event) {
         });
     }
 });
+
+
+     $( "#q" ).autocomplete({
+      source: "search/autocomplete",
+      minLength: 3,
+      select: function(event, ui) {
+        $('#q').val("ui.item.value");
+      }
+    });
+
+
+
+
+
+/**
+ * Search a Friend
+ */
+
+$("#search_friend").submit(function(event) {
+    event.preventDefault();
+    var url = $(this).attr('action');
+    var dataString = 'name=' + $(".fav1").val();
+    
+    if ($(".fav1").val() != "") {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: dataString,
+            beforeSend: function(request) {
+                $(".search-friend-btn").attr("disabled", true);
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+            },
+            success: function(response) {   
+                alert(response);         
+                $(".search-friend-btn").attr("disabled", false);
+                $(".search-friend-btn").val("");
+            },
+            error: function() {}
+        });
+    }
+});
+
 
 
 

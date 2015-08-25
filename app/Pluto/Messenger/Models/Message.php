@@ -91,8 +91,8 @@ class Message extends \Eloquent
      */
     public static function getAllLatestGlobal()
     {
-        $rows =  self::latest('updated_at')->where('global','1')->take(10)->get();
-        return $rows->reverse();
+        return  self::latest('updated_at')->where('global','1')->take(10)->get();
+       // return $rows->reverse();
     }
 
     /**

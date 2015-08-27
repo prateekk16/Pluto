@@ -351,32 +351,24 @@
 {{-- http://maxoffsky.com/code-blog/laravel-shop-tutorial-3-implementing-smart-search/ --}}
 
 
+
 <div class="modal" id="fav1">
   <div class="modal-dialog">
-      <div class="modal-content">
-           <select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
+      <div class="modal-content">      
+          <input type="text" name="country" id="autocomplete"/>
       </div>
   </div>
 </div>
 
 <div class="modal" id="fav2">
- <div class="modal-dialog">
-      <div class="modal-content">
-        {{ Form::open(['route' => 'search_friend.autocomplete', 'id'=>'search_friend1' ]) }}
-        <div class="modal-body">
-          <div class="input-group input-group-sm">
-                <input type="text" id="fav2" name="fav2" class="form-control" placeholder="Search..." required="required"  style="min-height: 46px;">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
-                       <i class="fa fa-search fa-2x"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        {{ Form::close() }}
+  <div class="modal-dialog">
+      <div class="modal-content">      
+          <select id="searchbox" name="q" placeholder="Type a Friend's name..." class="form-control"></select>
       </div>
   </div>
 </div>
+
+
 
 <div class="modal" id="fav3">
   <div class="modal-dialog">

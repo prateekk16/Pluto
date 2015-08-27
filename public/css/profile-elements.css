@@ -217,3 +217,5 @@ text-align: center;
     background-color: rgba(52, 126, 136, 1);
     cursor: pointer;
 }
+
+.selectize-dropdown { z-index: 9999; }

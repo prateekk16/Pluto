@@ -10,4 +10,9 @@ class PagesController extends BaseController {
 		return Auth::check() ?  View::make('pages.index2') :  View::make('pages.index');		
 		 
 	}
+
 }
+
+?>
+
+	

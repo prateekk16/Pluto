@@ -94,7 +94,7 @@ $( ".profile-pic-sidebar" ).hover(
                             callback();
                         },
                         success: function(res) { 
-                          //  console.log(res.data);
+                            console.log(res.data);
                             if(res.data == "")
                                 swal({   html:     '<p style="position:relative; top:20px;">Friend List is Empty :( </p> ' });
                             else                                  

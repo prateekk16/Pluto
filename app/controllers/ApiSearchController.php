@@ -34,15 +34,18 @@ class ApiSearchController extends BaseController {
 
 	public function friends($user)
 	{
+	
 		foreach ($user as $key => & $item) {
 			//$email = $u['user']['email'];
 			if( checkFriendship($item['user_id'] , Auth::user()->id) == 0 ){
 				$item['check'] = 'Not Friends';
-				 unset($user[$key]);
+				unset($user[$key]);
+			}else{
+				$item['check'] = 'Friends';
 			}
 		}
-
-		return $user;	
+		
+		return array_values($user);	
 	}
 
 
@@ -66,9 +69,7 @@ class ApiSearchController extends BaseController {
 
 			$user = $this->friends($user);
 
-			//$user = $this->appendValue($user,'check');
-	        
-		 	// $user->statuses()->with('user')->latest()->get();				
+			//$user = $this->appendValue($user,'check');  
 
 			return Response::json(array(
 				'data'=>$user

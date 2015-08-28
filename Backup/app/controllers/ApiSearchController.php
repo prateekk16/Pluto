@@ -1,7 +1,6 @@
 <?php
 
 use Pluto\Users\UserInfo;
-use Pluto\Users\User;
 class ApiSearchController extends BaseController {
 
 	/**
@@ -14,40 +13,10 @@ class ApiSearchController extends BaseController {
         return View::make('apisearches.index');
 	}
 
-	/**
-	 * [appendValue description]
-	 * @param  [type] $data    [description]
-	 * @param  [type] $type    [description]
-	 * @param  [type] $element [description]
-	 * @return [type]          [description]
-	 */
-	public function appendValue($data,$element)
-	{
-		// operate on the item passed by reference, adding the element and type
-		foreach ($data as $key => & $item) {
-
-			  $id = 	$item['user_id'];		
-			  $item[$element] = checkFriendship($id , Auth::user()->id );
-		}
-		return $data;		
-	}
-
-	public function friends($user)
-	{
-		foreach ($user as $key => & $item) {
-			//$email = $u['user']['email'];
-			if( checkFriendship($item['user_id'] , Auth::user()->id) == 0 ){
-				$item['check'] = 'Not Friends';
-				 unset($user[$key]);
-			}
-		}
-
-		return $user;	
-	}
-
-
 	public function friendSearch()
 	{
+
+			
 
 		    // Retrieve the user's input and escape it
 			$query = e(Input::get('q',''));
@@ -59,20 +28,26 @@ class ApiSearchController extends BaseController {
 
 			$user = UserInfo::where('firstname','like','%'.$query.'%')
 							->orWhere('lastname','like','%'.$query.'%')
-							->with('user')
 							->orderBy('firstname','asc')
-							->take(6)
+							->take(5)
 							->get()->toArray();
 
-			$user = $this->friends($user);
 
-			//$user = $this->appendValue($user,'check');
-	        
-		 	// $user->statuses()->with('user')->latest()->get();				
+			
+
+			
+
+			// Normalize data
+			// Add type of data to each item of each set of results
+			// Merge all data into one array
+			//$data = array_merge($user);
 
 			return Response::json(array(
 				'data'=>$user
 			));
+
+
+
 
 	}
 

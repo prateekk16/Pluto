@@ -15,6 +15,7 @@ class CreateNewsUpdatesTable extends Migration {
 		Schema::create('news_updates', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->enum('type',array('status','post','friends'));
 			$table->integer('post_id');
 			$table->timestamps();

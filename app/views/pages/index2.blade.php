@@ -2,6 +2,15 @@
 @section('content')
 <!-- content -->
 
+<style>
+.selectize-dropdown-content{
+       overflow-y: auto;
+       max-height: none; 
+}
+
+</style>
+
+
 <div class="full col-sm-9" id="content-holder">
 
 <div class="row">
@@ -215,53 +224,41 @@
                          @else                         
 
                          <li class="col-md-3">
-                         <a href="#fav1" data-toggle="modal">
-                          <div class="favourite-box">                           
-                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
-                          </div>  
-                         </a>                         
-                         </li>
-
-                         <li class="col-md-3">
-                         <a href="#fav2" data-toggle="modal">
-                          <div class="favourite-box">
-                             
-                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
-                           
-                          </div>      
-                          </a>                     
-                         </li>
-
-                         <li class="col-md-3">
-                          <a href="#fav3" data-toggle="modal">
-                          <div class="favourite-box">
-                            
-                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
-                          
-                          </div> 
-                           </a>                          
+                           <a href="#fav1" data-toggle="modal">
+                            <div class="favourite-box">                           
+                              <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
+                            </div>  
+                           </a>                         
                          </li>
 
                           <li class="col-md-3">
-                           <a href="#fav4" data-toggle="modal">
-                          <div class="favourite-box">
-                           
-                            <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>
-                          
-                          </div>     
-                           </a>                      
+                           <a href="#fav1" data-toggle="modal">
+                            <div class="favourite-box">                           
+                              <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
+                            </div>  
+                           </a>                         
                          </li>
 
+                          <li class="col-md-3">
+                           <a href="#fav1" data-toggle="modal">
+                            <div class="favourite-box">                           
+                              <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
+                            </div>  
+                           </a>                         
+                         </li>
 
-                          
+                          <li class="col-md-3">
+                           <a href="#fav1" data-toggle="modal">
+                            <div class="favourite-box">                           
+                              <i class="fa fa-plus-square fa-lg" style="position: relative;top: 6px;"></i>                           
+                            </div>  
+                           </a>                         
+                         </li>
 
-
-                         @endif
-                        
-                      </ul>
-                 
-                </div>
-        </div>
+                         @endif                        
+                      </ul>                 
+                </div><!--/row-->
+        </div><!--/well-->
               
               </div><!--/col-sm-5-->
             </div>
@@ -324,89 +321,29 @@
       <div class="col-sm-5">
          <div class="navbar-text pull-right">
            <h6 class="text-center">
-                  ©Copyright {{ date('Y') }}
+                  ©Copyright {{ date('Y') }}                 
                   </h6>
          </div>
       </div>
 
 
-    </div>
-  </div>
-
-</div>              
+    </div><!-- /.row -->
+  </div><!-- /.padding-footer -->
+</div><!-- /.navbar -->              
              
-<!-- <div class="navbar navbar-inverse navbar-fixed-bottom custom-footer" role="navigation">
-  
-  <div class="container">
-    
-    <div class="navbar-text pull-left">
-       <h6 class="text-center">
-              ©Copyright {{ date('Y') }}
-              </h6>
-    </div>
-  </div>
 
-</div>  -->
-
-{{-- http://maxoffsky.com/code-blog/laravel-shop-tutorial-3-implementing-smart-search/ --}}
-
+<!-- ************************  MODAL WINDOW FOR FAVOURITE FRIEND  ************************** -->
 
 
 <div class="modal" id="fav1">
   <div class="modal-dialog">
       <div class="modal-content">      
-          <input type="text" name="country" id="autocomplete"/>
-      </div>
-  </div>
-</div>
-
-<div class="modal" id="fav2">
-  <div class="modal-dialog">
-      <div class="modal-content">      
-          <select id="searchbox" name="q" placeholder="Type a Friend's name..." class="form-control"></select>
+         <select autofocus id="favourite-friend"  placeholder="Type a Friend's name..." class="form-control">  
       </div>
   </div>
 </div>
 
 
-
-<div class="modal" id="fav3">
-  <div class="modal-dialog">
-      <div class="modal-content">
-        
-        <div class="modal-body">
-          <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" style="min-height: 46px;">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
-                       <i class="fa fa-search fa-2x"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-      </div>
-  </div>
-</div>
-
-<div class="modal" id="fav4">
-  <div class="modal-dialog">
-      <div class="modal-content">
-        
-        <div class="modal-body">
-          <div class="input-group input-group-sm">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" style="min-height: 46px;">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit" style="height:46px;width:50px;">
-                       <i class="fa fa-search fa-2x"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-      </div>
-  </div>
-</div>
-
+<!-- ************************ EOF  ************************** -->
 
 @stop

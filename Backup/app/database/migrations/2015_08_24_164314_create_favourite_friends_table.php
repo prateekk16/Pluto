@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserInfoTable extends Migration {
+class CreateFavouriteFriendsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,13 @@ class CreateUserInfoTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_info', function(Blueprint $table) {
+		Schema::create('favourite_friends', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->index();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->string('firstname');
-			$table->string('lastname');	
-			$table->string('gender');
-			
+
+			$table->integer('friend_id')->unsigned()->index();
+			$table->foreign('friend_id')->references('id')->on('users')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}
@@ -32,7 +31,7 @@ class CreateUserInfoTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_info');
+		Schema::drop('favourite_friends');
 	}
 
 }

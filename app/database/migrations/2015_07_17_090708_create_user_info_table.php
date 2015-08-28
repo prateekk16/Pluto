@@ -19,7 +19,7 @@ class CreateUserInfoTable extends Migration {
 			$table->string('firstname');
 			$table->string('lastname');	
 			$table->string('gender');
-			
+			$table->string('image_url')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -3,7 +3,7 @@
 </ul>
 
 <ul class="nav hidden-xs" id="lg-menu">
-    <li class="active" style="padding-bottom: 25px;">
+    <li class="active">
         <div class="profile-pic-sidebar">
             <a href="{{ URL::to('/'.$currentUser->username ) }}">
             {{ HTML::image(checkUserAvatar($currentUser->email,'med'),'avatar',  array('class' => 'avatar_sidebar avatar_filter')) }}
@@ -27,15 +27,13 @@
 
 
     </li>
-    <li><a href="#stories"><i class="fa fa-fw fa-list"></i> Stories</a></li>
-
-    {{-- CHANGE STATUS --}}
+    <li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
     <li>
      <a href="javascript:;" data-toggle="collapse" data-target="#status"><i class="fa fa-fw fa-quote-left"></i> Status <i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="status" class="collapse sidebar-ul">
-        <li>
-              {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus']) }} 
-                                <!-- Status Field -->
+        <li style="list-style-type: none;">
+              {{ Form::open(['route' => 'statuses_path', 'id' => 'postStatus', 'class'=>'form-horizontal']) }} 
+                                <!-- Status Field -->                              
                                        
                                          <div class="publishStatusArea">
                                             <div class="form-group">
@@ -59,36 +57,8 @@
                             {{ Form::close() }} 
         </li>
       </ul>
-     </li>
 
-     {{-- INVITE FRIEND --}}
-     <li>
-     <a href="javascript:;" data-toggle="collapse" data-target="#invite"><i class="fa fa-fw fa-paper-plane-o"></i> Invite someone <i class="fa fa-fw fa-caret-down"></i></a>
-      <ul id="invite" class="collapse sidebar-ul">
-        <li>
-              {{ Form::open(['route' => 'sendFriendEmailRequest', 'id' => 'sendFriendEmailRequest']) }}    
-               <div class="addFriendArea">
-                   <div class="form-group">
-                     <input type="textbox" style="display: none;" id="userEmail" value="{{ $currentUser->email }}"/>
-                      <div class="col-md-12">                           
-                          {{ Form::email('email', null, ['class' => 'form-control add-friend-email status-body', 'required' => 'required','placeholder'=> 'Friend\'s email address']) }}
 
-                          {{ $errors->first('body', '<span class="error">:message</span>') }}
-                      </div>
-
-                      <div class="col-md-offset-8"> 
-                          <div class="postStatusBtnArea">
-                            <button type="submit" class="btn btn-primary btn-xs" 
-                                    id="addFriendsEmail">
-                              Send
-                             </button>
-                          </div>
-                      </div>                                                
-                    </div>
-               </div>
-            {{ Form::close() }} 
-        </li>
-      </ul>
      </li>
 
     <li><a href="#"><i class="glyphicon glyphicon-paperclip"></i> Saved</a></li>

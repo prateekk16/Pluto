@@ -1,11 +1,17 @@
+
+
 .avatar_tiny{
 	width: 18px;
         
 }
 .avatar{
-	width: 150px;
-	
+	width: 150px;	
 }
+
+.avatar_med{
+  width: 90px;
+}
+
 .avatar_filter{
 	 -webkit-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
         -moz-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
@@ -13,6 +19,13 @@
 
 }
 /*0,0,0,0.65*/
+.avatar_filter_black{
+   -webkit-box-shadow: -1px 10px 44px -7px rgb(31, 34, 35);
+        -moz-box-shadow: -1px 10px 44px -7px rgb(31, 34, 35);
+        box-shadow:     -1px 10px 44px -7px rgb(31, 34, 35) ;     
+
+}
+
 
 .navbar-blue-bottom{
 border-width: 0;

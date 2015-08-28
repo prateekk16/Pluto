@@ -20,18 +20,88 @@
         </form>
         <ul class="nav navbar-nav">
             <li>
-                <a href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                <a href="#"><i class="glyphicon glyphicon-home"></i> </a>
             </li>
+           
             <li>
-                <a href="#postModal" role="button" data-toggle="modal"><i class="glyphicon glyphicon-plus"></i> Post</a>
+                <a href="#"><i class="fa fa-bell"></i></a>
             </li>
-            <li>
-                <a href="#"><span class="badge">badge</span></a>
-            </li>
+
+            <li class="dropdown">
+              @if(  getFriendRequests()->count()  )
+
+              <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);">{{ getFriendRequests()->count() }} </span>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;" >
+                <i class="fa fa-users fa-users-freq" style="color: #FF6666"></i>
+              </a>
+             
+              <ul class="dropdown-menu total-friend-requests" style="width: 245px;background-color: #333333;">
+                <div class="friend-requests-append">
+                  @foreach( getFriendRequests() as $req)
+                  <div class="friend-request-{{ $req->sender_id }}">
+                    <li>
+                      <div class="freq-panel ">
+                        @if(file_exists('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg'))
+                        {{ HTML::image('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg','avatar',  array('class' => 'avatar_tiny')) }}
+                        @else
+                        {{ HTML::image('img/blank_small.jpg','avatar',  array('class' => 'avatar_tiny')) }}
+                        @endif
+                        
+                        {{ getUserObject($req->sender_id)->info->firstname }} {{ getUserObject($req->sender_id)->info->lastname }}
+                        
+                        <div class="new-friend-request-info">
+                          {{ getUserObject($req->sender_id)->info->gender }}
+                          
+                          <div class="accept-reject-friend-button ">
+                            <div class="replace-friends-button-{{ $req->sender_id }}">
+                              {{ Form::open(['route' => 'respond_to_friend_request', 'id' => 'respondToFriendRequest']) }}
+                              <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-{{ $req->sender_id }}">
+                              <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                              </button>
+                              <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-{{ $req->sender_id }}">
+                              <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                              </button>
+                              {{ Form::close() }}
+                            </div>
+                          </div>
+                          
+                        </div>
+                        
+                      </div>
+                    </li>
+                    <li class="divider"></li>
+                  </div>
+                  @endforeach
+                </div>
+              </ul><!-- /.total-friend-requests -->
+
+              @else
+
+              <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);"></span>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-users fa-users-freq"></i>
+            </a>
+            <ul class="dropdown-menu total-friend-requests" style="width: 245px;background-color: #333333;">
+              <div class="friend-requests-append">
+              </div>
+
+              <div class="no-new-req">
+               <li style="padding:5px;color:black;">No new requests</li>
+               <li class="divider"></li>
+              </div>
+              
+            </ul>
+            @endif
+
+
+          </li> <!-- /.dropdown -->
+
         </ul>
+
         <ul class="nav navbar-nav navbar-right left-10">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                   {{ $currentUser->info->firstname }} &nbsp;
                    {{ HTML::image(checkUserAvatar($currentUser->email,'small'),'avatar',  array('class' => 'avatar_tiny avatar_filter')) }}
                 </a>
                 <ul class="dropdown-menu">
@@ -43,6 +113,7 @@
                     
                 </ul>
             </li>
+            
         </ul>
     </nav>
 </div>

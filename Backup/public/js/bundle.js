@@ -1,17 +1,21 @@
  $(document).ready(function(){
 
     $('[data-toggle=offcanvas]').click(function() {
-    $(this).toggleClass('visible-xs text-center');
-    $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
-    $('.row-offcanvas').toggleClass('active');
-    $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
-    $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
-    $('#btnShow').toggle();
-});
+        $(this).toggleClass('visible-xs text-center');
+        $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
+        $('.row-offcanvas').toggleClass('active');
+        $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
+        $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
+        $('#btnShow').toggle();
+    });
 
 
-     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
-     $('ul.pagination:visible').hide(); 
+    $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+   $("html, body").animate({ scrollTop: $(document).height() - 50 }, "slow");
+
+   // root+'/api/friendSearch',
+
+ $('ul.pagination:visible').hide(); 
        $('.news-items-sidebar').jscroll({
         debug: true,
         autoTrigger: true,
@@ -21,9 +25,10 @@
             $('ul.pagination:visible').hide();
         }
     });
-
         
-    });
+});
+
+
 
 $( ".profile-pic-sidebar" ).hover(
           function() {
@@ -32,6 +37,57 @@ $( ".profile-pic-sidebar" ).hover(
             $(".change_dp_sidebar").fadeOut();
           }
         );
+
+
+
+
+         $('#searchbox').selectize({
+                             
+                valueField: ['firstname'],
+                labelField: 'firstname',
+                searchField: ['firstname'], 
+                maxOptions: 10,  
+                options: [],                
+                createOnBlur: true, 
+                create:       false,                      
+                
+                
+                render: {                   
+
+                     option: function (data, escape) {
+                          return '<div>' +escape(data.firstname)+' '+escape(data.lastname)+'</div>';
+
+                     }
+                },
+               
+                load: function(query, callback) {
+                    if (!query.length) return callback();                   
+                               
+                    $.ajax({
+                        url: root+'/api/friendSearch',
+                        type: 'GET',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: {
+                            q: query
+                        },
+                        beforeSend: function(request) {                            
+                            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                        },
+                        error: function() {                          
+                            callback();
+                        },
+                        success: function(res) {
+                           console.log(res.data);
+                           //alert(JSON.stringify(res.data));
+                            callback(res.data);
+                        }
+                    });
+                },
+                onChange: function(){
+                    window.location = this.items[0];
+                }
+            });
 
 
 
@@ -141,6 +197,39 @@ $("#sendGlobal").submit(function(event) {
         });
     }
 });
+
+
+
+
+
+/**
+ * Search a Friend
+ */
+
+$("#search_friend").submit(function(event) {
+    event.preventDefault();
+    var url = $(this).attr('action');
+    var dataString = 'name=' + $(".fav1").val();
+    
+    if ($(".fav1").val() != "") {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: dataString,
+            beforeSend: function(request) {
+                $(".search-friend-btn").attr("disabled", true);
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+            },
+            success: function(response) {   
+                alert(response);         
+                $(".search-friend-btn").attr("disabled", false);
+                $(".search-friend-btn").val("");
+            },
+            error: function() {}
+        });
+    }
+});
+
 
 
 

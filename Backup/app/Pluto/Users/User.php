@@ -106,6 +106,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasOne('Pluto\Users\UserInfo');
     }
 
+     public function favourites(){
+         return $this->belongsToMany('Favourites', 'favourite_user', 'user_id', 'favourite_id');
+    }
+
 
     
 

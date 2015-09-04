@@ -50,14 +50,17 @@ class RegistrationController extends BaseController {
 		 extract(Input::only('username', 'email', 'password', 'password_confirmation', 'firstname','lastname'));
 
 		 $command = new RegisterUserCommand($email,$password,$username);
-	     $user = $this->execute($command);		
+	     $user = $this->execute($command);
+
+	     $url = public_path();		
 
 	     $userinfo = Input::only('firstname','lastname','gender');
-		 $user_id = Auth::login($user);
-
-		 $userinfo = array_merge($userinfo, ['user_id' => Auth::user()->id]);	
+		 $userinfo = array_merge($userinfo, [ 'user_id'   => $user->id,
+		 									  'image_url' => '../img/blank_med.jpg'
+		 									]);	
 	     $userinfo = $this->execute(RegisterUserInfoCommand::class, $userinfo);
 
+	     $user_id = Auth::login($user);
 		 return Redirect::home();
 	}
 

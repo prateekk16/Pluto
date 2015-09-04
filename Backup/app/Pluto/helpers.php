@@ -108,6 +108,12 @@ function getTotalRequests($receiver_id){
                                             ->where('pending','=',1)->get();
 }
 
+/**
+ * [checkUserAvatar description]
+ * @param  [type] $email [description]
+ * @param  [type] $size  [small,med,big]
+ * @return [type]        [description]
+ */
 function checkUserAvatar($email,$size){
 	if((file_exists('img/users/'.$email.'/avatar_'.$size.'.jpg')))
 		 $img = 'img/users/'.$email.'/avatar_'.$size.'.jpg';

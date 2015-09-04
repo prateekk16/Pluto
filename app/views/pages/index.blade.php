@@ -27,7 +27,13 @@
                                         <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password">
                                     </div>
                                     <button type="submit" class="btn">Sign in!</button>
-                                </form>
+                                {{ Form::close() }}
+
+                                <div class="row" style="padding-top: 20px;">
+                                    <div class="com-md-6" style="text-align: center;">
+                                        Dont Have an Account? <a href="{{URL::to('/register')}}">Sign Up</a>
+                                    </div>
+                                </div>
                             </div>
                      </div>                         
                  </div>

@@ -56,7 +56,7 @@ Event::listen('Pluto.Updates.Events.UpdatePublished', function($event){
 	$url = Request::root().'/respond-to-friend-request';
 	$userpage = Request::root().'/'.$sender->username;
 	
-    Pusherer::trigger('FriendRequestChannel', 'userSentRequest', array('sender_link' => $userpage,  'sender_id' => $sender->id, 'img' => $img, 'url' => $url,  'gender' => $gender,  'sender_email' => $sender->email, 'receiver_email' => $receiver->email, 'sender_name' => $sender->info->firstname.' '.$sender->info->lastname, 'total_req' => $total_requests->count() ));
+    Pusherer::trigger('FriendRequestChannel', 'userSentRequest', array('request_id' =>$event->request_id,  'sender_link' => $userpage,  'sender_id' => $sender->id, 'img' => $img, 'url' => $url,  'gender' => $gender,  'sender_email' => $sender->email, 'receiver_email' => $receiver->email, 'sender_name' => $sender->info->firstname.' '.$sender->info->lastname, 'total_req' => $total_requests->count() ));
  });
 
 

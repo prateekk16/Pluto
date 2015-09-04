@@ -1,6 +1,7 @@
 <?php
 
 use Pluto\Forms\ProfileForm;
+use Pluto\Users\User;
 
 class ProfilesController extends BaseController {
 

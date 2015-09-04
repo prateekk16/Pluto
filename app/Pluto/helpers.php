@@ -21,6 +21,10 @@ function getLatestStatus(){
 	return Auth::user()->statuses()->orderBy('created_at','desc')->first();
 }
 
+function getUserStatus(User $user){    
+    return $user->statuses()->orderBy('created_at','desc')->first();
+}
+
 function getFriendRequests(){
 	return FriendRequest::getFriendRequests(Auth::user()->id);
 }
@@ -142,6 +146,24 @@ function checkFriendship($user1,$user2){
  	  return 0;
 }
 
+function isPending($user1,$user2){
+    $check = FriendRequest::where('receiver_id',$user1)
+                              ->where('sender_id',$user2)
+                              ->where('pending','1')->first();
+
+        if($check == null){
+            $check = FriendRequest::where('receiver_id',$user2)
+                              ->where('sender_id',$user1)
+                              ->where('pending','1')->first();
+
+             if($check == null){
+                return 0;
+             }
+        }
+
+      return 1;
+}
+
 function getUpdateObject($type,$user,$postId){
 
 	return Update::where('user_id',$user)
@@ -150,6 +172,35 @@ function getUpdateObject($type,$user,$postId){
 
 }
 
+function getFriendshipDate($id){
+    $user1 = $id;
+    $user2 = Auth::user()->id;
 
+   $check = FriendRequest::where('receiver_id',$user1)
+                              ->where('sender_id',$user2)
+                              ->where('pending','0')->first();
 
+        if($check == null){
+            $check = FriendRequest::where('receiver_id',$user2)
+                              ->where('sender_id',$user1)
+                              ->where('pending','0')->first();
+        }
 
+        if($check != null){
+            return $check->created_at->diffForHumans();
+         }
+      return 0;
+}
+
+function checkFavourite($id){
+  $user1 = getUserObject($id);
+  $user2 = Auth::user()->id;
+
+  $check = Favourites::where('user_id',$user2)
+                     ->where('friend_id',$user1)->first();
+
+  if($check != null)
+      return true;
+  else
+    return false;
+}

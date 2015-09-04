@@ -30,7 +30,7 @@ class PivotFavouriteUserTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('Favourite_User');
+		Schema::drop('favourite_user');
 	}
 
 }

@@ -13,7 +13,7 @@ class UserInfo extends \Eloquent {
 	 * [$fillable fields for a  new status]
 	 * @var array
 	 */
-	protected $fillable = ['firstname','lastname','gender','user_id'];
+	protected $fillable = ['firstname','lastname','gender','user_id','image_url'];
 
 	/**
 	 * [$table description]
@@ -32,9 +32,9 @@ class UserInfo extends \Eloquent {
 
 	  
 
-	   public static function register($firstname,$lastname,$gender,$user_id){	   	  
+	   public static function register($firstname,$lastname,$gender,$user_id,$image_url){	   	  
 
-         $user = new static(compact('firstname','lastname','gender','user_id'));
+         $user = new static(compact('firstname','lastname','gender','user_id','image_url'));
        //  $user->raise(new UserInfoRegistered($user));        
          return $user;
 

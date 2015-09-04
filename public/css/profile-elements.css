@@ -1,8 +1,13 @@
 
 
 .avatar_tiny{
-	width: 18px;
-        
+	width: 18px;        
+}
+
+.avatar_search_box{
+  width: 35px;
+position: relative;
+top: 11px;
 }
 .avatar{
 	width: 150px;	
@@ -126,6 +131,12 @@ max-height: 45px;
   border-radius:5px;
   margin-bottom:10px;
 }
+.Area-left-updates
+{    
+  padding:5px;
+  border-radius:5px;
+  margin-bottom:10px;
+}
  .chat_username{
   overflow: hidden;
   font-size: 11px;
@@ -182,6 +193,13 @@ border-radius: 12px;
 padding: 5px;
 font-family: sans-serif;
 }
+.update_text_sidebar{
+font-size: 12px;
+margin-top: 10px;
+border-radius: 12px;
+padding: 15px;
+font-family: sans-serif;
+}
 
 .freq{
     position: absolute;
@@ -209,26 +227,40 @@ left: -3px;
   }
 
   .favourite-box{
-    width: 50px;
-height: 50px;
+width: 40px;
+height: 40px;
 /* padding: 7px; */
 /* margin: 10px; */
-background: rgba(34, 65, 80, 0.84);
-color: #fff;
-font-size: 21px;
+/* background: rgba(34, 65, 80, 0.84); */
+color: #794141;
+/* font-size: 21px; */
 font-weight: bold;
-line-height: 1.3em;
+/* line-height: 1.3em; */
 border: 2px dashed #fff;
-border-radius: 10px;
-box-shadow: 0 0 0 4px #366074, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
-text-shadow: -1px -1px #6E6E6E;
-font-weight: normal;
+border-radius: 3px;
+/* box-shadow: 0 0 0 4px #366074, 2px 1px 6px 4px rgba(10, 10, 0, 0.5); */
+/* text-shadow: -1px -1px #6E6E6E; */
+/* font-weight: normal; */
 text-align: center;
   }
 
  .favourite-box:hover { 
-    background-color: rgba(52, 126, 136, 1);
+    background-color: rgba(183, 255, 142, 0.84);
+    color: white;
     cursor: pointer;
 }
 
 .selectize-dropdown { z-index: 9999; }
+
+.sidebar-no-updates{
+  padding-top: 50px;
+}
+
+.news-items-sidebar{
+/*  -webkit-box-shadow: 10px 10px 30px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 30px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 30px 0px rgba(0,0,0,0.75);*/
+overflow-y: scroll;
+max-height: 315px;
+overflow-x: hidden;
+}

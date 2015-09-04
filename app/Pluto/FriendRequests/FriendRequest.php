@@ -27,8 +27,15 @@ class FriendRequest extends \Eloquent {
 
 	public static function request($sender_id,$receiver_id,$pending){	   	  
 
-       $request = new static(compact('sender_id','receiver_id','pending'));
-       $request->raise(new FriendRequestPublished($sender_id,$receiver_id,$pending));      
+       //$request = new static(compact('sender_id','receiver_id','pending'));
+
+       $request = new FriendRequest;
+       $request->sender_id = $sender_id;
+       $request->receiver_id = $receiver_id; 
+       $request->pending = $pending;
+       $request->save();
+
+       $request->raise(new FriendRequestPublished($sender_id,$receiver_id,$pending,$request->id));      
        return $request;
 
  	}

@@ -25,14 +25,18 @@ class ApiSearchController extends BaseController {
 	{
 		// operate on the item passed by reference, adding the element and type
 		foreach ($data as $key => & $item) {
-
-			  $id = 	$item['user_id'];		
-			  $item[$element] = checkFriendship($id , Auth::user()->id );
+			  $username = 	$item['user']['username'];		
+			  $item[$element] = $username;
 		}
 		return $data;		
 	}
 
-	public function friends($user)
+	/**
+	 * Delete users from array who are not your friend.
+	 * @param  [type] $user [description]
+	 * @return [type]       [description]
+	 */
+	public function favourites($user)
 	{
 	
 		foreach ($user as $key => & $item) {
@@ -41,41 +45,59 @@ class ApiSearchController extends BaseController {
 				$item['check'] = 'Not Friends';
 				unset($user[$key]);
 			}else{
-				$item['check'] = 'Friends';
+				if( checkFavourite($item['user_id']) ){					
+				   $item['check'] = 'Friends';
+				}else{
+					unset($user[$key]);
+				}
 			}
 		}
 		
 		return array_values($user);	
 	}
 
+	public function removeMyself($user){
+		foreach ($user as $key => & $item) {			
+			if( Auth::user()->id == $item['user_id'] )			
+				unset($user[$key]);			
+		}		
+		return array_values($user);	
+	}
 
-	public function friendSearch()
-	{
+	public function lookUp($type){
 
-		    // Retrieve the user's input and escape it
-			$query = e(Input::get('q',''));
+		$query = e(Input::get('q',''));
+		if(!$query && $query == '') return Response::json(array(), 400);
 
-
-
-			// If the input is empty, return an error response
-			if(!$query && $query == '') return Response::json(array(), 400);
-
-			$user = UserInfo::where('firstname','like','%'.$query.'%')
+		$user = UserInfo::where('firstname','like','%'.$query.'%')
 							->orWhere('lastname','like','%'.$query.'%')
 							->with('user')
 							->orderBy('firstname','asc')
 							->take(6)
 							->get()->toArray();
 
-			$user = $this->friends($user);
+		if($type == 'Favourites'){
+			$user = $this->favourites($user);
+		}
+		else{
+			if(Auth::check())
+			{				
+				$user = $this->removeMyself($user);	
+				$user = $this->appendValue($user,'username');
+			}else{
+				$user = $this->appendValue($user,'username');
+			}
+		}			
 
-			//$user = $this->appendValue($user,'check');  
-
-			return Response::json(array(
+		return Response::json(array(
 				'data'=>$user
 			));
 
+			
+
 	}
+
+
 
 
 

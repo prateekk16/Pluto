@@ -8,6 +8,11 @@
    
 }
 
+.input-elements{
+  height: 30px;
+
+}
+
 .global-inactive{
     padding-bottom: 9px;
     margin-top: 140px;
@@ -28,7 +33,7 @@
     overflow: hidden;
     padding: 0 25px 15px 25px;
     background: #444;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.55);
     -moz-border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
@@ -49,10 +54,20 @@
     text-align: right;
     opacity: 0.3;
 }
+.form-top-right-text {
+    float: left;
+    width: 25%;
+    padding-top: 5px;
+    font-size: 18px;
+   
+    line-height: 50px;
+    text-align: right;
+    
+}
 .form-bottom {
     padding: 25px 25px 30px 25px;
     background: #444;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     -moz-border-radius: 0 0 4px 4px;
     -webkit-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
@@ -119,8 +134,8 @@ textarea.form-control{
 }
 
 label{
-  color: rgba(51, 122, 183, 0.88);
-    font-size: 11px;
+  
+    font-size: 12px;
 }
 
 .nav-left-header{

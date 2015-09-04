@@ -128,7 +128,7 @@
 }
 .selectize-input {
   border: 1px solid #cccccc;
-  padding: 6px 12px;
+  padding: 2px 12px;
   display: inline-block;
   width: 100%;
   overflow: hidden;
@@ -353,7 +353,7 @@
   padding: 6px 12px;
 }
 .selectize-input {
-  min-height: 34px;
+  min-height: 30px;
 }
 .selectize-input.dropdown-active {
   -webkit-border-radius: 4px;
@@ -390,7 +390,7 @@
 }
 .form-control.selectize-control {
   padding: 0;
-  /*height: auto;*/
+  height: 30px;
   border: none;
   background: none;
   -webkit-box-shadow: none;

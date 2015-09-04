@@ -12,15 +12,17 @@
     <nav class="collapse navbar-collapse" role="navigation">
         <form class="navbar-form navbar-left">
             <div class="input-group input-group-sm" style="max-width:360px;">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                <input type="text" class="form-control" placeholder="Lookup Someone..." name="look-up" id="look-up">                                   
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                 </div>
             </div>
         </form>
+
+      @if($currentUser)  
         <ul class="nav navbar-nav">
             <li>
-                <a href="#"><i class="glyphicon glyphicon-home"></i> </a>
+                <a href="{{URL::to('/')}}"><i class="glyphicon glyphicon-home"></i> </a>
             </li>
            
             <li>
@@ -32,13 +34,15 @@
 
               <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);">{{ getFriendRequests()->count() }} </span>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;" >
-                <i class="fa fa-users fa-users-freq" style="color: #FF6666"></i>
+              <i class="fa fa-user-plus fa-users-freq" style="color: #FF6666"></i>
+              
+                {{-- <i class="fa fa-users fa-users-freq" style="color: #FF6666"></i> --}}
               </a>
              
               <ul class="dropdown-menu total-friend-requests" style="width: 245px;background-color: #333333;">
                 <div class="friend-requests-append">
                   @foreach( getFriendRequests() as $req)
-                  <div class="friend-request-{{ $req->sender_id }}">
+                  <div class="friend-request-{{ $req->id }}" id="friend-req-id">
                     <li>
                       <div class="freq-panel ">
                         @if(file_exists('img/users/'.getUserObject($req->sender_id)->email.'/avatar_small.jpg'))
@@ -53,12 +57,12 @@
                           {{ getUserObject($req->sender_id)->info->gender }}
                           
                           <div class="accept-reject-friend-button ">
-                            <div class="replace-friends-button-{{ $req->sender_id }}">
+                            <div class="replace-friends-button-{{ $req->id }}">
                               {{ Form::open(['route' => 'respond_to_friend_request', 'id' => 'respondToFriendRequest']) }}
-                              <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-{{ $req->sender_id }}">
+                              <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-{{ $req->id }}-{{ $req->sender_id }}">
                               <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                               </button>
-                              <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-{{ $req->sender_id }}">
+                              <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-{{ $req->id }}-{{ $req->sender_id }}">
                               <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                               </button>
                               {{ Form::close() }}
@@ -79,14 +83,15 @@
 
               <span class="badge freq badge-freq" style="background-color:rgb(255, 102, 102);"></span>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-users fa-users-freq"></i>
+               
+               <i class="fa fa-user-plus fa-users-freq"></i>
             </a>
             <ul class="dropdown-menu total-friend-requests" style="width: 245px;background-color: #333333;">
               <div class="friend-requests-append">
               </div>
 
               <div class="no-new-req">
-               <li style="padding:5px;color:black;">No new requests</li>
+               <li style="padding:5px;">No new requests</li>
                <li class="divider"></li>
               </div>
               
@@ -95,10 +100,12 @@
 
 
           </li> <!-- /.dropdown -->
-
         </ul>
+      @endif
 
         <ul class="nav navbar-nav navbar-right left-10">
+
+          @if($currentUser)
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                    {{ $currentUser->info->firstname }} &nbsp;
@@ -113,6 +120,10 @@
                     
                 </ul>
             </li>
+           @else
+            <li> <a href="{{ URL::to('/') }}">Login</a></li> 
+
+          @endif
             
         </ul>
     </nav>
@@ -124,6 +135,7 @@
                   {{-- MODAL WINDOW FOR PROFILE PICTURE --}}
 
 
+@if($currentUser)
 
 <div class="modal fade change-dp-modal" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
@@ -168,3 +180,4 @@
     </div>
   </div>
 </div>
+@endif

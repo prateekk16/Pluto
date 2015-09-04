@@ -4,24 +4,24 @@
 
 
     var FriendRequestChannel = pusher.subscribe('FriendRequestChannel');
-    FriendRequestChannel.bind('userSentRequest', function(data){
-          var user = $("#userEmail").val();
-            if(user == data.receiver_email){
+    FriendRequestChannel.bind('userSentRequest', function(data){         
+         
+            if(auth_user == data.receiver_email){
                $('.fa-users').css('color','#FF6666');
                 $(".icon-bar").removeClass('icon-bar-notify-white');
                $(".icon-bar").addClass('icon-bar-notify');
                $('.freq').fadeIn();
                $('.no-new-req').fadeOut();
-               $('.freq').text(data.total_req);
-
-                $(".friend-requests-append").prepend('<div class="friend-request-'+data.sender_id+'">'
+               $('.freq').text(data.total_req);  
+               console.log(data.request_id);             
+                $(".friend-requests-append").prepend('<div class="friend-request-'+data.request_id+'" id="friend-req-id" >'
            
-                 +'  <li>   <div class="freq-panel"> <input type="text" style="display:none;" class="sender_name-'+data.sender_id+'" value="'+data.sender_name+'"/> <input type="text" style="display:none;" class="sender_link-'+data.sender_id+'" value="'+data.sender_link+'"/> '
-                 +'  <img src="'+data.img+'" class="avatar_tiny new_friend_avatar_id-'+data.sender_id+'" alt="avatar"/> '
+                 +'  <li>   <div class="freq-panel"> <input type="text" style="display:none;" class="sender_name-'+data.request_id+'" value="'+data.sender_name+'"/> <input type="text" style="display:none;" class="sender_link-'+data.request_id+'" value="'+data.sender_link+'"/> '
+                 +'  <img src="'+data.img+'" class="avatar_tiny new_friend_avatar_id-'+data.request_id+'" alt="avatar"/> '
                  +'    '+data.sender_name+' <div class="new-friend-request-info"> '+data.gender+' <div class="accept-reject-friend-button "> '
-                 +'   <div class="replace-friends-button-'+data.sender_id+'"> <form method="POST" action="'+data.url+'" accept-charset="UTF-8" id="respondToFriendRequest" class="ng-pristine ng-valid">'
-                 +'   <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-'+data.sender_id+'"> <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></button>'
-                 +'   <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-'+data.sender_id+'"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button> '
+                 +'   <div class="replace-friends-button-'+data.request_id+'"> <form method="POST" action="'+data.url+'" accept-charset="UTF-8" id="respondToFriendRequest" class="ng-pristine ng-valid">'
+                 +'   <button type="submit" class="btn btn-success btn-xs respond-friend-request" id="1-'+data.request_id+'-'+data.sender_id+'"> <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span></button>'
+                 +'   <button type="submit" class="btn btn-danger btn-xs respond-friend-request" id="0-'+data.request_id+'-'+data.sender_id+'"> <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> </button> '
                  +' </form></div></div></div></div> </li> <li class="divider"></li>'
                  +' </div>');
           }

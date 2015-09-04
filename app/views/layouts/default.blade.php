@@ -64,6 +64,7 @@
         {{ HTML::script('js/bundle.js') }}
         <script>
                 var root = '{{url("/")}}'; 
+                var auth_user = '{{ Auth::user()->email }}';
 
         </script>
 

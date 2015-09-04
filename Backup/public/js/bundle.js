@@ -40,22 +40,38 @@ $( ".profile-pic-sidebar" ).hover(
 
 
 
+       $('.modal').on('shown.bs.modal', function() {  
+            $(".modal input").focus();          
+            $(this).find('[autofocus]').focus();
+        });
 
-         $('#searchbox').selectize({
-                             
-                valueField: ['firstname'],
-                labelField: 'firstname',
-                searchField: ['firstname'], 
+         $('#favourite-friend').selectize({
+                
+                selectOnTab : true,
+                openOnFocus : true,
+                closeAfterSelect : true,   
+                maxItems: 6,          
+                valueField: ['user_id'],
+                labelField: ['firstname'], 
+                searchField: ['firstname','lastname'], 
                 maxOptions: 10,  
-                options: [],                
-                createOnBlur: true, 
+                options: [], 
                 create:       false,                      
                 
                 
                 render: {                   
 
                      option: function (data, escape) {
-                          return '<div>' +escape(data.firstname)+' '+escape(data.lastname)+'</div>';
+                        return '<div class="col-sm-6 col-md-4" style="height:190px;" >'+
+                        '<a href="#" class="asdf">'+
+                        '<div class="thumbnail"> <img src="'+ data.image_url +'" alt="image"  class="avatar_filter_black avatar_med"> '+
+                        '<div class="caption" style="text-align:center;">'+
+                        '<h5> '+escape(data.firstname)+' '+escape(data.lastname)+' </h5>'+
+                        '<h6>@'+escape(data.user.username)+'</h6>'+                       
+                        '</div>'+
+                        '</div></a>'+
+                        '</div>';                        
+                          
 
                      }
                 },
@@ -77,15 +93,18 @@ $( ".profile-pic-sidebar" ).hover(
                         error: function() {                          
                             callback();
                         },
-                        success: function(res) {
-                           console.log(res.data);
-                           //alert(JSON.stringify(res.data));
-                            callback(res.data);
+                        success: function(res) { 
+                            console.log(res.data);
+                            if(res.data == "")
+                                swal({   html:     '<p style="position:relative; top:20px;">Friend List is Empty :( </p> ' });
+                            else                                  
+                               callback(res.data);
                         }
                     });
                 },
                 onChange: function(){
-                    window.location = this.items[0];
+                     
+                   // window.location = this.items[0];
                 }
             });
 
@@ -308,6 +327,14 @@ $("#sendFriendEmailRequest").submit(function(event) {
             error: function() {}
         });
     }
+});
+
+$(document).on("click", '.asdf',function(event){
+
+    event.preventDefault();    
+    event.stopPropagation(); 
+    alert("ok");
+
 });
 
 $(document).on("click", '.respond-friend-request',function(event){

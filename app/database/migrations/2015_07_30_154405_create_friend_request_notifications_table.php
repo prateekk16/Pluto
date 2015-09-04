@@ -19,7 +19,7 @@ class CreateFriendRequestNotificationsTable extends Migration {
 			$table->integer('receiver_id')->unsigned()->index();
 			$table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
 			$table->boolean('pending');
-			$table->boolean('blocked')->nullable();
+			$table->boolean('blocked')->nullable();			
 			$table->timestamps();
 		});
 	}

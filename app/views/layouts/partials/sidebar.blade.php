@@ -5,6 +5,7 @@
 <ul class="nav hidden-xs" id="lg-menu">
     <li class="active">
         <div class="profile-pic-sidebar">
+          
             <a href="{{ URL::to('/'.$currentUser->username ) }}">
             {{ HTML::image(checkUserAvatar($currentUser->email,'med'),'avatar',  array('class' => 'avatar_sidebar avatar_filter')) }}
             </a>

@@ -109,4 +109,11 @@ class FriendRequestController extends BaseController {
 		//
 	}
 
+	public function addFavourite(){
+
+		$friend = getUserObject(Input::get('id'));
+		
+		return $friend->username;
+	}
+
 }

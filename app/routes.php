@@ -38,9 +38,10 @@ Route::post('status', ['as' => 'statuses_path', 'uses' =>'StatusController@store
 Route::get('/status/user', ['as' => 'statuses_path_get', 'uses' =>'StatusController@index']);
 #Profile Picture
 Route::post('profilePicture', ['as' => 'profile_picture', 'uses' =>'ProfilePictureController@store']);
-Route::post('AddFriendsEmail', ['as' => 'sendFriendEmailRequest', 'uses' =>'FriendRequestController@create']);
+Route::post('sendFriendRequest', ['as' => 'sendFriendRequest', 'uses' =>'FriendRequestController@create']);
 
-
+#Add Favourite
+Route::post('/api/addFavourite', ['as' => 'addFaourite', 'uses' =>'FriendRequestController@addFavourite']);
 
 #Event for Friend Request Reponse
 Route::post('respond-to-friend-request', ['as' => 'respond_to_friend_request', 'uses' =>'FriendRequestController@store']);
@@ -50,8 +51,8 @@ Route::post('news-update-check-friendship', ['as' => 'news-update-check-friendsh
 
 
 #Search APi
-Route::get('api/friendSearch', 'ApiSearchController@friendSearch');
 
+Route::get('api/lookUp/{type}', 'ApiSearchController@lookUp');
 
 
 Route::group(['prefix' => 'messages', 'before'=>'auth'], function () {

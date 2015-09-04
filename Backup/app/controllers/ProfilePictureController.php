@@ -4,6 +4,7 @@ use Pluto\Forms\ProfileForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Users\PublishProfilePicture;
 use Pluto\Statuses\StatusRepository;
+use Pluto\Users\UserInfo;
 
 class ProfilePictureController extends BaseController {
 
@@ -81,7 +82,13 @@ class ProfilePictureController extends BaseController {
                                      $constraint->upsize();
                                      })->save($parentDir.'avatar_small.jpg'); 
 
+                       	$image_url = UserInfo::where('user_id',Auth::user()->id)->firstOrFail();
+                       	if($image_url){
+                       		$image_url->image_url = '../img/users/'.Auth::user()->email.'/avatar_med.jpg';
+                       		$image_url->save();
+                       	}
                        return './img/users/'.Auth::user()->email.'/avatar_med.jpg?';
+                       	
                     }else{
                     	return "Error";
                     }  

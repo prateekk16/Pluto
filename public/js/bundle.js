@@ -45,10 +45,63 @@ $( ".profile-pic-sidebar" ).hover(
             $(this).find('[autofocus]').focus();
         });
 
+        $('#look-up').selectize({               
+                
+                openOnFocus : false,
+                closeAfterSelect : true,   
+                maxItems: 6,          
+                valueField: ['username'],
+                labelField: ['firstname'], 
+                searchField: ['firstname','lastname','username'], 
+                maxOptions: 10,  
+                options: [], 
+                create: false,                 
+                render: { 
+                     option: function (data, escape) {
+                        return '<div class="col-md-12" style="border-bottom: 1.0pt solid #CCC;height:66px;" >'+
+                        ' <div class="col-md-2 pull-left"> '+
+                        ' <img src="'+data.image_url+'" class="avatar_filter_black avatar_search_box"/>'+
+                        ' </div> '+                        
+                        ' <div class="col-md-10"> '+
+                        '<h5>' +escape(data.firstname)+' '+escape(data.lastname)+ '</h5>'+
+                        '<h6>@'+escape(data.user.username)+'</h6>'+ 
+                        '</div>'+
+                        '</div>';
+                     }
+                },               
+                load: function(query, callback) {
+                    if (!query.length) return callback();
+                    var type= "All"; 
+                    if( $("#look-up").hasClass('Friends')) type="Friends";              
+                               
+                    $.ajax({
+                        url: root+'/api/lookUp/'+type,
+                        type: 'GET',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: {
+                            q: query
+                        },
+                        beforeSend: function(request) {
+                            return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                        },
+                        error: function(e) {                      
+                            callback();
+                        },
+                        success: function(res) {                                                                                      
+                            callback(res.data);
+                        }
+                    });
+                },
+                onChange: function(){                     
+                    window.location = this.items[0];
+                }
+        });
+
          $('#favourite-friend').selectize({
                 
                 selectOnTab : true,
-                openOnFocus : true,
+                openOnFocus : false,
                 closeAfterSelect : true,   
                 maxItems: 6,          
                 valueField: ['user_id'],
@@ -56,11 +109,10 @@ $( ".profile-pic-sidebar" ).hover(
                 searchField: ['firstname','lastname'], 
                 maxOptions: 10,  
                 options: [], 
-                create:       false,                      
+                create: false,                      
                 
                 
-                render: {                   
-
+                render: {   
                      option: function (data, escape) {
                         return '<div class="col-sm-6 col-md-4" style="height:190px;" >'+
                         '<a href="#" class="asdf">'+
@@ -70,17 +122,16 @@ $( ".profile-pic-sidebar" ).hover(
                         '<h6>@'+escape(data.user.username)+'</h6>'+                       
                         '</div>'+
                         '</div></a>'+
-                        '</div>';                        
-                          
-
+                        '</div>';   
                      }
                 },
                
                 load: function(query, callback) {
                     if (!query.length) return callback();                   
-                               
+                   // var type= "All"; 
+                    //if( $("#favourite-friend").hasClass('Friends')) type="Friends";         
                     $.ajax({
-                        url: root+'/api/friendSearch',
+                        url: root+'/api/lookUp/Favourites',
                         type: 'GET',
                         dataType: 'json',
                         contentType: "application/json; charset=utf-8",
@@ -94,16 +145,31 @@ $( ".profile-pic-sidebar" ).hover(
                             callback();
                         },
                         success: function(res) { 
-                            console.log(res.data);
-                            if(res.data == "")
-                                swal({   html:     '<p style="position:relative; top:20px;">Friend List is Empty :( </p> ' });
-                            else                                  
                                callback(res.data);
                         }
                     });
                 },
-                onChange: function(){
-                     
+                onChange: function(){    
+                    var url =  root+'/api/addFavourite';
+                    var dataString = 'id='+this.items[0];
+                        $.ajax({
+                                    type: 'POST',
+                                    url: url,
+                                    data: dataString,
+                                    beforeSend: function(request) {
+                                        $("#favourite-friend").attr("disabled", true);
+                                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                                    },
+                                    success: function(response) {     
+                                       alert(response);           
+                                       $('.fav-modal').modal('hide')  ;
+                                       $("#myFavFriends").load(location.href + " #myFavFriends");
+                                    },
+                                    error: function() {}
+                                });
+
+                    
+                    console.log(this.items[0]);
                    // window.location = this.items[0];
                 }
             });
@@ -290,6 +356,36 @@ $("#uploadAvatar").submit(function(event) {
     }
 });
 
+$("#sendFriendRequest").click(function(event){  
+
+ var dataString = 'email=' + $("#userEmail").val();
+  
+
+ $.ajax({
+            type: 'POST',
+            url: root+'/sendFriendRequest',
+            data: dataString,           
+            beforeSend: function(request) {
+                $("#sendFriendRequest").attr("disabled", true);
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+            },
+            success: function(response) { 
+
+                if(response == 1){
+                     $("#AddFriendSpanButton").text("Friend Request Sent");                     
+                     swal({   title: 'Done!',   text: 'Friend Request Sent',   timer: 1000 });
+                } else {
+                     $("#sendFriendRequest").attr("disabled", false);                     
+                     swal(   'Error!',   response ,   'error' );
+                }               
+               
+            },
+            error: function() {}
+        });
+
+});
+
+
 /**
  * Send Friend Request with Email Address
  */
@@ -346,11 +442,14 @@ $(document).on("click", '.respond-friend-request',function(event){
     var id = $(this).attr('id');
     var arr = id.split('-');
     id = arr[1];
+    var fid = arr[2];
     var response = arr[0]; 
-    var dataString = 'id='+id + '&response='+response;
+
+    var dataString = 'id='+fid + '&response='+response;
     var imgsrc = $(".new_friend_avatar_id-"+id).attr('src');
     var name = $('.sender_name-'+id).val();
     var senderLink = $('.sender_link-'+id).val();
+
 
      $.ajax({
             type: 'POST',
@@ -363,24 +462,32 @@ $(document).on("click", '.respond-friend-request',function(event){
             success: function(res) {
                 if(res == 0 ){
                     $(".badge-freq").fadeOut();
-                    $(".fa-users-freq").css("color", '#337ab7');
+                    $(".fa-users-freq").css("color", '#efefef');
+                    $(".total-friend-requests").prepend('<div class="friend-requests-append">'
+                        +'<li style="padding:5px;">No new requests</li>'
+                        +'<li class="divider"> </li>' 
+                        +' </div> ');
                   }               
                $(".freq").text(res);
 
                if(response == 0){                 
-                   $("#1-"+id).fadeOut(200);
-                   $("#0-"+id).attr("disabled",true);
-               } else{ 
-                   $("#0-"+id).fadeOut(200);
-                   $("#1-"+id).attr("disabled",true);
+                   $("#1-"+id+'-'+fid).fadeOut(200);
+                   $("#0-"+id+'-'+fid).attr("disabled",true);
+                   $(".friend-request-"+id).fadeOut();
+                   
 
-                   var count =  $('.count-total-friends-sidebar').val();  
-                   count += 1;                 
-                   $('.count-total-friends-sidebar').text(count);
-                   $('.total-friends-list-sidebar').prepend('<div class="my-friends-list-sidebar">'
-                    +'<img src="'+imgsrc+'" class="avatar_tiny img-circle" alt="avatar">'
-                    +'<a href="'+senderLink+'"> '+name+'  </a>'
-                   +' </div>');
+                
+               } else{ 
+                   $("#0-"+id+'-'+fid).fadeOut(200);
+                   $("#1-"+id+'-'+fid).attr("disabled",true);
+
+                   // var count =  $('.count-total-friends-sidebar').val();  
+                   // count += 1;                 
+                   // $('.count-total-friends-sidebar').text(count);
+                   // $('.total-friends-list-sidebar').prepend('<div class="my-friends-list-sidebar">'
+                   //  +'<img src="'+imgsrc+'" class="avatar_tiny img-circle" alt="avatar">'
+                   //  +'<a href="'+senderLink+'"> '+name+'  </a>'
+                   // +' </div>');
                }
              
             },
@@ -399,13 +506,13 @@ $(document).on("click", '.respond-friend-request',function(event){
  * Angular App
  * @type {[type]}
  */
-app = angular.module('pluto', []);
-app.config(['$interpolateProvider', function($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[');
-    $interpolateProvider.endSymbol(']]');
-}]);
-app.controller('StatusController', ['$http', '$scope', function($http, $scope) {
-    $http.get('/status/user').success(function(result) {
-        $scope.statuses = result;
-    });
-}]);
+// app = angular.module('pluto', []);
+// app.config(['$interpolateProvider', function($interpolateProvider) {
+//     $interpolateProvider.startSymbol('[[');
+//     $interpolateProvider.endSymbol(']]');
+// }]);
+// app.controller('StatusController', ['$http', '$scope', function($http, $scope) {
+//     $http.get('/status/user').success(function(result) {
+//         $scope.statuses = result;
+//     });
+// }]);

@@ -46,9 +46,10 @@ class ApiSearchController extends BaseController {
 				unset($user[$key]);
 			}else{
 				if( checkFavourite($item['user_id']) ){					
-				   $item['check'] = 'Friends';
+				   unset($user[$key]);
 				}else{
-					unset($user[$key]);
+					
+					$item['check'] = 'Friends';
 				}
 			}
 		}

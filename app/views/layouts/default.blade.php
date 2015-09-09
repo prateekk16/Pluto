@@ -54,7 +54,7 @@
         {{ HTML::script('js/jquery-latest.js') }}         
          {{ HTML::script('js/bootstrap.min.js') }} 
          {{ HTML::script('js/selectize.js') }}
-
+         {{ HTML::script('js/haschange.js') }}
         {{ HTML::script('js/jasny.min.js') }}
 
         {{ HTML::script('js/sweetalert2.min.js') }}

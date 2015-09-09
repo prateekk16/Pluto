@@ -86,17 +86,34 @@
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
                     },
                     success: function(response) {  
-                      var h = $(window).height();
-                      var w = $(document).height() + 20;
-                     // alert('doc='+w+'  window='+h);
+                       var height = $('.wrapper')[0].scrollHeight;
+                       var wtf = $('.global-window');
+
+                       function scroll(height, ele) {
+                          this.stop().animate({ scrollTop: height }, 1000, function () {            
+                              var dir = height ? "top" : "bottom";
+                              $(ele).html("scroll to "+ dir).attr({ id: dir });
+                          });
+                      };
+                      
+                      // height = height < wtf[0].scrollHeight ? wtf[0].scrollHeight : 0;
+                        var $target = $('html,body'); 
+                        $target.animate({scrollTop: $target.height()}, 1000);
+
+                     //  scroll.call(wtf, height, this);
+
+                      // var h = $('.global-window')[0].scrollHeight;
+
+                     //  alert(height);
+                     
                      
                                   
-                      $("#content-holder").animate({ scrollTop: $('#content-holder')[0].scrollHeight}, 1000);
+                      $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight + 100}, 1000);
                           if(user != data.email){
 
                             // My Message
                                             
-                             $(".global-window").prepend('<div class="row">'
+                             $(".global-window").append('<div class="row">'
                              +' <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">'
                              +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
                              +'  <div class="tooltip"> </div> </a> </div>'
@@ -113,7 +130,7 @@
 
                             //User Message
                                        
-                                             $(".global-window").prepend('<div class="row">'
+                                             $(".global-window").append('<div class="row">'
                              +'  <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;"> '
                              +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
                              +'  <div class="tooltip"> </div> </a> </div>'

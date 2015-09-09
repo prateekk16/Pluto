@@ -52,8 +52,8 @@ function getStatusById($id){
 
 function getGlobalMessages(){
 	
-	 $messages = Message::getAllLatestGlobal();
-	 return $messages;
+	 return Message::getAllLatestGlobal();
+	 //return $messages;
 	
 }
 

@@ -501,6 +501,36 @@ $(document).on("click", '.respond-friend-request',function(event){
 
 });
 
+ $(function () {
+    var items = $('#v-nav>ul>li').each(function () {
+         $('#v-nav>div.tab-content').first().show();
+        $(this).click(function () {
+            //remove previous class and add it to clicked tab
+          //  items.removeClass('active');
+          //  $(this).addClass('active');
+
+            //hide all content divs and show current one
+            $('#v-nav>div.tab-content').hide().eq(items.index($(this))).show();
+
+           // window.location.hash = $(this).attr('tab');
+        });
+    });
+
+    if (location.hash) {
+        showTab(location.hash);
+    }
+    else {
+        showTab("tab1");
+    }
+
+     function showTab(tab) {
+        $("#v-nav ul li[tab*=" + tab + "]").click();
+        }
+
+    
+});
+
+
 
 /**
  * Angular App

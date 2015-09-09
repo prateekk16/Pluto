@@ -10,6 +10,54 @@ html, body {
    font-size:13px;
 }
 
+#v-nav >ul >li.active{
+  border-right: none;
+    z-index: 7;
+    background: white !important;
+    position: relative;
+    -webkit-box-shadow: -5px 3px 40px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: -5px 3px 40px -1px rgba(0,0,0,0.75);
+box-shadow: -5px 3px 40px -1px rgba(0,0,0,0.75);
+}
+#v-nav >ul >li >a, #v-nav >ul >li >a:focus{
+  cursor:pointer;
+      width: 25px;
+    height: 25px;
+    padding: 9px;
+    position: relative;
+    left: -6px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  color: #B1B1B1;
+}
+#v-nav >ul >li.active>a{
+  color: #11AFDC;
+}
+
+#v-nav >ul >li.active>a, #v-nav >ul >li.active>a:hover, #v-nav >ul >li.active>a:focus{
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    padding: 9px;
+    position: relative;
+    left: -6px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+
+
+
+/*.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: white;
+    cursor: default;
+    background-color: #234E63;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs>li>a {
+    border: 1px solid rgba(0, 0, 0, 0.18);
+}*/
+
 a {
   color:#222222;
 }

@@ -39,7 +39,7 @@ max-height: none;
                       <div class="tooltip">  </div>
                     </a>
                   </div>
-                  <div class="col-md-7 pull-right Area">
+                  <div class="col-md-5 pull-right Area">
                     
                     <div class="col-md-12" style="padding:0px;">
                       <div class="col-md-10 col-md-offset-2 pull-right text-left chat_username">  {{$message->user->username}}
@@ -63,7 +63,7 @@ max-height: none;
                       <div class="tooltip">  </div>
                     </a>
                   </div>
-                  <div class="col-md-7 pull-left Area-left">
+                  <div class="col-md-5 pull-left Area-left">
                     
                     <div class="col-md-12" style="padding:0px;">
                       <div class="col-md-10 col-md-offset-2 pull-left text-left chat_username">  <p></p>

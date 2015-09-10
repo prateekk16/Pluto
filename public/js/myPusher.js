@@ -85,30 +85,9 @@
                     beforeSend: function(request) {                       
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
                     },
-                    success: function(response) {  
-                       var height = $('.wrapper')[0].scrollHeight;
-                       var wtf = $('.global-window');
-
-                       function scroll(height, ele) {
-                          this.stop().animate({ scrollTop: height }, 1000, function () {            
-                              var dir = height ? "top" : "bottom";
-                              $(ele).html("scroll to "+ dir).attr({ id: dir });
-                          });
-                      };
-                      
-                      // height = height < wtf[0].scrollHeight ? wtf[0].scrollHeight : 0;
-                        var $target = $('html,body'); 
-                        $target.animate({scrollTop: $target.height()}, 1000);
-
-                     //  scroll.call(wtf, height, this);
-
-                      // var h = $('.global-window')[0].scrollHeight;
-
-                     //  alert(height);
-                     
-                     
+                    success: function(response) { 
                                   
-                      $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight + 100}, 1000);
+                      $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
                           if(user != data.email){
 
                             // My Message
@@ -118,7 +97,7 @@
                              +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
                              +'  <div class="tooltip"> </div> </a> </div>'
 
-                             +'  <div class="col-md-7 pull-left Area-left">'
+                             +'  <div class="col-md-5 pull-left Area-left">'
                              +' <div class="col-md-12" style="padding:0px;">'
                              +' <div class="col-md-10 col-md-offset-2 pull-left text-left chat_username"> Me  </div>'
                              +' <div class="col-md-8 col-md-offset-4 pull-left text-left chat_time"> Just now... </div>'
@@ -135,7 +114,7 @@
                              +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
                              +'  <div class="tooltip"> </div> </a> </div>'
 
-                             +'  <div class="col-md-7 pull-right Area">'
+                             +'  <div class="col-md-5 pull-right Area">'
                              +' <div class="col-md-12" style="padding:0px;">'
                              +' <div class="col-md-10 col-md-offset-2 pull-right text-left chat_username"> '+data.username+'  </div>'
                              +'  <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  Just now... </div>'

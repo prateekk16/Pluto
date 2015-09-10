@@ -10,20 +10,17 @@
         <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
-
         @section('header')
         {{ HTML::style('css/bootstrap.min.css') }}
-        
+
         {{ HTML::style('css/profile.css') }}
         {{ HTML::style('css/profile-elements.css') }}
-        
+
 
         {{ HTML::style('css/jasny.min.css') }}
         {{ HTML::style('css/selectize.css') }}
         {{ HTML::style('css/sweetalert2.css') }}
-        {{ HTML::style('css/font-awesome.min.css') }}         
-
+        {{ HTML::style('css/font-awesome.min.css') }}
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         @show
     </head>
@@ -34,39 +31,31 @@
                     <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
                         @include('layouts/partials/sidebar')
                     </div>
-
-
                     <div class="column col-sm-10 col-xs-11" id="main">
                         @include('layouts/partials/topbar')
                         {{-- <div class="padding"> --}}
-
                             @yield('content')
-
                         {{--  </div> --}}
                     </div>
                 </div>
             </div>
         </div>
 
-        
-      
-        
-        {{ HTML::script('js/jquery-latest.js') }}         
-         {{ HTML::script('js/bootstrap.min.js') }} 
-         {{ HTML::script('js/selectize.js') }}
-         {{ HTML::script('js/haschange.js') }}
-        {{ HTML::script('js/jasny.min.js') }}
 
+
+        {{ HTML::script('js/jquery-latest.js') }}
+        {{ HTML::script('js/bootstrap.min.js') }}
+        {{ HTML::script('js/selectize.js') }}
+        {{ HTML::script('js/jasny.min.js') }}
         {{ HTML::script('js/sweetalert2.min.js') }}
         {{ HTML::script('js/pusher.js') }}
-        {{ HTML::script('js/myPusher.js') }}
         {{ HTML::script('js/jscroll.min.js') }}
+        {{ HTML::script('js/myPusher.js') }}
         {{ HTML::script('js/bundle.js') }}
+
         <script>
-                var root = '{{url("/")}}'; 
-                var auth_user = '{{ Auth::user()->email }}';
-
+                        var root = '{{url("/")}}';
+                        var auth_user = '{{ Auth::user()->email }}';
         </script>
-
     </body>
 </html>

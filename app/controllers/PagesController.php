@@ -11,6 +11,8 @@ class PagesController extends BaseController {
 		 
 	}
 
+	
+
 }
 
 ?>

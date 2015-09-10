@@ -74,23 +74,23 @@
 
 
  var GlobalMessageChannel = pusher.subscribe('GlobalMessageChannel');
-    GlobalMessageChannel.bind('newGlobalMessage', function(data){
-                var user = $("#userEmail").val();
+    GlobalMessageChannel.bind('newGlobalMessage', function(data){  
+
                 var dataString = 'msg='+data.message;
-                var url = $("#decrypt-message").val();
+                var url = root+'/messages/decrypt-message';                
                 $.ajax({
                     type: 'POST',
                     url: url,
                     data: dataString,
-                    beforeSend: function(request) {                       
+                    beforeSend: function(request) { 
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
                     },
                     success: function(response) { 
-                                  
+                      
                       $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
-                          if(user != data.email){
+                          if(auth_user != data.email){
 
-                            // My Message
+                            // User Message
                                             
                              $(".global-window").append('<div class="row">'
                              +' <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">'
@@ -99,26 +99,28 @@
 
                              +'  <div class="col-md-5 pull-left Area-left">'
                              +' <div class="col-md-12" style="padding:0px;">'
-                             +' <div class="col-md-10 col-md-offset-2 pull-left text-left chat_username"> Me  </div>'
-                             +' <div class="col-md-8 col-md-offset-4 pull-left text-left chat_time"> Just now... </div>'
-                             +' <div class="col-md-12 pull-right text-center chat_text_left"> '+response+' </div>'
+                             +' <div class="col-md-8 pull-left text-left chat_username"> '+ data.firstname+' '+data.lastname +'   </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;"> @'+data.username+' </div>'
+                             +' <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time"> Just now... </div>'
+                             +' <div class="col-md-12 pull-right text-center chat_text"> '+response+' </div>'
                              +'</div> </div>');
                            
 
                           }else{
 
-                            //User Message
+                            //My Message
                                        
-                                             $(".global-window").append('<div class="row">'
+                             $(".global-window").append('<div class="row">'
                              +'  <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;"> '
                              +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
                              +'  <div class="tooltip"> </div> </a> </div>'
 
                              +'  <div class="col-md-5 pull-right Area">'
                              +' <div class="col-md-12" style="padding:0px;">'
-                             +' <div class="col-md-10 col-md-offset-2 pull-right text-left chat_username"> '+data.username+'  </div>'
+                             +' <div class="col-md-8 pull-right text-right chat_username"> Me </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;">     </div>'
                              +'  <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  Just now... </div>'
-                             +' <div class="col-md-12 pull-left text-center chat_text"> '+response+' </div>'
+                             +' <div class="col-md-12 pull-left text-center chat_text chat_text_right"> '+response+' </div>'
                              +'</div> </div>');
 
                           }                     

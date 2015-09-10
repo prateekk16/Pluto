@@ -18,11 +18,11 @@ top: 11px;
 }
 
 .avatar_filter{
-	 -webkit-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
-        -moz-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
-        box-shadow:      -1px 10px 44px -7px rgb(78, 148, 169) ;     
-
+-webkit-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
+-moz-box-shadow: -1px 10px 44px -7px rgb(78, 148, 169);
+box-shadow:      -1px 10px 44px -7px rgb(78, 148, 169) ; 
 }
+
 /*0,0,0,0.65*/
 .avatar_filter_black{
    -webkit-box-shadow: -1px 10px 44px -7px rgb(31, 34, 35);
@@ -71,7 +71,7 @@ box-shadow: -2px -8px 50px 6px rgba(0,0,0,0.71);
   .user_nav_status{
     position: relative;    
     font-size: 14px;    
-    font-family: 'Poiret One', cursive;
+    font-family: 'monospace';
     color: #B7B7B7; 
   }
 .send-attachments{
@@ -118,7 +118,7 @@ box-shadow: -2px -8px 50px 6px rgba(0,0,0,0.71);
     overflow-x: hidden;
     padding-bottom: 9px;
     margin: 30px 0 10px;
-    
+    padding-top:20px;
     
     
 }
@@ -136,7 +136,7 @@ box-shadow: -2px -8px 50px 6px rgba(0,0,0,0.71);
 .Area-left
 {  
 /*  background-color:rgba(40, 52, 137, 0.1);*/
-    background-color:rgba(0, 123, 32, 0.12);
+    background-color:rgba(0, 123, 32, 0.08);
   padding:5px;
   border-radius:5px;
   margin-bottom:10px;
@@ -166,7 +166,8 @@ z-index: 1;
   .chat_img{
   border-radius:50%;
   border:2px solid #f0f0ff;
-  padding:5px;   
+  padding:5px;  
+  margin-top: -20px; 
 }
 .chat_img:hover
 {
@@ -184,23 +185,20 @@ z-index: 1;
   }
   
   .chat_text{
-  color: white;
-font-size: 12px;
- border: 1px solid #f0f0f0;
-background-color: rgba(60, 105, 128, 1);
-margin-top: 10px;
-border-radius: 12px;
-padding: 5px;
-font-family: sans-serif;
-}
-  .chat_text_left{
-    font-size: 12px;
-    border: 1px solid #6B9C6D;
+    font-size: 14px;
+    border: 1px solid #81D084;
     background-color: rgb(245, 245, 245);
     margin-top: 10px;
     border-radius: 12px;
     padding: 5px;
-    font-family: sans-serif;
+    font-weight: normal;
+    word-wrap: break-word;
+    line-height: 1.38;
+    font-family: helvetica, arial, sans-serif;
+    color: #3A3939;
+}
+  .chat_text_right{
+     border: 1px solid #83ADC5;
 }
 .update_text_sidebar{
 font-size: 12px;
@@ -372,7 +370,11 @@ overflow-x: hidden;
 border:4px double #bbb;color:#aaa;text-decoration:none;background:#e6e6e6;
 }
 
-
+.box-shadow{
+-webkit-box-shadow: 36px 30px 59px -21px rgba(0,0,0,0.34);
+-moz-box-shadow: 36px 30px 59px -21px rgba(0,0,0,0.34);
+box-shadow: 36px 30px 59px -21px rgba(0,0,0,0.34);
+}
 
 
 #v-nav >div.tab-content

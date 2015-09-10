@@ -28,7 +28,11 @@
 
 
     </li>
-    <li><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
+
+
+    <li style="margin-top: 50px;"><a href="#stories"><i class="glyphicon glyphicon-list"></i> Stories</a></li>
+
+
     <li>
      <a href="javascript:;" data-toggle="collapse" data-target="#status"><i class="fa fa-fw fa-quote-left"></i> Status <i class="fa fa-fw fa-caret-down"></i></a>
       <ul id="status" class="collapse sidebar-ul">

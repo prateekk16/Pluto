@@ -13,7 +13,7 @@ max-height: none;
     <!-- main col left -->
     <div class="col-sm-9">
       
-      <div class="well">
+      <div class="well" style="padding:0;">
         <!-- <form class="form-horizontal" role="form">
           <h4>What's New</h4>
           <div class="form-group" style="padding:14px;">
@@ -23,30 +23,33 @@ max-height: none;
         </form> -->
         <div class="col-md-12 main-content">
           
-          <div class="tab-content">
-            <input type="text" id="decrypt-message" style="display:none;" value="{{URL::to('messages/decrypt-message')}}"/>
+          <div class="tab-content">           
             <!-- ************************GLOBAL CHAT TAB********************************* -->
             <div id="global" class="tab-pane fade in active">
-              <div class="global-window">
+              <div class="global-window box-shadow">
                 @if(getGlobalMessages()->count() > 0)
                 @foreach(getGlobalMessages() as $message)
                 
-                @if($message->user->id != $currentUser->id)
+                @if($message->user->id == $currentUser->id)
+                  {{-- MY MESSAGE --}}
                 <div class="row">
                   <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;">
-                    <a href="{{ URL::to('/'.$message->user->username ) }}">
-                      <img src="{{ checkUserAvatar($message->user->email,'small') }}" class="chat_img img-responsive"/>
-                      <div class="tooltip">  </div>
+                  <a href="{{ URL::to('/'.$currentUser->username ) }}">  
+                   <img src="{{ checkUserAvatar($currentUser->email,'small') }}" class="chat_img img-responsive"/>
+                      <div class="tooltip">
+                      </div>
                     </a>
                   </div>
                   <div class="col-md-5 pull-right Area">
                     
                     <div class="col-md-12" style="padding:0px;">
-                      <div class="col-md-10 col-md-offset-2 pull-right text-left chat_username">  {{$message->user->username}}
+                      <div class="col-md-8 pull-right text-right chat_username"> Me
+                      </div>
+                      <div class="col-md-2" style="font-size: 8px;">                        
                       </div>
                       <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  {{$message->created_at->diffForHumans()}}
                       </div>
-                      <div class="col-md-12 pull-left text-center chat_text">
+                      <div class="col-md-12 pull-left text-center chat_text chat_text_right">
                         {{ decryptMessage($message->body) }}
                       </div>
                       
@@ -58,19 +61,24 @@ max-height: none;
                 @else
                 <div class="row">
                   <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">
-                    <a href="{{ URL::to('/'.$currentUser->username ) }}">
-                      <img src="{{ checkUserAvatar($currentUser->email,'small') }}" class="chat_img img-responsive"/>
-                      <div class="tooltip">  </div>
+                     <a href="{{ URL::to('/'.$message->user->username ) }}">
+                      <img src="{{ checkUserAvatar($message->user->email,'small') }}" class="chat_img img-responsive"/>
+                      <div class="tooltip">
+                      </div>
                     </a>
                   </div>
                   <div class="col-md-5 pull-left Area-left">
                     
                     <div class="col-md-12" style="padding:0px;">
-                      <div class="col-md-10 col-md-offset-2 pull-left text-left chat_username">  <p></p>
+                      <div class="col-md-8 pull-left text-left chat_username"> {{$message->user->info->firstname}} {{$message->user->info->lastname}} 
                       </div>
-                      <div class="col-md-8 col-md-offset-4 pull-left text-left chat_time">  {{$message->created_at->diffForHumans()}}
+                      <div class="col-md-2" style="font-size: 8px;">
+                        {{'@'.$message->user->username}}
                       </div>
-                      <div class="col-md-12 pull-right text-center chat_text_left">
+                      <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time">
+                       {{$message->created_at->diffForHumans()}}
+                      </div>
+                      <div class="col-md-12 pull-right text-center chat_text">
                         {{ decryptMessage($message->body) }}
                       </div>
                       

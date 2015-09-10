@@ -18,7 +18,7 @@ Event::listen('Pluto.Messenger.Events.GlobalMessagePublished', function($event){
 	   $userLink = Request::root().'/'.$sender->username;
 	   $img = checkUserAvatar($sender->email,'small');  
 
-	   Pusherer::trigger('GlobalMessageChannel', 'newGlobalMessage', array('email'=>$sender->email,  'message' => $event->body, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username  ));
+	   Pusherer::trigger('GlobalMessageChannel', 'newGlobalMessage', array('email'=>$sender->email,  'message' => $event->body, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username, 'firstname'=>$sender->info->firstname, 'lastname'=>$sender->info->lastname  ));
  
 });
 

@@ -262,23 +262,25 @@ $("#postStatus").submit(function(event) {
 
 $("#sendGlobal").submit(function(event) {
     event.preventDefault();
-    var url = $(this).attr('action');
+    var url = root +'/messages/post-global';
     var dataString = 'message=' + $(".global_message_body").val();
     if ($(".global_message_body").val() != "") {
         $.ajax({
             type: 'POST',
             url: url,
             data: dataString,
-            beforeSend: function(request) {
-                $(".global_send_button").attr("disabled", true);
+            beforeSend: function(request) { 
+                $(".global_send_button").attr("disabled", true); 
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                                
             },
-            success: function(response) {   
-                         
+            success: function(response) {                                 
                 $(".global_send_button").attr("disabled", false);
                 $(".global_message_body").val("");
             },
-            error: function() {}
+            error: function(e) {
+                console.log(e);
+            }
         });
     }
 });
@@ -306,7 +308,7 @@ $("#search_friend").submit(function(event) {
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
             },
             success: function(response) {   
-                alert(response);         
+                       
                 $(".search-friend-btn").attr("disabled", false);
                 $(".search-friend-btn").val("");
             },

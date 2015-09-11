@@ -7,7 +7,7 @@
     FriendRequestChannel.bind('userSentRequest', function(data){         
          
             if(auth_user == data.receiver_email){
-               $('.fa-users').css('color','#FF6666');
+               $('.fa-user-plus').css('color','#FF6666');
                 $(".icon-bar").removeClass('icon-bar-notify-white');
                $(".icon-bar").addClass('icon-bar-notify');
                $('.freq').fadeIn();

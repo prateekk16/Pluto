@@ -139,7 +139,7 @@ max-height: none;
                                 <i class="fa fa-users fa-2x"></i></a></li>
 
                              
-                          </ul>
+                          </ul><!--/ul nav-tabs-->
                           
                           <div class="tab-content">
                            <h4>Global</h4>
@@ -155,7 +155,7 @@ max-height: none;
                                 <p>sdfsdf</p><p>sdfsdf</p><p>sdfsdf</p><p>sdfsdf</p><p>sdfsdf</p><p>sdfsdf</p><p>sdfsdf</p>
                               </div>
                               
-                          </div>
+                          </div><!--/tab-contents for global-->
                           
                           <div class="tab-content">
                               <h4>Friends</h4>
@@ -184,21 +184,17 @@ max-height: none;
                                      </div><!--/row-->
                                   @endforeach
                                 </div>                       
-                          </div>
+                          </div><!--/tab contents for friends-->
 
                           <div class="tab-content">
                             <h4>Groups</h4>
                               <div class="scrollable">
                               </div>
-                          </div>
+                          </div><!--/tab content for groups-->
                           
-                          <div class="tab-content">
-                              <h4>Favs</h4>
-                               <div class="scrollable">
-                               </div>
-                          </div>
-                      </div>
-                    </section>
+                        
+                      </div><!--/v-nav-->
+                    </section><!--/section-->
 
                     <div class="well" style="padding:1px; margin-top: 10px;">
                        <span style="font-size: 10px; font-weight:bold;">  Recent Updates</span>
@@ -345,14 +341,7 @@ max-height: none;
                     </div><!-- /.padding-footer -->
                   </div><!-- /.navbar -->
                                     
-                                    <!-- ************************  MODAL WINDOW FOR FAVOURITE FRIEND  ************************** -->
-                                    <div class="modal fav-modal" id="fav1">
-                                      <div class="modal-dialog">
-                                        <div class="modal-content">
-                                          <select autofocus id="favourite-friend"  placeholder="Type a Friend's name..." class="form-control Friends">
-                                          </div>
-                                        </div>
-                                      </div>
+                                  
 
 
                                       <!-- ************************ EOF  ************************** -->

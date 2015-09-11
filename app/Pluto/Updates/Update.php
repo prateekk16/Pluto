@@ -42,7 +42,7 @@ class Update extends \Eloquent {
 
 	public static function MyFriendsUpdatesRecent($user){
 
-		$recent = Carbon::now()->subMinutes(59);
+		$recent = Carbon::now()->subMinutes(120);
 
 		//$result = DB::table('db_user')->where('id_user','=',Session::get('id_user'))->where('last_activity','>=',$formatted_date)->get();
 		

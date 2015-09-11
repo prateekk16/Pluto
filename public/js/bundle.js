@@ -11,7 +11,6 @@
 
 
     $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
-   $("html, body").animate({ scrollTop: $(document).height() - 50 }, "slow");
 
    // root+'/api/friendSearch',
 
@@ -215,15 +214,6 @@ $( ".profile-pic-sidebar" ).hover(
 // }
 
 
-
-$("#left-sidebar-notify").click(function(event){   
-   $(".icon-bar-notify").addClass('icon-bar-notify-white');
-});
-
-$(document).on("click", '.click-me',function(event){
-    alert("ok");
-     $("#newMap").append(' <button type="submit" class="click-me"/> ');
-});
 
 
 
@@ -505,14 +495,14 @@ $(document).on("click", '.respond-friend-request',function(event){
 
  $(function () {
     var items = $('#v-nav>ul>li').each(function () {
-         $('#v-nav>div.tab-content').first().show();
+         $('.right-height-55>div.tab-content').first().show();
         $(this).click(function () {
             //remove previous class and add it to clicked tab
           //  items.removeClass('active');
           //  $(this).addClass('active');
 
             //hide all content divs and show current one
-            $('#v-nav>div.tab-content').hide().eq(items.index($(this))).show();
+            $('.right-height-55>div.tab-content').hide().eq(items.index($(this))).show();
 
            // window.location.hash = $(this).attr('tab');
         });

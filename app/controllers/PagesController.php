@@ -7,7 +7,7 @@ class PagesController extends BaseController {
 	 */
 	public function index()
 	{		
-		return Auth::check() ?  View::make('pages.index2') :  View::make('pages.index');		
+		return Auth::check() ?  View::make('pages.index3') :  View::make('pages.index');		
 		 
 	}
 

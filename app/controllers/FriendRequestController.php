@@ -76,6 +76,13 @@ class FriendRequestController extends BaseController {
         return View::make('friendrequests.show');
 	}
 
+	public function check(){
+		if(checkFriendship(Auth::user()->id, Input::get('user_id')) || Auth::user()->id == Input::get('user_id'))
+			return 1;
+
+		return 0;
+	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *

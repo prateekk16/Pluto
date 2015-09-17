@@ -22,6 +22,17 @@ Event::listen('Pluto.Messenger.Events.GlobalMessagePublished', function($event){
  
 });
 
+Event::listen('Pluto.Messenger.Events.FriendsMessagePublished', function($event){
+      
+	   $sender =   getUser($event->user_id);
+	   $userLink = Request::root().'/'.$sender->username;
+	   $img = checkUserAvatar($sender->email,'small'); 
+
+	   
+	    Pusherer::trigger('FriendMessageChannel', 'newFriendMessage', array( 'sender_id'=>$sender->id, 'email'=>$sender->email,  'message' => $event->body, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username, 'firstname'=>$sender->info->firstname, 'lastname'=>$sender->info->lastname  ));
+ 
+});
+
 Event::listen('Pluto.Updates.Events.UpdatePublished', function($event){
 	// $sender =   getUser(1);
 	// $receiver = getUser(2);

@@ -56,6 +56,7 @@
         <script>
                         var root = '{{url("/")}}';
                         var auth_user = '{{ Auth::user()->email }}';
+                        var token_type = "global";
         </script>
     </body>
 </html>

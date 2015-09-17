@@ -73,6 +73,90 @@
    });
 
 
+var FriendMessageChannel = pusher.subscribe('FriendMessageChannel');
+FriendMessageChannel.bind('newFriendMessage', function(data){ 
+
+                var dataString = 'msg='+data.message;
+                var dataString1 = 'user_id='+data.sender_id;
+                var url = root+'/messages/decrypt-message'; 
+                var url1 = root+'/check-Friendship';               
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: dataString,
+                    beforeSend: function(request) { 
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                    },
+                    success: function(response) { 
+
+                $.ajax({
+                    type: 'POST',
+                    url: url1,
+                    data: dataString1,
+                    beforeSend: function(request) { 
+                        return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
+                    },
+                    success: function(response1) { 
+                        console.log(response1);
+                         if(response1 == 1){
+                            $(".friends-window").animate({ scrollTop: $('.friends-window')[0].scrollHeight}, 1000);
+                          if(auth_user != data.email){
+
+                            // User Message
+                                            
+                             $(".friends-window").append('<div class="row">'
+                             +' <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">'
+                             +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
+                             +'  <div class="tooltip"> </div> </a> </div>'
+
+                             +'  <div class="col-md-5 pull-left Area-left">'
+                             +' <div class="col-md-12" style="padding:0px;">'
+                             +' <div class="col-md-8 pull-left text-left chat_username"> '+ data.firstname+' '+data.lastname +'   </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;"> @'+data.username+' </div>'
+                             +' <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time"> Just now... </div>'
+                             +' <div class="col-md-12 pull-right text-center chat_text"> '+response+' </div>'
+                             +'</div> </div>');
+                           
+
+                          }else{
+
+                            //My Message
+                                       
+                             $(".friends-window").append('<div class="row">'
+                             +'  <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;"> '
+                             +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
+                             +'  <div class="tooltip"> </div> </a> </div>'
+
+                             +'  <div class="col-md-5 pull-right Area">'
+                             +' <div class="col-md-12" style="padding:0px;">'
+                             +' <div class="col-md-8 pull-right text-right chat_username"> Me </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;">     </div>'
+                             +'  <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  Just now... </div>'
+                             +' <div class="col-md-12 pull-left text-center chat_text chat_text_right"> '+response+' </div>'
+                             +'</div> </div>');
+
+                          }  
+
+                         }
+                            
+
+                       },
+                      error: function() {}
+                    });                                           
+                },
+                    error: function() {}
+    });
+});
+
+
+
+
+
+
+
+
+
+
  var GlobalMessageChannel = pusher.subscribe('GlobalMessageChannel');
     GlobalMessageChannel.bind('newGlobalMessage', function(data){  
 

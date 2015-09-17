@@ -38,7 +38,7 @@ class SessionsController extends BaseController {
 		$this->loginForm->validate($input = Input::only('email', 'password'));
 
 		if (Auth::attempt($input))
-		{
+		{			
 			return Redirect::intended('/');
 		}
 
@@ -53,6 +53,7 @@ class SessionsController extends BaseController {
 	 */
 	public function destroy($id = null)
 	{
+		
 		Auth::logout();
 
 		return Redirect::home();

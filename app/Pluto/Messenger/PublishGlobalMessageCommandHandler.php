@@ -25,8 +25,7 @@ class PublishGlobalMessageCommandHandler implements CommandHandler{
 	 */
 	public function handle($command){
 
-		 $message1 = Message::publish($command->user_id,$command->message,$command->global);	
-		 
+		 $message1 = Message::publish($command->user_id,$command->message,$command->global,$command->incognito);
 
 		 $this->messageRepository->save($message1);		
 

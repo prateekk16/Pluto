@@ -45,9 +45,11 @@ Route::post('/api/addFavourite', ['as' => 'addFaourite', 'uses' =>'FriendRequest
 
 #Event for Friend Request Reponse
 Route::post('respond-to-friend-request', ['as' => 'respond_to_friend_request', 'uses' =>'FriendRequestController@store']);
+Route::post('check-Friendship', ['as' => 'check-Friendship', 'uses' =>'FriendRequestController@check']); 
 
 #Event for Status Update
 Route::post('news-update-check-friendship', ['as' => 'news-update-check-friendship', 'uses' =>'UpdatesController@show']); 
+
 
 
 #Search APi

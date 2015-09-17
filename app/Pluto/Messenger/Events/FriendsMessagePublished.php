@@ -3,7 +3,7 @@
 namespace Pluto\Messenger\Events;
 
 
-class GlobalMessagePublished{
+class FriendsMessagePublished{
 
 	public $body;
 	public $user_id;

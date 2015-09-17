@@ -50,11 +50,12 @@ function getStatusById($id){
 }
 
 
-function getGlobalMessages(){
-	
-	 return Message::getAllLatestGlobal();
-	 //return $messages;
-	
+function getGlobalMessages($type){	
+	 return Message::getAllLatestGlobal($type);	
+}
+
+function checkIncognitoPost($message){
+  return Message::checkForIncognito($message);
 }
 
 function decryptMessage($msg){

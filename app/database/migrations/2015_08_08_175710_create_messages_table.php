@@ -17,10 +17,12 @@ class CreateMessagesTable extends Migration
             $table->integer('thread_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned();
             $table->text('body');
-            $table->integer('global');
+            $table->integer('global')->unsigned();
+            $table->boolean('incognito');
             $table->timestamps();
 
             $table->foreign('thread_id')->references('id')->on('threads');
+            $table->foreign('global')->references('id')->on('global_codes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
         });
     }

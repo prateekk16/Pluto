@@ -9,8 +9,24 @@
         $('#btnShow').toggle();
     });
 
+    $("#toggle-incognito-check").attr('checked', false);
+    $("#toggle-incognito-check").attr("disabled",true);
 
-    $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+    $('#toggle-incognito-check').change(function() {
+        if($(this).is(":checked")) {
+           $(".incognito-color").css('color','#00A700'); 
+           $(".navbar-blue-bottom").css('background-color','#E6EBF1');       
+        }
+        else{
+          $(".incognito-color").css('color','grey');
+           $(".navbar-blue-bottom").css('background-color','#333');  
+       }
+    });
+
+
+    $(".center-height-85").animate({ scrollTop: $('.center-height-85')[0].scrollHeight}, 1000);
+
+   
 
    // root+'/api/friendSearch',
 
@@ -252,8 +268,25 @@ $("#postStatus").submit(function(event) {
 
 $("#sendGlobal").submit(function(event) {
     event.preventDefault();
-    var url = root +'/messages/post-global';
-    var dataString = 'message=' + $(".global_message_body").val();
+    var incognito = 0;
+    var url = root +'/messages/post-global';    
+    if($('#toggle-incognito-check').is(":checked")){
+        incognito = 1;
+    }
+    switch(token_type){
+        case "global": token_type = 1;
+                        break;
+
+        case "friends": token_type = 2;
+                        break;
+
+        case "group":  token_type = 3;
+                       break;
+
+        default:   break;
+    }
+    var dataString = 'message=' + $(".global_message_body").val() + '&incognito=' +incognito + '&token_type=' +token_type  ;
+    console.log(dataString);
     if ($(".global_message_body").val() != "") {
         $.ajax({
             type: 'POST',
@@ -265,6 +298,7 @@ $("#sendGlobal").submit(function(event) {
                                 
             },
             success: function(response) {                                 
+                console.log(response);
                 $(".global_send_button").attr("disabled", false);
                 $(".global_message_body").val("");
             },
@@ -495,6 +529,7 @@ $(document).on("click", '.respond-friend-request',function(event){
 
  $(function () {
     var items = $('#v-nav>ul>li').each(function () {
+        $("#toggle-incognito-check").attr("disabled",true);
          $('.right-height-55>div.tab-content').first().show();
         $(this).click(function () {
             //remove previous class and add it to clicked tab
@@ -503,7 +538,21 @@ $(document).on("click", '.respond-friend-request',function(event){
 
             //hide all content divs and show current one
             $('.right-height-55>div.tab-content').hide().eq(items.index($(this))).show();
-
+             if($(this).index() == '0'){
+                 token_type = "global";   
+                 $(".incognito-color").css('color','grey');
+                 $(".navbar-blue-bottom").css('background-color','#333');  
+                 $("#toggle-incognito-check").attr('checked', false);
+                 $("#toggle-incognito-check").attr("disabled",true);
+             }
+             else if($(this).index() == '1'){
+                token_type = "friends";   
+                $("#toggle-incognito-check").attr("disabled",false);
+            }
+            else if($(this).index() == '2'){
+                token_type = "group";   
+                $("#toggle-incognito-check").attr("disabled",false);
+            }
            // window.location.hash = $(this).attr('tab');
         });
     });

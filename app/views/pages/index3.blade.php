@@ -17,9 +17,10 @@
 			<div class="tab-content">
 				<!-- ************************GLOBAL CHAT TAB********************************* -->
 	            <div id="global" class="tab-pane fade in active">
+	              <h5>Global Channel</h5>
 	            	<div class="global-window">
-	            	   @if(getGlobalMessages()->count() > 0)
-	            	    @foreach(getGlobalMessages() as $message)
+	            	   @if(getGlobalMessages(1)->count() > 0)
+	            	    @foreach(getGlobalMessages(1) as $message)
 	            	     @if($message->user->id == $currentUser->id)
 	            	     	{{-- MY MESSAGE --}}	
 	            	     	<div class="row">
@@ -85,13 +86,110 @@
                 </div><!-- /global -->
                  <!-- ************************GROUP CHAT TAB********************************* -->
                 <div id="groups" class="tab-pane fade">
-                  <h3>Group Tab</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil commodi quaerat eius ipsam, error necessitatibus unde deleniti facere repellat, recusandae, nesciunt repellendus pariatur sint accusantium excepturi, magni odit expedita ipsa.</p>
+                   <h5>My Group Channel</h5>
+                   <div class="group-window">
+
+                   </div>
+                 
                 </div>
                 <!-- ************************PRIVATE CHAT TAB********************************* -->
                 <div id="friends" class="tab-pane fade">
-                  <h3>Friends Tab</h3>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                  <h5>My Friends Channel</h5>
+					<div class="friends-window">
+						@if(getGlobalMessages(2)->count() > 0)
+	            	    @foreach(getGlobalMessages(2) as $message)
+	            	    @if(checkFriendship($currentUser->id,$message->user->id))
+	            	     @if(checkIncognitoPost($message))
+
+							<div class="row">								
+									 <div class="pull-left chat_img_pos_left" style="padding:0px;">
+					                     <i class="fa fa-user-secret fa-2x" style="color:#5A5A5A;"></i>
+					                  </div>
+
+					                  <div class="col-md-6 pull-left Area-left" style="background-color: rgba(0, 0, 0, 0.08);">
+					                    <div class="col-md-12" style="padding:0px;">
+					                      <div class="col-md-8 pull-left text-left chat_username">Unknown
+					                      </div>			                      
+					                      <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time">
+					                       {{$message->created_at->diffForHumans()}}
+					                      </div>
+					                      <div class="col-md-12 pull-right text-center chat_text" style="border: 1px solid #F3E8E8;">
+					                        {{ decryptMessage($message->body) }}
+					                      </div>
+					                    </div>
+					                  </div>								
+							 </div>
+			             			  
+			               @else
+
+			                {{-- Friend MESSAGE --}}
+			                <div class="row">
+			                  <div class="pull-left chat_img_pos_left" style="padding:0px;">
+			                     <a href="{{ URL::to('/'.$message->user->username ) }}">
+			                      <img src="{{ checkUserAvatar($message->user->email,'small') }}" class="chat_img img-responsive"/>
+			                      <div class="tooltip">
+			                      </div>
+			                    </a>
+			                  </div>
+			                  <div class="col-md-6 pull-left Area-left">
+			                    
+			                    <div class="col-md-12" style="padding:0px;">
+			                      <div class="col-md-8 pull-left text-left chat_username"> {{$message->user->info->firstname}} {{$message->user->info->lastname}} 
+			                      </div>
+			                      <div class="col-md-2" style="font-size: 8px;">
+			                        {{'@'.$message->user->username}}
+			                      </div>
+			                      <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time">
+			                       {{$message->created_at->diffForHumans()}}
+			                      </div>
+			                      <div class="col-md-12 pull-right text-center chat_text">
+			                        {{ decryptMessage($message->body) }}
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+
+			               @endif
+			            @endif <!-- /check if friendship -->
+
+			            @if($message->user->id == $currentUser->id)
+			            	{{-- MY MESSAGE --}}
+			            	<div class="row">
+			                  <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;">
+			                  <a href="{{ URL::to('/'.$currentUser->username ) }}">  
+			                   <img src="{{ checkUserAvatar($currentUser->email,'small') }}" class="chat_img img-responsive"/>
+			                      <div class="tooltip">
+			                      </div>
+			                    </a>
+			                  </div>
+			                  <div class="col-md-5 pull-right Area">
+			                    <div class="col-md-12" style="padding:0px;">
+			                      <div class="col-md-8 pull-right text-right chat_username"> Me
+			                      </div>
+			                      <div class="col-md-2" style="font-size: 8px;">    
+			                        @if(checkIncognitoPost($message))   As incognito   @endif             
+			                      </div>
+			                      <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  {{$message->created_at->diffForHumans()}}
+			                      </div>
+			                      <div class="col-md-12 pull-left text-center chat_text chat_text_right">
+			                        {{ decryptMessage($message->body) }}
+			                      </div>
+			                    </div>
+			                  </div>
+			                </div>
+			            @endif<!-- /check my message -->
+			            @endforeach
+			                   {{-- NO ACTIVITY --}}
+			                @else
+			                <div class="row">
+			                  <div class="global-inactive col-md-12">
+			                    <p>Hmmm, Global seems to be inactive at the moment...</p>
+			                  </div>
+			                </div>
+			                @endif
+					</div><!-- /friends-window -->
+
+                  
                 </div>
 			</div><!-- /tab-content -->
 		</div><!-- /custom-center-well -->
@@ -238,34 +336,29 @@
                     <div class="padding-footer">
                       <div class="row">
                         <!-- main col left -->
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                           <div class="submit-text-area">
                             <div class="row">
-                              <div class="col-md-2" style="padding-top:10px;">
-
-                                <div class="send-global">
-                                  <i class="fa fa-globe fa-lg"></i>
-                                </div>
-                                <div class="send-group" style="display:none;">
-                                  
-                                </div>
-                                <div class="send-private" style="display:none;">
-                                  
-                                </div>
-                                
-                                </div><!-- /.col-md-2 -->
+                              
                                 <div class="col-md-3" style="padding-top:10px;">
                                   <a href="#" class="send-attachments"> <i class="fa fa-picture-o fa-lg"></i> </a>
                                   <a href="#" class="send-attachments"> <i class="fa fa-video-camera fa-lg"></i> </a>
                                   <a href="#" class="send-attachments"> <i class="fa fa-picture-o fa-lg"></i> </a>
                                 </div>
+
+                                <div class="col-md-3">
+                                   
+                                	 
+                                	
+                                </div>
                                 
                                 <!-- ************************SEND MESSAGE BOX********************************* -->
                                 
-                                <div class="col-md-7">
+                                <div class="col-sm-9">
                                   {{Form::open(['route' => 'messages.storeGlobal', 'id'=>'sendGlobal' ])}}
                                   <div class="input-group">
                                     <input type="text" name="message" class="form-control global_message_body" placeholder="Type..." required="required">
+                                    <input type="text" name="incognito" id="incognito" value="" style="display:none"/>
                                     <span class="input-group-btn">
                                       {{ Form::submit('Send!', ['class' => 'btn btn-primary form-control global_send_button']) }}
                                       {{Form::close()}}
@@ -274,14 +367,19 @@
                                 </div><!-- /.col-md-7 -->
                             </div><!-- /.row -->
                           </div><!-- /.submit-text-area -->
-                        </div><!-- /.col-sm-7 -->
+                        </div><!-- /.col-md-9 -->
                                     <!-- ************************COPYRIGHT************************** -->
-                                    <div class="col-sm-3">
-                                      <div class="navbar-text pull-right">
-                                        <h6 class="text-center">
+                                    <div class="col-sm-4">
+                                      
+                                         <div class="col-md-3" style="padding-top: 14px;padding-right:0;">
+	                                    	<i class="fa fa-user-secret fa-lg pull-right incognito-color"></i>
+	                                    </div>
+	                                    <div class="col-md-9 toggle-incognito">	                                	   
+											<input type="checkbox" value="incognito" id="toggle-incognito-check" name="check" />
+											<label for="toggle-incognito-check"></label>
+										</div>
                                         
-                                        </h6>
-                                      </div>
+                                      
                                     </div>
                       </div><!-- /.row -->
                     </div><!-- /.padding-footer -->

@@ -57,9 +57,11 @@ class MessagesController extends BaseController
 	public function storeGlobal()
 	{
 		$input = Input::only('message'); 
+		$incognito = Input::get('incognito');
+		$token = Input::get('token_type');		
 		$this->messageForm->validate($input);
-		$input = array_merge($input, ['user_id' => Auth::user()->id, 'global' => '1']);
-		$message = $this->execute(PublishGlobalMessageCommand::class, $input);
+		$input = array_merge($input, ['user_id' => Auth::user()->id, 'global' => $token, 'incognito'=>$incognito  ]);			
+		$message = $this->execute(PublishGlobalMessageCommand::class, $input);		
 		return $message->body;
 	}
 

@@ -96,13 +96,31 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
                     beforeSend: function(request) { 
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
                     },
-                    success: function(response1) { 
-                        console.log(response1);
+                    success: function(response1) {                        
                          if(response1 == 1){
-                            $(".friends-window").animate({ scrollTop: $('.friends-window')[0].scrollHeight}, 1000);
-                          if(auth_user != data.email){
+                            if((token_type == "global" && data.email != auth_user) || (token_type == "group" && data.email != auth_user))
+                              $(".token_friends").addClass('red-notify');
 
-                            // User Message
+                            $(".friends-window").animate({ scrollTop: $('.friends-window')[0].scrollHeight}, 1000);
+                             if(auth_user != data.email){
+                                if(data.incognito == '1') {
+
+                                     // User Incognito Mode Message
+                                            
+                             $(".friends-window").append('<div class="row">'
+                             +' <div class="pull-left chat_img_pos_left" style="padding:0px;">'                             
+                             +'   <i class="fa fa-user-secret fa-2x" style="color:#5A5A5A;"></i> </div>'
+
+                             +'  <div class="col-md-6 pull-left Area-left" style="background-color: rgba(0, 0, 0, 0.08);">'
+                             +' <div class="col-md-12" style="padding:0px;">'
+                             +' <div class="col-md-8 pull-left text-left chat_username"> Unknown  </div>'                             
+                             +' <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time"> Just now... </div>'
+                             +' <div class="col-md-12 pull-right text-center chat_text" style="border: 1px solid #F3E8E8;"> '+response+' </div>'
+                             +'</div> </div>');
+
+                                }else{
+
+                                    // User Normal Message
                                             
                              $(".friends-window").append('<div class="row">'
                              +' <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">'
@@ -116,6 +134,10 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
                              +' <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time"> Just now... </div>'
                              +' <div class="col-md-12 pull-right text-center chat_text"> '+response+' </div>'
                              +'</div> </div>');
+
+                                }
+
+                            
                            
 
                           }else{
@@ -158,8 +180,7 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
 
 
  var GlobalMessageChannel = pusher.subscribe('GlobalMessageChannel');
-    GlobalMessageChannel.bind('newGlobalMessage', function(data){  
-
+    GlobalMessageChannel.bind('newGlobalMessage', function(data){                 
                 var dataString = 'msg='+data.message;
                 var url = root+'/messages/decrypt-message';                
                 $.ajax({
@@ -170,6 +191,8 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
                         return request.setRequestHeader('X-CSRF-Token', $("meta[name='_token']").attr('content'));
                     },
                     success: function(response) { 
+                         if((token_type == "friends" && data.email != auth_user) || (token_type == "group" && data.email != auth_user))
+                            $(".token_global").addClass('red-notify');
                       
                       $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
                           if(auth_user != data.email){

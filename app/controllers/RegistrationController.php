@@ -4,6 +4,7 @@ use Pluto\Forms\RegistrationForm;
 use Laracasts\Commander\CommanderTrait;
 use Pluto\Registration\RegisterUserCommand;
 use Pluto\Registration\RegisterUserInfoCommand;
+use Pluto\Partials\SessionManager;
 
 class RegistrationController extends BaseController {
 
@@ -19,10 +20,10 @@ class RegistrationController extends BaseController {
 	/**
 	 * @param RegistrationForm $registrationForm
 	 */
-	function __construct(RegistrationForm $registrationForm)
+	function __construct(RegistrationForm $registrationForm, SessionManager $sessionManager)
 	{
 		$this->registrationForm = $registrationForm;
-
+		$this->sessionManager = $sessionManager;
 		$this->beforeFilter('guest', ['only' => ['create', 'store']]);
 	
 	}
@@ -60,7 +61,9 @@ class RegistrationController extends BaseController {
 		 									]);	
 	     $userinfo = $this->execute(RegisterUserInfoCommand::class, $userinfo);
 
+	     
 	     $user_id = Auth::login($user);
+	     $this->sessionManager->setupSession(Auth::user());
 		 return Redirect::home();
 	}
 

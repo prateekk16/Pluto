@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <!--login modal-->
-                         
+                         @if($errors) {{ $errors->first() }} @endif
                            <div class="form-top">
                                 <div class="form-top-left">
                                      {{ HTML::image('img/logo.png','Logo',  array('class' => 'logo_small')) }}                                  
@@ -21,6 +21,7 @@
                                     <div class="form-group">
                                         <label class="sr-only" for="email">Email</label>
                                         <input type="text" name="email" placeholder="Email..." class="form-username form-control" id="form-username">
+
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="password">Password</label>

@@ -1,6 +1,9 @@
 <?php
-use Pluto\Users\User;
-use Pluto\Users\UserInfo;
+
+
+
+
+
 
 class MainSeeder extends Seeder {
 
@@ -13,13 +16,13 @@ class MainSeeder extends Seeder {
     	// DB::table('messages')->delete();
     	DB::table('global_codes')->delete();
 
-    	// $user = new User;
+    	// $user = new Pluto\Users\User;
     	// $user->username = 'prateekk16'; 
     	// $user->email = 'prateekk16@gmail.com';
     	// $user->password = Hash::make('assassins');
     	// $user->save();
 
-    	// $userInfo = new UserInfo;
+    	// $userInfo = new Pluto\Users\UserInfo;
     	// $userInfo->user_id = $user->id;
     	// $userInfo->firstname = 'Prateek';
     	// $userInfo->lastname = 'Singh';

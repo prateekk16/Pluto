@@ -1,4 +1,5 @@
-<?php namespace Pluto\Forms;
+<?php 
+namespace Pluto\Forms;
 
 use Laracasts\Validation\FormValidator;
 

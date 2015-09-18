@@ -169,11 +169,16 @@ hr {
     background-color:#393939;
 }
 
+.logo:hover{
+  background-color:#16708A;
+  color:#fff;
+}
+
 .logo {
   display:block;
   padding:3px;
   background-color:#fff;
-  color:#3B5999;
+  color:#16708A;
   height:28px;
   width:28px;
   margin:9px;

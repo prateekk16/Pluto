@@ -1,6 +1,7 @@
 <?php
 
 use Pluto\Forms\LoginForm;
+use Pluto\Partials\SessionManager;
 
 class SessionsController extends BaseController {
 
@@ -8,13 +9,15 @@ class SessionsController extends BaseController {
 	 * @var Acme\Forms\LoginForm
 	 */
 	protected $loginForm;
+	protected $sessionManager;
 
 	/**
 	 * @param LoginForm $loginForm
 	 */
-	function __construct(LoginForm $loginForm)
+	function __construct(LoginForm $loginForm, SessionManager $sessionManager)
 	{
 		$this->loginForm = $loginForm;
+		$this->sessionManager = $sessionManager;
 		$this->beforeFilter('guest', ['except' => ['destroy']]);
 	}
 
@@ -39,10 +42,11 @@ class SessionsController extends BaseController {
 
 		if (Auth::attempt($input))
 		{			
+			$this->sessionManager->setupSession(Auth::user());
 			return Redirect::intended('/');
 		}
 
-		return Redirect::back()->withInput()->withFlashMessage('Invalid credentials provided');
+		return Redirect::back()->withInput()->withErrors('Invalid credentials provided');
 	}
 
 	/**
@@ -52,10 +56,9 @@ class SessionsController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id = null)
-	{
-		
+	{		
+		$this->sessionManager->destroySession(Auth::user());		
 		Auth::logout();
-
 		return Redirect::home();
 	}
 

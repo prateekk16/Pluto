@@ -202,15 +202,15 @@
 	  	 <div id="v-nav">
 	  	 	 <ul class="nav nav-tabs">
                               <li class="active"><a data-toggle="tab" href="#global">
-                                 <i class="fa fa-globe fa-2x" style="position: absolute;"> </i></a>
+                                 <i class="fa fa-globe fa-2x token_global" style="position: absolute;"> </i></a>
                               </li>           
 
                               <li><a data-toggle="tab" href="#friends">
-                               <i class="fa fa-user fa-2x" style="position: absolute;"></i>
-                               <i class="fa fa-check" style="position: absolute;top: 30px;left: 22px;"></i></a></li>
+                               <i class="fa fa-user fa-2x token_friends" style="position: absolute;left: 14px;"></i>
+                              {{--  <i class="fa fa-check" style="position: absolute;top: 30px;left: 22px;"></i></a></li> --}}
 
                               <li><a data-toggle="tab" href="#groups">
-                                <i class="fa fa-users fa-2x" style="position: absolute;"></i></a></li>
+                                <i class="fa fa-users fa-2x token_group" style="position: absolute;"></i></a></li>
 
                              
                           </ul><!--/ul nav-tabs-->

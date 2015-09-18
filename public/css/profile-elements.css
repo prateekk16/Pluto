@@ -14,7 +14,9 @@
 .incognito-color{
     color: grey;
 }
-
+.red-notify{
+    color:red;
+}
 
 .right-height-55 {
     height: 100%;

@@ -27,9 +27,9 @@ Event::listen('Pluto.Messenger.Events.FriendsMessagePublished', function($event)
 	   $sender =   getUser($event->user_id);
 	   $userLink = Request::root().'/'.$sender->username;
 	   $img = checkUserAvatar($sender->email,'small'); 
-
+	   $incognito = $event->incognito;
 	   
-	    Pusherer::trigger('FriendMessageChannel', 'newFriendMessage', array( 'sender_id'=>$sender->id, 'email'=>$sender->email,  'message' => $event->body, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username, 'firstname'=>$sender->info->firstname, 'lastname'=>$sender->info->lastname  ));
+	  Pusherer::trigger('FriendMessageChannel', 'newFriendMessage', array('incognito'=>$incognito, 'sender_id'=>$sender->id, 'email'=>$sender->email,  'message' => $event->body, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username, 'firstname'=>$sender->info->firstname, 'lastname'=>$sender->info->lastname  ));
  
 });
 

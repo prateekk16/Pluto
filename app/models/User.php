@@ -43,6 +43,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->hasOne('UserInfo');
     }
 
+    public function BrowsingInfo()
+    {
+        return $this->hasOne('UserBrowsingInfo');
+    }
+
 
     public function isCurrent()
     {

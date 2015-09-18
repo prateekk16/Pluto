@@ -1,5 +1,7 @@
 <?php
 
+
+
 class DatabaseSeeder extends Seeder {
 
 	/**

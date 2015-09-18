@@ -12,13 +12,14 @@ class MessagesController extends BaseController
 
  	 private $messageRepository;
  	 private $messageForm;
+ 	 private $browsingInfo;
 
 
  	 function __construct(MessageForm $messageForm,MessageRepository $messageRepository)
     {
         
         $this->messageRepository = $messageRepository;
-        $this->messageForm = $messageForm;
+        $this->messageForm = $messageForm;       
         $this->beforeFilter('auth', ['only' => ['store','storeGlobal']]);
     
     }
@@ -59,7 +60,7 @@ class MessagesController extends BaseController
 		$input = Input::only('message'); 
 		$incognito = Input::get('incognito');
 		$token = Input::get('token_type');		
-		$this->messageForm->validate($input);
+		$this->messageForm->validate($input);		
 		$input = array_merge($input, ['user_id' => Auth::user()->id, 'global' => $token, 'incognito'=>$incognito  ]);			
 		$message = $this->execute(PublishGlobalMessageCommand::class, $input);		
 		return $message->body;

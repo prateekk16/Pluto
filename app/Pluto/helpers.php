@@ -54,6 +54,10 @@ function getGlobalMessages($type){
 	 return Message::getAllLatestGlobal($type);	
 }
 
+ function getLastGlobalMessageId(){
+  return Message::orderBy('created_at','desc')->first();
+}
+
 function checkIncognitoPost($message){
   return Message::checkForIncognito($message);
 }

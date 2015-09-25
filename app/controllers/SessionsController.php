@@ -57,7 +57,7 @@ class SessionsController extends BaseController {
 	 */
 	public function destroy($id = null)
 	{		
-		$this->sessionManager->destroySession(Auth::user());		
+		//$this->sessionManager->destroySession(Auth::user());		
 		Auth::logout();
 		return Redirect::home();
 	}

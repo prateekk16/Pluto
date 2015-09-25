@@ -92,10 +92,11 @@
                    </div>
                  
                 </div>
-                <!-- ************************PRIVATE CHAT TAB********************************* -->
+                <!-- ************************Friends CHAT TAB********************************* -->
                 <div id="friends" class="tab-pane fade">
                   <h5>My Friends Channel</h5>
 					<div class="friends-window">
+					 <div class="message-window">
 						@if(getGlobalMessages(2)->count() > 0)
 	            	    @foreach(getGlobalMessages(2) as $message)
 	            	    @if(checkFriendship($currentUser->id,$message->user->id))
@@ -183,12 +184,21 @@
 			                @else
 			                <div class="row">
 			                  <div class="global-inactive col-md-12">
-			                    <p>Hmmm, Global seems to be inactive at the moment...</p>
+			                    <p>Hmmm, This Channel seems to be inactive at the moment...</p>
 			                  </div>
 			                </div>
 			                @endif
-					</div><!-- /friends-window -->
-
+					</div><!-- /message-window -->
+				</div><!-- /friends-window -->
+				
+				<div class="friends-upload-zone">
+					<div class="form-group col-md-12" >      
+                                <div class="well">   
+                                 {{ Form::open( ['route'=>['upload-files-friends'],'class'=>'dropzone','files'=>true,'id'=>'file-dropzone'  ] ) }}  
+                                </div>  
+                                 {{ Form::close() }}   
+                    </div>
+				</div>
                   
                 </div>
 			</div><!-- /tab-content -->

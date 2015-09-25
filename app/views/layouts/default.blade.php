@@ -15,7 +15,7 @@
 
         {{ HTML::style('css/profile.css') }}
         {{ HTML::style('css/profile-elements.css') }}
-
+        {{ HTML::style('css/dropzone.css') }}
 
         {{ HTML::style('css/jasny.min.css') }}
         {{ HTML::style('css/selectize.css') }}
@@ -52,11 +52,13 @@
         {{ HTML::script('js/jscroll.min.js') }}
         {{ HTML::script('js/myPusher.js') }}
         {{ HTML::script('js/bundle.js') }}
+        {{ HTML::script('js/dropzone.js') }} 
 
         <script>
                         var root = '{{url("/")}}';
                         var auth_user = '{{ Auth::user()->email }}';
                         var token_type = "global";
+
         </script>
     </body>
 </html>

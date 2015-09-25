@@ -53,8 +53,10 @@ Route::post('news-update-check-friendship', ['as' => 'news-update-check-friendsh
 
 
 #Search APi
-
 Route::get('api/lookUp/{type}', 'ApiSearchController@lookUp');
+
+#Upload API
+Route::post('/upload-files-friends', ['as' => 'upload-files-friends','before'=>'csrf',  'uses' => 'UploadsController@friends']);
 
 
 Route::group(['prefix' => 'messages', 'before'=>'auth'], function () {

@@ -98,6 +98,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
          return $this->hasMany('Pluto\Messenger\Models\Message');
     }
 
+    public function quickUploads(){
+         return $this->hasMany('Pluto\Uploads\Models\Upload');
+    }
+
     /**
      * [Has One User info]
      * @return [type] [description]

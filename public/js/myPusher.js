@@ -102,6 +102,7 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
                               $(".token_friends").addClass('red-notify');
 
                             $(".friends-window").animate({ scrollTop: $('.friends-window')[0].scrollHeight}, 1000);
+                            $(".global-inactive").fadeOut();
                              if(auth_user != data.email){
                                 if(data.incognito == '1') {
 
@@ -173,8 +174,47 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
 
 
 
+ var GlobalFriendsUploadChannel = pusher.subscribe('GlobalFriendsUploadChannel');
+    GlobalFriendsUploadChannel.bind('newFriendsUpload', function(data){
+
+         $(".friends-window").animate({ scrollTop: $('.friends-window')[0].scrollHeight}, 1000);
+
+          if(auth_user != data.email){
+
+             $(".friends-window").append('<div class="row">'
+                             +' <div class="col-md-1 pull-left chat_img_pos_left" style="padding:0px;">'
+                             +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
+                             +'  <div class="tooltip"> </div> </a> </div>'
+
+                             +'  <div class="col-md-5 pull-left Area-left">'
+                             +' <div class="col-md-12" style="padding:0px;">'
+                             +' <div class="col-md-8 pull-left text-left chat_username"> '+ data.firstname+' '+data.lastname +' shared a file  </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;"> @'+data.username+' </div>'
+                             +' <div class="col-md-8 col-md-offset-1 pull-left text-left chat_time"> Just now... </div>'
+                             +' <div class="col-md-12 pull-right text-center chat_text"> <a href="'+data.dlink+'"> '+data.dlink+' </a> </div>'
+                             +'</div> </div>');
 
 
+          }else{
+
+             $(".friends-window").append('<div class="row">'
+                             +'  <div class="col-md-1 pull-right chat_img_pos" style="padding:0px;"> '
+                             +'  <a href="'+data.user_link+'"> <img src="'+data.img+'" class="chat_img img-responsive"/>'
+                             +'  <div class="tooltip"> </div> </a> </div>'
+
+                             +'  <div class="col-md-5 pull-right Area">'
+                             +' <div class="col-md-12" style="padding:0px;">'
+                             +' <div class="col-md-8 pull-right text-right chat_username"> Me </div>'
+                             +' <div class="col-md-2" style="font-size: 8px;">     </div>'
+                             +'  <div class="col-md-8 col-md-offset-4 pull-right text-right chat_time">  Just now... </div>'
+                             +' <div class="col-md-12 pull-left text-center chat_text chat_text_right"> <a href="'+data.dlink+'"> '+data.dlink+' </a> </div>'
+                             +'</div> </div>');
+
+
+          }
+
+
+    });
 
 
 
@@ -195,6 +235,7 @@ FriendMessageChannel.bind('newFriendMessage', function(data){
                             $(".token_global").addClass('red-notify');
                       
                       $(".global-window").animate({ scrollTop: $('.global-window')[0].scrollHeight}, 1000);
+                      $(".global-inactive").fadeOut();
                           if(auth_user != data.email){
 
                             // User Message

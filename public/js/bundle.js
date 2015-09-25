@@ -24,6 +24,29 @@
     });
 
 
+
+   // Disable the auto init. So we can modify settings first. We will manually initialize it later.
+Dropzone.autoDiscover = false;
+
+
+// Manually init dropzone on our element.
+var myDropzone = new Dropzone("#file-dropzone", {
+    dictDefaultMessage: "Drop a file here to Quick Post..",
+    maxFilesize: 2018, // MB
+    parallelUploads: 1,
+    addRemoveLinks: true,
+    dictCancelUpload: "Cancel Upload",
+    dictRemoveFile: "Clear",
+    url: root+'/upload-files-friends',
+    headers: {
+        'X-CSRF-Token': $("meta[name='_token']").attr('content')
+    },
+      success: function(file, response){
+                console.log(response);
+            }
+});
+
+
     $(".center-height-85").animate({ scrollTop: $('.center-height-85')[0].scrollHeight}, 1000);
 
    

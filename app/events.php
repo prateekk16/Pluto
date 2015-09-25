@@ -12,6 +12,16 @@ Event::listen('Pluto.Statuses.Events.StatusPublished', function($event){
 	// echo $event->body;
 });
 
+Event::listen('Pluto.Uploads.Events.FriendsUploadPublished', function($event){
+	$sender =   getUser($event->user_id);
+	$userLink = Request::root().'/'.$sender->username;
+	$img = checkUserAvatar($sender->email,'small');
+	$destination = public_path().'/Uploads'.'/'.Auth::user()->email.'/'.$event->file;	
+	$dLink = Response::download($destination);  
+
+	Pusherer::trigger('GlobalFriendsUploadChannel', 'newFriendsUpload', array('dlink'=>$dLink,'email'=>$sender->email,  'file' => $event->file, 'user_link' => $userLink, 'img' => $img, 'username'=>$sender->username, 'firstname'=>$sender->info->firstname, 'lastname'=>$sender->info->lastname  ));
+});
+
 Event::listen('Pluto.Messenger.Events.GlobalMessagePublished', function($event){
       
 	   $sender =   getUser($event->user_id);
